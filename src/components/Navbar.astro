@@ -1,0 +1,118 @@
+---
+/**
+* Navbar — Floating Center Top (Full Tailwind v4 Ready)
+* Consistent, responsive, and zero manual CSS.
+*/
+import { SITE } from '../constants/site';
+const currentPath = Astro.url.pathname;
+
+const displayLinks = [
+{ label: "Home", href: "/" },
+{ label: "Company", href: "/about", hasDropdown: true },
+{ label: "Careers", href: "/career" },
+{ label: "Contact", href: "/contact" },
+];
+---
+
+<header id="navbar"
+  class="fixed top-8 lg:top-6 left-1/2 -translate-x-1/2 w-[94%] lg:w-fit max-w-[1400px] z-[100] transition-all duration-300 [&.is-scrolled]:top-4 lg:[&.is-scrolled]:top-6">
+  <!-- Nav Container: Full Tailwind Spacing Control -->
+  <div
+    class="nav-inner-wrapper bg-white/98 backdrop-blur-md flex items-center justify-between border border-transparent whitespace-nowrap transition-all duration-500 !px-4 !py-2 lg:!px-6 lg:!py-4 lg:!gap-16 [.is-scrolled_&]:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.12)] [.is-scrolled_&]:border-gray-100">
+
+    <!-- Logo Section -->
+    <a href="/" class="flex flex-shrink-0 items-center group relative z-[110]" aria-label="Home">
+      <img src="/images/logo.png" id="main-logo" alt={SITE.fullName}
+        class="h-[40px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+        loading="eager" />
+    </a>
+
+    <!-- Desktop Navigation -->
+    <ul class="hidden lg:flex items-center gap-8">
+      {displayLinks.map((link) => (
+      <li>
+        <a href={link.href}
+          class:list={[ 'flex items-center gap-2 text-[14px] font-display font-600 transition-all duration-300' ,
+          { 'text-[var(--color-gold)] font-700' : currentPath===link.href || (link.href !=='/' &&
+          currentPath.startsWith(link.href)), 'text-gray-500 hover:text-black' : !(currentPath===link.href || (link.href
+          !=='/' && currentPath.startsWith(link.href))), }, ]}>
+          {link.label}
+          {link.hasDropdown && (
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+            class="mt-0.5 opacity-40">
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+          )}
+        </a>
+      </li>
+      ))}
+    </ul>
+
+    <!-- Mobile Trigger -->
+    <button id="mobile-menu-toggle" class="lg:hidden flex flex-col items-end gap-1.5 p-2 group relative z-[110]"
+      aria-label="Toggle Menu">
+      <span
+        class="w-6 h-[2px] bg-[#444444] transition-all duration-300 origin-center group-[.active]:rotate-45 group-[.active]:translate-y-[10px] rounded-full"></span>
+      <span class="w-4 h-[2px] bg-[#444444] transition-all duration-300 group-[.active]:opacity-0 rounded-full"></span>
+      <span
+        class="w-6 h-[2px] bg-[#444444] transition-all duration-300 origin-center group-[.active]:-rotate-45 group-[.active]:-translate-y-[10px] rounded-full"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Pop-over -->
+  <div id="mobile-menu-list"
+    class="lg:hidden !py-2 absolute top-full left-1/2 -translate-x-1/2 w-full mt-4 bg-white/98 backdrop-blur-2xl border border-gray-100 shadow-2xl opacity-0 pointer-events-none translate-y-4 transition-all duration-500 z-[90] overflow-hidden">
+    <nav class="flex flex-col p-4 bg-white">
+      {displayLinks.map((link) => (
+      <a href={link.href}
+        class:list={[ "flex w-full !px-6 !py-2 text-[16px] font-700 tracking-tight border-b border-gray-50 last:border-0 transition-colors"
+        , { "text-[var(--color-gold)]" : currentPath===link.href, "text-gray-900" : currentPath !==link.href } ]}>
+        {link.label}
+      </a>
+      ))}
+      <div class="mt-4 !px-6 !pb-8 !pt-6 border-t border-gray-50 flex flex-col gap-1">
+        <p class="text-[11px] uppercase !tracking-[0.3em] text-gray-400 font-700">Get in touch</p>
+        <a href="mailto:info@yotek.co.id" class="text-[17px] font-700 text-black">info@yotek.co.id</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  function initNavbar() {
+    const navbar = document.getElementById('navbar');
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const menuList = document.getElementById('mobile-menu-list');
+
+    if (!navbar || !toggle || !menuList) return;
+
+    // 1. Mobile Menu Toggle
+    toggle.addEventListener('click', () => {
+      const isActive = toggle.classList.toggle('active');
+      if (isActive) {
+        menuList.style.opacity = '1';
+        menuList.style.pointerEvents = 'auto';
+        menuList.style.transform = 'translateY(0)';
+      } else {
+        menuList.style.opacity = '0';
+        menuList.style.pointerEvents = 'none';
+        menuList.style.transform = 'translateY(16px)';
+      }
+    });
+
+    // 2. Dynamic Shadow on Scroll
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        navbar.classList.add('is-scrolled');
+      } else {
+        navbar.classList.remove('is-scrolled');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+  }
+
+  document.addEventListener('astro:page-load', initNavbar);
+</script>

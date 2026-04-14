@@ -1,0 +1,106 @@
+---
+/**
+ * Career Detail Page — Dynamic route
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const careers = await getCollection('career');
+  return careers.map((job) => ({
+    params: { slug: job.id },
+    props: { job },
+  }));
+}
+
+const { job } = Astro.props;
+const { Content } = await render(job);
+---
+
+<BaseLayout title={`${job.data.position} — Karir`} description={job.data.description}>
+  <section class="section bg-white">
+    <div class="container mx-auto px-6 lg:px-12">
+      <div class="max-w-3xl mx-auto">
+        <!-- Back Link -->
+        <a
+          href="/career"
+          class="inline-flex items-center gap-2 text-sm text-[var(--color-gray)] hover:text-[var(--color-primary)] transition-colors duration-300 mb-8"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
+          </svg>
+          Kembali ke Karir
+        </a>
+
+        <!-- Header -->
+        <header class="mb-10">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="inline-flex items-center px-4 py-1.5 bg-[var(--color-primary-50)] text-[var(--color-primary-600)] text-sm font-semibold rounded-full">
+              {job.data.type}
+            </span>
+            <span class="inline-flex items-center gap-1 text-sm text-[var(--color-gray)]">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+              </svg>
+              {job.data.location}
+            </span>
+          </div>
+          <h1 class="text-3xl lg:text-5xl font-heading font-800 text-[var(--color-dark)] mb-4">
+            {job.data.position}
+          </h1>
+          <p class="text-lg text-[var(--color-gray)] leading-relaxed">
+            {job.data.description}
+          </p>
+        </header>
+
+        <!-- Requirements -->
+        <div class="mb-10 p-6 bg-[var(--color-light)] rounded-xl">
+          <h2 class="text-lg font-heading font-700 text-[var(--color-dark)] mb-4">Persyaratan</h2>
+          <ul class="space-y-3">
+            {job.data.requirements.map((req) => (
+              <li class="flex items-start gap-3 text-[var(--color-gray)]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[var(--color-primary)] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>{req}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Content -->
+        <div class="prose prose-lg max-w-none
+          prose-headings:font-heading prose-headings:text-[var(--color-dark)]
+          prose-p:text-[var(--color-gray)] prose-p:leading-relaxed
+          prose-a:text-[var(--color-primary)] prose-a:no-underline hover:prose-a:underline
+          prose-strong:text-[var(--color-dark)]
+          prose-li:text-[var(--color-gray)]
+        ">
+          <Content />
+        </div>
+
+        <!-- Apply CTA -->
+        <div class="mt-12 p-8 bg-[var(--color-dark)] rounded-2xl text-center">
+          <h3 class="text-xl font-heading font-700 text-white mb-3">Tertarik dengan posisi ini?</h3>
+          <p class="text-[var(--color-gray-light)] mb-6">Kirimkan lamaran Anda melalui halaman kontak kami.</p>
+          <a
+            href="/contact"
+            class="inline-flex items-center gap-2 px-8 py-3.5 bg-[var(--color-primary)] text-[var(--color-dark)] font-semibold rounded-full transition-all duration-300 hover:bg-[var(--color-primary-dark)] hover:shadow-lg hover:-translate-y-0.5"
+          >
+            Lamar Sekarang
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { animateReveal } from '../../scripts/animations';
+    document.addEventListener('astro:page-load', () => {
+      animateReveal('section .max-w-3xl', { y: 20 });
+    });
+  </script>
+</BaseLayout>

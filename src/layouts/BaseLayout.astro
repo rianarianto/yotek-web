@@ -1,0 +1,94 @@
+---
+/**
+ * BaseLayout — Professional Light Theme
+ * Master layout with SEO, View Transitions, Lenis, GSAP
+ */
+import { ClientRouter } from 'astro:transitions';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../constants/site';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = SITE.name,
+  description = SITE.description,
+  image = '/images/og-image.jpg',
+} = Astro.props;
+
+const pageTitle = title === SITE.name ? `${SITE.fullName} — ${SITE.tagline.split('\n')[0]}` : `${title} | ${SITE.fullName}`;
+const canonicalURL = new URL(Astro.url.pathname, SITE.url);
+---
+
+<!DOCTYPE html>
+<html lang="id" class="lenis">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="theme-color" content="#FFFFFF" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts: Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- View Transitions -->
+    <ClientRouter />
+  </head>
+  <body class="min-h-screen flex flex-col bg-white text-[var(--color-dark)]">
+    <Navbar />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      import { initSmoothScroll, destroySmoothScroll } from '../scripts/smooth-scroll';
+      import { killAllAnimations } from '../scripts/animations';
+
+      function init() {
+        initSmoothScroll();
+      }
+
+      init();
+
+      document.addEventListener('astro:page-load', () => {
+        init();
+      });
+
+      document.addEventListener('astro:before-swap', () => {
+        killAllAnimations();
+        destroySmoothScroll();
+      });
+    </script>
+  </body>
+</html>

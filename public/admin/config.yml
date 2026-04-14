@@ -1,0 +1,51 @@
+# ===========================================================
+# Decap CMS Configuration — PT. Yogura Tekindo
+# ===========================================================
+# For local development, run: npx decap-server
+# Then access the admin panel at: http://localhost:4321/admin
+# ===========================================================
+
+local_backend: true
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  # ----- News Collection -----
+  - name: "news"
+    label: "Berita"
+    label_singular: "Berita"
+    folder: "src/content/news"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ["pubDate", "title"]
+    summary: "{{title}} — {{pubDate}}"
+    fields:
+      - { label: "Judul", name: "title", widget: "string" }
+      - { label: "Tanggal Publikasi", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Gambar Utama", name: "image", widget: "image", required: false, media_folder: "/public/images/news", public_folder: "/images/news" }
+      - { label: "Deskripsi Singkat", name: "description", widget: "text" }
+      - { label: "Konten", name: "body", widget: "markdown" }
+
+  # ----- Career Collection -----
+  - name: "career"
+    label: "Karir"
+    label_singular: "Lowongan"
+    folder: "src/content/career"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{position}} ({{type}}) — {{location}}"
+    fields:
+      - { label: "Posisi", name: "position", widget: "string" }
+      - { label: "Tipe", name: "type", widget: "select", options: ["Full-time", "Contract"] }
+      - { label: "Lokasi", name: "location", widget: "string" }
+      - { label: "Deskripsi Singkat", name: "description", widget: "text" }
+      - label: "Persyaratan"
+        name: "requirements"
+        widget: "list"
+        field: { label: "Persyaratan", name: "requirement", widget: "string" }
+      - { label: "Detail Lowongan", name: "body", widget: "markdown" }

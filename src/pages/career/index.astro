@@ -1,0 +1,73 @@
+---
+/**
+ * Career Archive Page
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allCareers = await getCollection('career');
+---
+
+<BaseLayout title="Karir" description="Temukan peluang karir di PT. Yogura Tekindo. Bergabunglah dengan tim kami.">
+  <!-- Page Header -->
+  <section class="section-sm bg-[var(--color-light)]">
+    <div class="container mx-auto px-6 lg:px-12">
+      <div class="golden-line mb-4"></div>
+      <h1 class="text-4xl lg:text-6xl font-heading font-800 text-[var(--color-dark)]">
+        Karir
+      </h1>
+      <p class="text-[var(--color-gray)] mt-3 max-w-xl">
+        Bergabunglah dengan tim kami dan kembangkan potensi Anda bersama PT. Yogura Tekindo.
+      </p>
+    </div>
+  </section>
+
+  <!-- Career Listings -->
+  <section class="section bg-white">
+    <div class="container mx-auto px-6 lg:px-12">
+      {allCareers.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {allCareers.map((job) => (
+            <a
+              href={`/career/${job.id}`}
+              class="career-card group block bg-white rounded-xl p-6 border border-[var(--color-gray-lighter)] transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-1 hover:border-[var(--color-primary)]/30"
+            >
+              <div class="flex items-start justify-between mb-4">
+                <span class="inline-flex items-center px-3 py-1 bg-[var(--color-primary-50)] text-[var(--color-primary-600)] text-xs font-semibold rounded-full">
+                  {job.data.type}
+                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[var(--color-gray-light)] transition-all duration-300 group-hover:text-[var(--color-primary)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
+                </svg>
+              </div>
+              <h2 class="text-xl font-heading font-700 text-[var(--color-dark)] mb-2 group-hover:text-[var(--color-primary)] transition-colors duration-300">
+                {job.data.position}
+              </h2>
+              <p class="text-sm text-[var(--color-gray)] mb-4 line-clamp-2">
+                {job.data.description}
+              </p>
+              <div class="flex items-center gap-1 text-xs text-[var(--color-gray-light)]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+                </svg>
+                {job.data.location}
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-20">
+          <h3 class="text-xl font-heading font-600 text-[var(--color-dark)] mb-2">Belum Ada Lowongan</h3>
+          <p class="text-[var(--color-gray)]">Saat ini belum ada lowongan yang tersedia. Silakan cek kembali nanti.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <script>
+    import { staggerChildren } from '../../scripts/animations';
+    document.addEventListener('astro:page-load', () => {
+      staggerChildren('.grid', '.career-card', { stagger: 0.1, y: 20 });
+    });
+  </script>
+</BaseLayout>

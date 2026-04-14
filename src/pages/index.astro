@@ -1,0 +1,39 @@
+---
+/**
+ * Home Page — PT. Yogura Tekindo
+ * Stage 2: Hero Section (Light & Professional)
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import CEOVideo from '../components/CEOVideo.astro';
+import AboutBrief from '../components/AboutBrief.astro';
+import { SITE, STATS } from '../constants/site';
+import { getCollection } from 'astro:content';
+
+const allNews = await getCollection('news');
+const latestNews = allNews
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, 3);
+---
+
+<BaseLayout>
+  <!-- HERO SECTION -->
+  <Hero />
+
+  <!-- CEO VISION SECTION -->
+  <CEOVideo />
+
+  <!-- ABOUT BRIEF SECTION -->
+  <AboutBrief />
+
+  {/* 
+    Other sections are temporarily hidden or simplified 
+    while we overhaul the design section by section.
+  */}
+  <section class="py-20 opacity-10">
+    <div class="container mx-auto px-6 text-center text-gray-400">
+      <p>Scroll untuk melihat sisa struktur (Under Construction)</p>
+    </div>
+  </section>
+
+</BaseLayout>
