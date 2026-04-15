@@ -7,6 +7,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import CEOVideo from '../components/CEOVideo.astro';
 import AboutBrief from '../components/AboutBrief.astro';
+import Achievement from '../components/Achievement.astro';
+import BusinessUnits from '../components/BusinessUnits.astro';
+import GlobalImpact from '../components/GlobalImpact.astro';
+import CTA from '../components/CTA.astro';
 import { SITE, STATS } from '../constants/site';
 import { getCollection } from 'astro:content';
 
@@ -26,14 +30,16 @@ const latestNews = allNews
   <!-- ABOUT BRIEF SECTION -->
   <AboutBrief />
 
-  {/* 
-    Other sections are temporarily hidden or simplified 
-    while we overhaul the design section by section.
-  */}
-  <section class="py-20 opacity-10">
-    <div class="container mx-auto px-6 text-center text-gray-400">
-      <p>Scroll untuk melihat sisa struktur (Under Construction)</p>
-    </div>
-  </section>
+  <!-- ACHIEVEMENT SECTION -->
+  <Achievement />
+
+  <!-- BUSINESS UNITS SECTION -->
+  <BusinessUnits />
+
+  <!-- GLOBAL IMPACT SECTION -->
+  <GlobalImpact />
+
+  <!-- CTA SECTION -->
+  <CTA />
 
 </BaseLayout>

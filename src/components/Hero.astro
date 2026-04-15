@@ -7,17 +7,18 @@
 import { SITE } from '../constants/site';
 ---
 
-<section class="relative w-full h-[120vh] lg:h-[135vh] bg-[#F8F8F8] overflow-hidden">
+<section class="relative w-full h-[110vh] lg:h-[115vh] bg-[#F8F8F8] overflow-hidden">
 
   <!-- STAGE: Full width stage without restrictive container -->
   <div class="relative w-full h-full mx-auto">
 
     <!-- LAYER 1: HEADING -->
-    <div id="hero-title-parallax" class="absolute top-[18%] md:top-[12%] lg:top-[12%] left-1/2 -translate-x-1/2 w-full text-center z-0 px-4 py-4">
+    <div id="hero-title-parallax"
+      class="absolute top-[18%] md:top-[12%] lg:top-[12%] left-1/2 -translate-x-1/2 w-full text-center z-0 !px-4 !py-4">
       <div class="hero-title-wrapper overflow-hidden pb-4">
-         <h1 class="font-800 leading-[0.9] tracking-tighter uppercase hero-title" id="hero-title">
-           Yogura Tekindo
-         </h1>
+        <h1 class="font-800 leading-[0.9] tracking-tighter uppercase hero-title" id="hero-title">
+          Yogura Tekindo
+        </h1>
       </div>
     </div>
 
@@ -29,7 +30,8 @@ import { SITE } from '../constants/site';
     </div>
 
     <!-- LAYER 3: TAGLINE -->
-    <div id="tagline-parallax" class="absolute top-[64%] md:top-[65%] lg:top-[64%] left-1/2 -translate-x-1/2 w-full text-center px-6 z-20">
+    <div id="tagline-parallax"
+      class="absolute top-[64%] md:top-[65%] lg:top-[64%] left-1/2 -translate-x-1/2 w-full text-center px-6 z-20">
       <p class="text-[24px] font-bold md:text-2xl lg:text-3xl font-800 text-[#1a1a1a] leading-[1.2] tracking-tight opacity-0"
         id="hero-tagline">
         Integritas dalam Sinergi.<br />
@@ -38,7 +40,7 @@ import { SITE } from '../constants/site';
     </div>
 
     <!-- LAYER 4: ARROW -->
-    <div class="absolute bottom-20 left-1/2 -translate-x-1/2 z-30 opacity-0" id="hero-arrow">
+    <div class="absolute bottom-40 left-1/2 -translate-x-1/2 z-30 opacity-0" id="hero-arrow">
       <div class="flex flex-col items-center gap-2 text-gray-400">
         <span class="text-[10px] uppercase tracking-[0.3em] font-700">Explore</span>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +64,8 @@ import { SITE } from '../constants/site';
     display: block;
     white-space: nowrap;
     will-change: opacity, transform;
-    transform: translateY(110%); /* Start hidden below the mask */
+    transform: translateY(110%);
+    /* Start hidden below the mask */
   }
 
   /* Mobile Only Isolation */
@@ -107,33 +110,33 @@ import { SITE } from '../constants/site';
 
   function initHeroDesign() {
     gsap.killTweensOf("#hero-title, #hero-globe, #hero-tagline, #hero-arrow");
-    
+
     const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 1.8 } });
 
     // 1. Masked Text Reveal (Professional Agency Style)
-    tl.to("#hero-title", { 
-        translateY: 0, 
-        duration: 2, 
-        ease: "power4.out" 
+    tl.to("#hero-title", {
+      translateY: 0,
+      duration: 2,
+      ease: "power4.out"
     });
 
     // 2. Globe Smooth Appearance
-    tl.to("#hero-globe", { 
-        opacity: 1, 
-        scale: 1, 
-        duration: 2.5 
+    tl.to("#hero-globe", {
+      opacity: 1,
+      scale: 1,
+      duration: 2.5
     }, "-=1.7");
 
     // 3. Tagline Appearance
-    tl.to("#hero-tagline", { 
-        opacity: 1, 
-        y: -10,
-        duration: 1.5 
+    tl.to("#hero-tagline", {
+      opacity: 1,
+      y: -10,
+      duration: 1.5
     }, "-=2.2");
 
-    tl.to("#hero-arrow", { 
-        opacity: 1, 
-        duration: 1 
+    tl.to("#hero-arrow", {
+      opacity: 1,
+      duration: 1
     }, "-=1.5");
 
     // --- INFINITE AMBIENT ANIMATION ---
@@ -150,24 +153,24 @@ import { SITE } from '../constants/site';
     // --- PARALLAX EFFECTS ON SCROLL ---
     // Globe Parallax (Moves slightly slower/down)
     gsap.to("#globe-parallax", {
-        y: 100,
-        scrollTrigger: {
-            trigger: "section",
-            start: "top top",
-            end: "bottom top",
-            scrub: true
-        }
+      y: 100,
+      scrollTrigger: {
+        trigger: "section",
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+      }
     });
 
     // Tagline Parallax (Moves faster up)
     gsap.to("#tagline-parallax", {
-        y: -150,
-        scrollTrigger: {
-            trigger: "section",
-            start: "top top",
-            end: "bottom top",
-            scrub: true
-        }
+      y: -150,
+      scrollTrigger: {
+        trigger: "section",
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+      }
     });
   }
 

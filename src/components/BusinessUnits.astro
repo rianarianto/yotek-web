@@ -1,0 +1,186 @@
+---
+/**
+* Business Units Section
+* Showcasing different units with an asymmetrical staggered layout.
+* Refined for premium mobile responsiveness.
+*/
+const units = [
+{
+title: "Industrial Services & Maintenance",
+company: "PT Indo Riau Perkasa",
+image: "/images/temp_business_unit.jpg",
+width: "lg:w-[600px]",
+aspect: "aspect-[4/5]",
+align: "justify-center lg:ml-[20%]",
+mt: "",
+mobileOffset: ""
+},
+{
+title: "Formal Education Services",
+company: "JR Education",
+image: "/images/temp_business_unit.jpg",
+width: "lg:w-[500px]",
+aspect: "aspect-[4/5]",
+align: "justify-end lg:mr-[5%]",
+mt: "lg:-mt-40",
+mobileOffset: "pl-[10%]"
+},
+{
+title: "Property & Real Estate",
+company: "PT Hunian Hijau Indonesia",
+image: "/images/temp_business_unit.jpg",
+width: "lg:w-[460px]",
+aspect: "aspect-[4/5]",
+align: "justify-center lg:ml-[14%]",
+mt: "lg:-mt-48",
+mobileOffset: ""
+},
+{
+title: "Advertising & Printing Materials",
+company: "PT Sumber Display Dunia",
+image: "/images/temp_business_unit.jpg",
+width: "lg:w-[480px]",
+aspect: "aspect-[4/5]",
+align: "justify-start lg:!ml-[8%]",
+mt: "lg:-mt-40",
+mobileOffset: "pr-[10%]"
+},
+{
+title: "Security System Integration",
+company: "PT Sanyus Hutama",
+image: "/images/temp_business_unit.jpg",
+width: "lg:w-[440px]",
+aspect: "aspect-[4/5]",
+align: "justify-end lg:mr-[10%]",
+mt: "lg:-mt-52",
+mobileOffset: "pl-[5%]"
+},
+{
+title: "Electric Vehicle Charging Infrastructure",
+company: "Dayagreen",
+image: "/images/temp_business_unit.jpg",
+width: "lg:w-[460px]",
+aspect: "aspect-[4/5]",
+align: "justify-center lg:mr-[5%]",
+mt: "lg:-mt-40",
+mobileOffset: ""
+}
+];
+---
+
+<section id="business-units" class="relative !px-8 !py-32 lg:py-72 bg-white overflow-hidden w-full flex">
+  <div class="w-full mx-auto px-6 lg:px-16">
+
+    <!-- Container Utama: Menggunakan sistem tumpuk asimetris -->
+    <div class="flex flex-col gap-24 lg:gap-24 relative">
+      {units.map((unit, index) => (
+      <div class={`business-unit-item flex w-full ${unit.align} ${unit.mt} opacity-0 relative ${unit.mobileOffset}`}
+        style={`z-index: ${10 + index};`}>
+
+        <div class="flex flex-col lg:flex-row items-center lg:items-center gap-8 lg:gap-16 w-full lg:w-auto">
+          <!-- Image Container with Parallax -->
+          <div class={`w-[100%] md:w-full ${unit.width} overflow-hidden rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.1)]
+            ${unit.aspect} relative bg-gray-50 group`}>
+            <img src={unit.image} alt={unit.title}
+              class="unit-parallax-img w-full h-[140%] object-cover absolute top-[-20%] transition-transform duration-700 group-hover:scale-110" />
+
+            <!-- Subtle Overlay for Premium feel -->
+            <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500"></div>
+          </div>
+
+          <!-- Text Content -->
+          <div class="w-full lg:max-w-[380px] lg:pt-16 flex flex-col gap-3 px-2 lg:px-0">
+            <div class="overflow-hidden">
+              <span
+                class="unit-kicker text-[11px] uppercase font-800 text-[var(--color-gold)] tracking-[0.2em] mb-1 block translate-y-full">
+                Business Unit
+              </span>
+            </div>
+            <div class="overflow-hidden">
+              <h3
+                class="unit-title text-2xl md:text-3xl lg:text-[28px] font-700 leading-tight mb-2 text-black tracking-tight translate-y-full"
+                style="text-transform: none !important;">
+                {unit.company}
+              </h3>
+            </div>
+            <div class="overflow-hidden">
+              <p class="unit-desc text-[13px] uppercase font-700 text-gray-400 tracking-[0.1em] translate-y-full">
+                {unit.title}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initBusinessUnits() {
+    const items = document.querySelectorAll('.business-unit-item');
+
+    items.forEach((item) => {
+      // 1. Entrance Animation (Whole Item)
+      gsap.to(item, {
+        scrollTrigger: {
+          trigger: item,
+          start: "top 85%",
+        },
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: "power3.out"
+      });
+
+      // 2. Text Reveal (Staggered inside the item)
+      const kicker = item.querySelector('.unit-kicker');
+      const title = item.querySelector('.unit-title');
+      const desc = item.querySelector('.unit-desc');
+
+      if (kicker && title && desc) {
+        gsap.to([kicker, title, desc], {
+          y: 0,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 80%",
+          }
+        });
+      }
+
+      // 3. Parallax Effect on Image
+      const img = item.querySelector('.unit-parallax-img');
+      if (img) {
+        gsap.to(img, {
+          y: "15%", // Increased parallax depth
+          scrollTrigger: {
+            trigger: item,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          },
+          ease: "none"
+        });
+      }
+    });
+  }
+
+  // Handle both initial load and view transitions
+  document.addEventListener('astro:page-load', initBusinessUnits);
+</script>
+
+<style>
+  .business-unit-item {
+    transform: translateY(60px);
+    transition: opacity 0.5s ease;
+  }
+</style>

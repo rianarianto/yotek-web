@@ -1,0 +1,141 @@
+---
+/**
+* Global Impact Section
+* Magic Clip-Path Window Reveal:
+* Featuring an advanced Scroll-to-Sticky-to-Scroll narrative.
+*/
+---
+
+<section id="global-impact" class="relative bg-black w-full" style="height: 300vh;">
+
+  <!-- The "Window" Wrapper -->
+  <div class="global-impact-window absolute inset-0 z-0 pointer-events-none" style="clip-path: inset(0px);">
+    <!-- Fixed Background Image inside the window -->
+    <div class="fixed inset-0 w-full h-full">
+      <img src="/images/global_impact_globe.png" alt="Global Vision Fixed Background"
+        class="global-impact-bg-img w-full h-full object-cover opacity-80" />
+      <!-- Gradient Overlays -->
+      <div class="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-80 lg:opacity-60"></div>
+      <div class="absolute inset-0 bg-black/40"></div>
+    </div>
+  </div>
+
+  <!-- Sticky Content Container -->
+  <div class="global-impact-sticky sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden z-10">
+    <!-- Animated Wrapper for Scroll-to-Sticky behavior -->
+    <div class="global-impact-content-wrapper w-full mx-auto px-6 lg:!px-16 relative">
+      <div class="flex flex-col lg:flex-row justify-between items-center lg:items-end gap-16 lg:gap-8">
+
+        <!-- Left: Heading -->
+        <div class="w-full lg:w-3/5 flex flex-col gap-6 text-center lg:text-left">
+          <h2 class="global-impact-title opacity-0 text-white font-700 leading-tight tracking-[-0.03em]"
+            style="font-size: clamp(2.5rem, 5.5vw, 84px); text-transform: none !important; color: whitesmoke;">
+            Expanding Worlds, <br />
+            <span class="text-[var(--color-gold)]">Connecting Visions.</span>
+          </h2>
+        </div>
+
+        <!-- Right: Paragraph -->
+        <div
+          class="w-full lg:w-auto flex flex-col lg:flex-row gap-6 text-center lg:text-left items-center lg:items-start lg:pl-8 max-w-[450px]">
+          <div class="global-impact-line hidden lg:block w-[1px] h-0 bg-[var(--color-gold)] opacity-50 self-center">
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <p class="global-impact-desc opacity-0 text-[18px] lg:text-[20px] !text-white/60 font-medium leading-relaxed"
+              style="text-transform: none !important;">
+              Membangun konektivitas industri global melalui solusi teknologi dan infrastruktur berkelanjutan.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initGlobalImpact() {
+    const section = document.querySelector('#global-impact');
+    const bgImg = document.querySelector('.global-impact-bg-img');
+    const content = document.querySelector('.global-impact-content-wrapper');
+    const title = document.querySelector('.global-impact-title');
+    const desc = document.querySelector('.global-impact-desc');
+    const line = document.querySelector('.global-impact-line');
+
+    if (!section || !content) return;
+
+    // 1. Subtle Background Zoom (within the fixed layer)
+    if (bgImg) {
+      gsap.fromTo(bgImg,
+        { scale: 1.15 },
+        {
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          }
+        }
+      );
+    }
+
+    // 2. Master Narrative Timeline (The "Scroll-Sticky-Scroll" logic)
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1,
+      }
+    });
+
+    // --- PHASE 1: Entrance (Scroll from bottom to center) ---
+    // Text starts below the center and moves up while fading in.
+    tl.fromTo(content,
+      { y: "100vh", opacity: 0 },
+      { y: 0, opacity: 1, duration: 3, ease: "power2.out" },
+      0
+    );
+
+    // Initial reveal of elements inside
+    tl.to(title, { opacity: 1, duration: 1 }, 0.5);
+    tl.to(desc, { opacity: 1, duration: 1 }, 0.8);
+    tl.to(line, { height: 96, duration: 1 }, 1);
+
+    // --- PHASE 2: Sticky Hold (Maintain at center) ---
+    // This empty tween holds the 'y: 0' state for a long duration.
+    tl.to({}, { duration: 6 });
+
+    // --- PHASE 3: Exit (Scroll from center to top) ---
+    // Text continues moving up and fades out as the section ends.
+    tl.to(content, {
+      y: "-30vh",
+      opacity: 0,
+      duration: 2,
+      ease: "power2.in"
+    });
+  }
+
+  // Handle load event
+  document.addEventListener('astro:page-load', initGlobalImpact);
+</script>
+
+<style>
+  /* Optimization: Ensure smooth rendering */
+  .global-impact-window {
+    will-change: clip-path;
+  }
+
+  .global-impact-content-wrapper {
+    will-change: transform, opacity;
+  }
+</style>

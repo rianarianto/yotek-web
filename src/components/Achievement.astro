@@ -1,0 +1,166 @@
+---
+/**
+* Achievement Section
+* Showcasing company statistics / achievements.
+* Design: Asymmetrical layout with sticky text on the right and scrolling cards on the left.
+*/
+---
+
+<section class="relative !py-24 lg:!py-40 bg-[#F9F9F9] w-full flex justify-center">
+  <div class="w-full !px-6 lg:!px-16 max-w-[1600px] mx-auto">
+    <!-- Hilangkan items-start agar kolom kiri dan kanan sama tinggi (stretch), yang merupakan syarat mutlak agar fitur 'sticky' bisa bekerja -->
+    <div class="flex flex-col-reverse lg:flex-row justify-between !gap-16 lg:!gap-24 relative">
+
+      <!-- Left Group: Pembungkus yang menjamin posisi tengah / center -->
+      <div class="w-full lg:w-[55%] flex lg:justify-center">
+        <!-- Scrolling Cards (Ukurannya dibatasi agar simetris di tengah kolom kiri) -->
+        <div class="w-full lg:max-w-[600px] xl:max-w-[700px] flex flex-col !gap-8 md:!gap-14" id="achievement-cards">
+
+          <!-- Card 1 -->
+          <div
+            class="bg-white border border-gray-100 !p-10 md:!p-12 lg:!p-16 flex flex-col justify-between achievement-card opacity-0 translate-y-10 group rounded-sm shadow-sm">
+            <div class="flex justify-between items-center !mb-12 md:!mb-20">
+              <h3 class="font-800 tracking-tighter leading-none text-black" style="font-size: clamp(4rem, 8vw, 120px);">
+                100%</h3>
+              <!-- Gold Arrow -->
+              <svg
+                class="w-24 h-24 lg:w-32 lg:h-32 text-[var(--color-gold)] transition-transform duration-500 group-hover:translate-x-3 group-hover:-translate-y-3"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="butt"
+                stroke-linejoin="miter">
+                <path d="M7 17 L17 7 M7 7 H17 V17" />
+              </svg>
+            </div>
+            <div class="border-t border-gray-200 !pt-8 !mt-auto">
+              <h4 class="text-2xl lg:text-3xl font-700 !mb-3 text-black tracking-[-0.02em]"
+                style="text-transform: none !important;">Indeks Kepercayaan Mitra.</h4>
+              <p class="text-[15px] text-gray-500 font-500 leading-relaxed lg:w-[90%]"
+                style="text-transform: none !important;">
+                Persentase klien dan mitra strategis yang telah bekerja sama dengan kami selama lebih dari 5 tahun.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div
+            class="bg-white border border-gray-100 !p-10 md:!p-12 lg:!p-16 flex flex-col justify-between achievement-card opacity-0 translate-y-10 group rounded-sm shadow-sm">
+            <div class="flex justify-between items-center !mb-12 md:!mb-20">
+              <h3 class="font-800 tracking-tighter leading-none text-black" style="font-size: clamp(4rem, 8vw, 120px);">
+                10+</h3>
+              <!-- Gold Arrow -->
+              <svg
+                class="w-24 h-24 lg:w-32 lg:h-32 text-[var(--color-gold)] transition-transform duration-500 group-hover:translate-x-3 group-hover:-translate-y-3"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="butt"
+                stroke-linejoin="miter">
+                <path d="M7 17 L17 7 M7 7 H17 V17" />
+              </svg>
+            </div>
+            <div class="border-t border-gray-200 !pt-8 !mt-auto">
+              <h4 class="text-2xl lg:text-3xl font-700 !mb-3 text-black tracking-[-0.02em]"
+                style="text-transform: none !important;">Tahun Pengalaman.</h4>
+              <p class="text-[15px] text-gray-500 font-500 leading-relaxed lg:w-[90%]"
+                style="text-transform: none !important;">
+                Penyatuan berbagai sektor industri inti, menjadikan kami unggul dalam inovasi dan eksekusi pada setiap
+                proyek strategis.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div
+            class="bg-white border border-gray-100 !p-10 md:!p-12 lg:!p-16 flex flex-col justify-between achievement-card opacity-0 translate-y-10 group rounded-sm shadow-sm">
+            <div class="flex justify-between items-center !mb-12 md:!mb-20">
+              <h3 class="font-800 tracking-tighter leading-none text-black" style="font-size: clamp(4rem, 8vw, 120px);">
+                50+</h3>
+              <!-- Gold Arrow -->
+              <svg
+                class="w-24 h-24 lg:w-32 lg:h-32 text-[var(--color-gold)] transition-transform duration-500 group-hover:translate-x-3 group-hover:-translate-y-3"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="butt"
+                stroke-linejoin="miter">
+                <path d="M7 17 L17 7 M7 7 H17 V17" />
+              </svg>
+            </div>
+            <div class="border-t border-gray-200 !pt-8 !mt-auto">
+              <h4 class="text-2xl lg:text-3xl font-700 !mb-3 text-black tracking-[-0.02em]"
+                style="text-transform: none !important;">Proyek Skala Nasional.</h4>
+              <p class="text-[15px] text-gray-500 font-500 leading-relaxed lg:w-[90%]"
+                style="text-transform: none !important;">
+                Portofolio pengerjaan tingkat tinggi di berbagai daerah, bukti nyata kepemimpinan tangguh di sektor
+                industri.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right Group: Kolom kanan yang tingginya merentang setara tinggi kartu kiri -->
+      <div class="w-full lg:w-[40%] relative">
+        <!-- Sticky Text: Sekarang elemen ini punya jalur vertikal untuk meluncur -->
+        <div class="lg:sticky lg:top-40 !pt-10" id="achievement-text">
+          <p class="achievement-txt opacity-0 text-[12px] font-600 tracking-normal text-black !mb-6 normal-case"
+            style="text-transform: none !important;">Achievement</p>
+
+          <h2 class="achievement-txt opacity-0 font-700 leading-[1.1] tracking-[-0.03em] !mb-8 text-black"
+            style="font-size: clamp(2rem, 4vw, 56px); text-transform: none !important;">
+            Visi adalah pondasi.<br />
+            Integritas adalah bukti.
+          </h2>
+
+          <p class="achievement-txt opacity-0 text-[15px] lg:text-[16px] text-gray-500 font-500 leading-[1.7] lg:w-[90%]"
+            style="text-transform: none !important;">
+            Kami tidak hanya mengejar angka, tetapi memastikan setiap langkah memberikan nilai nyata bagi seluruh mitra
+            dan masyarakat melalui tata kelola perusahaan yang transparan.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initAchievement() {
+    gsap.killTweensOf(".achievement-card, .achievement-txt");
+
+    // 1. Efek Entrance Minimalis untuk Kumpulan Kartu Kiri
+    gsap.to(".achievement-card", {
+      scrollTrigger: {
+        trigger: "#achievement-cards",
+        start: "top 80%",
+      },
+      y: 0,
+      opacity: 1,
+      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.08)", // Efek shadow elegan pas muncul (scroll)
+      duration: 1.2,
+      stagger: 0.2,
+      ease: "power3.out"
+    });
+
+    // 2. Efek Entrance Sangat Elegan & Profesional untuk Teks Kanan
+    gsap.fromTo(".achievement-txt",
+      {
+        y: 30,
+        opacity: 0
+      },
+      {
+        scrollTrigger: {
+          trigger: "#achievement-text",
+          start: "top 75%",
+        },
+        y: 0,
+        opacity: 1,
+        duration: 1.4,
+        stagger: 0.25,
+        ease: "power4.out"
+      }
+    );
+  }
+
+  // Gunakan astro:page-load agar bekerja mulus dengan View Transitions
+  document.addEventListener('astro:page-load', initAchievement);
+</script>
