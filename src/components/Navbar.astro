@@ -1,55 +1,101 @@
 ---
 /**
-* Navbar — Floating Center Top (Full Tailwind v4 Ready)
-* Consistent, responsive, and zero manual CSS.
+* Navbar — Floating Center Top
+* Navigation: Home | [Company ▾ → About Us, Our Business, News] | Careers | Contact
 */
 import { SITE } from '../constants/site';
+import { Image } from 'astro:assets';
+import logoImg from '../assets/images/logo.png';
+
 const currentPath = Astro.url.pathname;
 
-const displayLinks = [
+const navLinks = [
 { label: "Home", href: "/" },
-{ label: "Company", href: "/about", hasDropdown: true },
+{
+label: "Company",
+href: "#",
+hasDropdown: true,
+dropdown: [
+{ label: "About Us", href: "/about" },
+{ label: "Our Business", href: "/business" },
+{ label: "News", href: "/news" },
+]
+},
 { label: "Careers", href: "/career" },
 { label: "Contact", href: "/contact" },
 ];
+
+function isActive(link: { href: string; dropdown?: { href: string }[] }) {
+if (link.dropdown) {
+return link.dropdown.some(
+(d) => currentPath === d.href || (d.href !== '/' && currentPath.startsWith(d.href))
+);
+}
+return currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+}
 ---
 
 <header id="navbar"
   class="fixed top-8 lg:top-6 left-1/2 -translate-x-1/2 w-[94%] lg:w-fit max-w-[1400px] z-[100] transition-all duration-300 [&.is-scrolled]:top-4 lg:[&.is-scrolled]:top-6">
-  <!-- Nav Container: Full Tailwind Spacing Control -->
+
   <div
     class="nav-inner-wrapper bg-white/98 backdrop-blur-md flex items-center justify-between border border-transparent whitespace-nowrap transition-all duration-500 !px-4 !py-2 lg:!px-6 lg:!py-4 lg:!gap-16 [.is-scrolled_&]:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.12)] [.is-scrolled_&]:border-gray-100">
 
-    <!-- Logo Section -->
+    <!-- Logo -->
     <a href="/" class="flex flex-shrink-0 items-center group relative z-[110]" aria-label="Home">
-      <img src="/images/logo.png" id="main-logo" alt={SITE.fullName}
+      <Image src={logoImg} id="main-logo" alt={SITE.fullName} format="avif" quality={100}
         class="h-[40px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
         loading="eager" />
     </a>
 
     <!-- Desktop Navigation -->
     <ul class="hidden lg:flex items-center gap-8">
-      {displayLinks.map((link) => (
-      <li>
+      {navLinks.map((link) => (
+      <li class={link.hasDropdown ? "relative group/item" : "" }>
+        {link.hasDropdown ? (
+        /* Dropdown Parent */
+        <div class="relative">
+          <button
+            class:list={[ 'flex items-center gap-1.5 text-[14px] font-display font-600 transition-all duration-300 cursor-pointer'
+            , isActive(link) ? 'text-[var(--color-gold)] font-700' : 'text-gray-500 hover:text-black' , ]}
+            aria-haspopup="true">
+            {link.label}
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+              class="mt-0.5 opacity-40 transition-transform duration-300 group-hover/item:rotate-180">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+
+          <!-- Dropdown Panel (mt-2 = gap visual antara trigger dan panel) -->
+          <div class="absolute top-full !ml-12 left-1/2 -translate-x-1/2 opacity-0 pointer-events-none
+                          translate-y-2 group-hover/item:opacity-100 group-hover/item:pointer-events-auto
+                          group-hover/item:translate-y-0 transition-all duration-200 ease-out z-50">
+            <div class="bg-white border border-gray-100 shadow-xl min-w-[180px] !py-2">
+              {link.dropdown!.map((item) => (
+              <a href={item.href}
+                class:list={[ 'block !px-5 !py-2 text-[13px] font-600 tracking-wide transition-colors duration-200 whitespace-nowrap'
+                , (currentPath===item.href || (item.href !=='/' && currentPath.startsWith(item.href)))
+                ? 'text-[var(--color-gold)] bg-gray-50' : 'text-gray-600 hover:text-black hover:bg-gray-50' , ]}>
+                {item.label}
+              </a>
+              ))}
+            </div>
+          </div>
+        </div>
+        ) : (
+        /* Regular Link */
         <a href={link.href}
           class:list={[ 'flex items-center gap-2 text-[14px] font-display font-600 transition-all duration-300' ,
-          { 'text-[var(--color-gold)] font-700' : currentPath===link.href || (link.href !=='/' &&
-          currentPath.startsWith(link.href)), 'text-gray-500 hover:text-black' : !(currentPath===link.href || (link.href
-          !=='/' && currentPath.startsWith(link.href))), }, ]}>
+          isActive(link) ? 'text-[var(--color-gold)] font-700' : 'text-gray-500 hover:text-black' , ]}>
           {link.label}
-          {link.hasDropdown && (
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-            class="mt-0.5 opacity-40">
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-          )}
         </a>
+        )}
       </li>
       ))}
     </ul>
 
-    <!-- Mobile Trigger -->
+    <!-- Mobile Hamburger -->
     <button id="mobile-menu-toggle" class="lg:hidden flex flex-col items-end gap-1.5 p-2 group relative z-[110]"
       aria-label="Toggle Menu">
       <span
@@ -60,23 +106,54 @@ const displayLinks = [
     </button>
   </div>
 
-  <!-- Mobile Menu Pop-over -->
+  <!-- Mobile Menu -->
   <div id="mobile-menu-list"
-    class="lg:hidden !py-2 absolute top-full left-1/2 -translate-x-1/2 w-full mt-4 bg-white/98 backdrop-blur-2xl border border-gray-100 shadow-2xl opacity-0 pointer-events-none translate-y-4 transition-all duration-500 z-[90] overflow-hidden">
+    class="lg:hidden absolute top-full left-0 right-0 w-full mt-4 bg-white border border-gray-100 shadow-2xl opacity-0 pointer-events-none translate-y-4 transition-all duration-500 z-[90] overflow-hidden">
     <nav class="flex flex-col p-4 bg-white">
-      {displayLinks.map((link) => (
+
+      {navLinks.map((link) => (
+      link.hasDropdown ? (
+      /* Mobile Accordion */
+      <div class="mobile-accordion border-b border-gray-50 last:border-0">
+        <button
+          class:list={[ 'mobile-accordion-toggle flex w-full items-center justify-between !px-6 !py-3 text-[16px] font-700 tracking-tight transition-colors text-left'
+          , isActive(link) ? 'text-[var(--color-gold)]' : 'text-gray-900' , ]}>
+          {link.label}
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+            class="accordion-chevron opacity-40 transition-transform duration-300">
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </button>
+        <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+          {link.dropdown!.map((item) => (
+          <a href={item.href}
+            class:list={[ 'flex w-full !px-10 !py-2.5 text-[14px] font-600 tracking-tight transition-colors' ,
+            (currentPath===item.href || (item.href !=='/' && currentPath.startsWith(item.href)))
+            ? 'text-[var(--color-gold)]' : 'text-gray-500 hover:text-black' , ]}>
+            {item.label}
+          </a>
+          ))}
+        </div>
+      </div>
+      ) : (
+      /* Mobile Regular Link */
       <a href={link.href}
-        class:list={[ "flex w-full !px-6 !py-2 text-[16px] font-700 tracking-tight border-b border-gray-50 last:border-0 transition-colors"
-        , { "text-[var(--color-gold)]" : currentPath===link.href, "text-gray-900" : currentPath !==link.href } ]}>
+        class:list={[ 'flex w-full !px-6 !py-3 text-[16px] font-700 tracking-tight border-b border-gray-50 last:border-0 transition-colors'
+        , (currentPath===link.href) ? 'text-[var(--color-gold)]' : 'text-gray-900 hover:text-black' , ]}>
         {link.label}
       </a>
+      )
       ))}
+
+      <!-- Contact Info -->
       <div class="mt-4 !px-6 !pb-8 !pt-6 border-t border-gray-50 flex flex-col gap-1">
         <p class="text-[11px] uppercase !tracking-[0.3em] text-gray-400 font-700">Get in touch</p>
         <a href="mailto:info@yotek.co.id" class="text-[17px] font-700 text-black">info@yotek.co.id</a>
       </div>
     </nav>
   </div>
+
 </header>
 
 <script>
@@ -87,21 +164,40 @@ const displayLinks = [
 
     if (!navbar || !toggle || !menuList) return;
 
-    // 1. Mobile Menu Toggle
+    // 1. Mobile Menu Toggle — hanya opacity & pointer-events, transform dihandle Tailwind
     toggle.addEventListener('click', () => {
       const isActive = toggle.classList.toggle('active');
       if (isActive) {
-        menuList.style.opacity = '1';
-        menuList.style.pointerEvents = 'auto';
-        menuList.style.transform = 'translateY(0)';
+        menuList.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+        menuList.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
       } else {
-        menuList.style.opacity = '0';
-        menuList.style.pointerEvents = 'none';
-        menuList.style.transform = 'translateY(16px)';
+        menuList.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        menuList.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
       }
     });
 
-    // 2. Dynamic Shadow on Scroll
+    // 2. Mobile Accordion
+    const accordionToggles = menuList.querySelectorAll('.mobile-accordion-toggle');
+    accordionToggles.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const accordion = btn.closest('.mobile-accordion');
+        const content = accordion?.querySelector('.accordion-content') as HTMLElement | null;
+        const chevron = btn.querySelector('.accordion-chevron') as HTMLElement | null;
+
+        if (!content) return;
+
+        const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+        if (isOpen) {
+          content.style.maxHeight = '0px';
+          if (chevron) chevron.style.transform = '';
+        } else {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          if (chevron) chevron.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+
+    // 3. Dynamic Shadow on Scroll
     const handleScroll = () => {
       if (window.scrollY > 20) {
         navbar.classList.add('is-scrolled');
@@ -111,7 +207,7 @@ const displayLinks = [
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    handleScroll();
   }
 
   document.addEventListener('astro:page-load', initNavbar);

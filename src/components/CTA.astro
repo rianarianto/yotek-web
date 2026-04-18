@@ -1,62 +1,125 @@
 ---
 /**
- * CTA Section — Call to Action
- * Encouraging partnerships and contact.
- */
-import { SITE } from '../constants/site';
+* CTA Section — Call to Action
+* Overlapping Layout (100% matched to bleeding reference mockup)
+*/
+import { Image } from 'astro:assets';
+import buildingImage from '../assets/images/cta-building.avif';
 ---
 
-<section class="relative py-32 lg:py-48 bg-[#F8F8F8] overflow-hidden w-full flex justify-center">
-  <div class="max-w-[1200px] w-full mx-auto px-6 lg:px-12 text-center text-reveal-trigger">
-    
-    <!-- Decorative element -->
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-gray-200 to-transparent"></div>
+<section id="cta-section"
+  class="w-full h-[100vh] bg-[#f8f8f8] relative overflow-hidden flex justify-center items-center !p-16">
+  <div
+    class="max-w-[1360px] w-full mx-auto px-6 lg:px-12 relative flex flex-col lg:flex-row items-center justify-center lg:justify-start w-full h-full">
 
-    <div class="flex flex-col items-center">
-      <span class="text-[11px] uppercase font-800 text-[var(--color-gold)] tracking-[0.3em] mb-8 block opacity-0 translate-y-4 cta-element">
-        Ready to Collaborate
-      </span>
-      
-      <h2 class="text-3xl md:text-5xl lg:text-[56px] font-800 leading-[1.1] tracking-[-0.03em] text-black mb-10 max-w-4xl opacity-0 translate-y-8 cta-element" style="text-transform: none !important;">
-        Membangun Masa Depan Berkelanjutan Bersama YOTEK.
+    <!-- Foreground Text Content -->
+    <!-- (Edit letak Y-Axis di lg:-translate-y-[70px] untuk menaikkan teks di desktop) -->
+    <div
+      class="cta-text-content relative z-10 w-full lg:w-[70%] flex flex-col items-center lg:items-start order-1 lg:order-none lg:-translate-y-[70px] pointer-events-auto gap-6 lg:gap-8 text-center lg:text-left mt-8 lg:mt-0">
+      <h2 class="text-[44px] md:text-[60px] lg:text-[76px] font-bold text-[#111] leading-[1.05] tracking-[-0.04em]"
+        style="text-transform: none !important;">
+        Membangun masa<br class="hidden lg:block" />
+        depan berkelanjutan.
       </h2>
-      
-      <p class="text-base md:text-lg text-gray-500 font-500 leading-relaxed max-w-2xl mb-12 opacity-0 translate-y-8 cta-element">
-        Kami siap menjadi mitra strategis Anda dalam menghadirkan solusi inovatif dan integritas tinggi di berbagai sektor industri inti.
+
+      <p
+        class="text-[16px] lg:text-[16px] text-[#777] font-normal leading-[1.65] lg:max-w-[460px] self-center lg:self-start">
+        Kami siap menjadi mitra strategis Anda dalam menghadirkan solusi inovatif dan integritas tinggi untuk
+        mendongkrak performa di berbagai sektor industri esensial.
       </p>
 
-      <div class="opacity-0 translate-y-10 cta-element">
-        <a 
-          href="/contact" 
-          class="inline-block px-10 py-5 bg-black text-white font-700 text-sm uppercase tracking-wider rounded-sm transition-all duration-500 hover:bg-[var(--color-gold)] hover:-translate-y-1 hover:shadow-2xl shadow-xl"
-        >
-          Hubungi Kami Sejauh Ini
-        </a>
-      </div>
+      <!-- CTA Button -->
+      <a href="/contact"
+        class="inline-flex items-center gap-3 bg-[#111] text-white !px-8 !py-4 text-[14px] font-bold tracking-wide hover:bg-[#FDF7EB] outline-1 hover:text-[#111] transition-colors duration-300 w-fit mx-auto lg:mx-0 group mt-2 shadow-lg">
+        Hubungi Kami
+      </a>
+    </div>
+
+    <!-- Background Asset (Stacked on mobile, Absolutely Positioned on Desktop) -->
+    <div class="cta-building-image relative lg:absolute z-0 pointer-events-none flex justify-center lg:justify-end w-[130%] sm:w-[100%] lg:w-full order-2 lg:order-none
+                mt-12 lg:mt-0
+                lg:top-[64%] lg:left-[10%] lg:right-0 
+                lg:-translate-x-0 lg:-translate-y-1/2">
+      <Image src={buildingImage} alt="Yotek Architectural Setup" format="avif" quality={100}
+        class="w-full h-auto object-contain lg:translate-x-[5%] drop-shadow-none" />
     </div>
 
   </div>
 </section>
 
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   gsap.registerPlugin(ScrollTrigger);
 
   function initCTA() {
-    gsap.to(".cta-element", {
-      scrollTrigger: {
-        trigger: ".text-reveal-trigger",
-        start: "top 75%",
-      },
+    const ctaSection = document.querySelector('#cta-section');
+    const textElements = document.querySelectorAll('.cta-text-content > h2, .cta-text-content > p, .cta-text-content > a');
+    const buildingWrapper = document.querySelector('.cta-building-image');
+
+    if (!ctaSection || textElements.length === 0) return;
+
+    // Set initial state teks
+    gsap.set(textElements, { y: 60, opacity: 0 });
+
+    // Animasi Entrance Teks (GSAP — ringan)
+    gsap.to(textElements, {
       y: 0,
       opacity: 1,
-      duration: 1.2,
-      stagger: 0.15,
-      ease: "power4.out"
+      duration: 1,
+      stagger: 0.2,
+      ease: "power3.out",
+      force3D: true,
+      scrollTrigger: {
+        trigger: ctaSection,
+        start: "top 40%",
+        toggleActions: "play none none reverse"
+      }
     });
+
+    // Animasi gambar: CSS class-based (IntersectionObserver)
+    // Jauh lebih ringan daripada GSAP ScrollTrigger untuk elemen statis
+    if (buildingWrapper) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              buildingWrapper.classList.add('is-visible');
+              observer.unobserve(buildingWrapper);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      observer.observe(buildingWrapper);
+    }
   }
 
   document.addEventListener('astro:page-load', initCTA);
 </script>
+
+<style>
+  /* Animasi gambar CTA — CSS transition, bukan GSAP, jauh lebih smooth */
+  .cta-building-image {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease, transform 1s ease;
+    will-change: transform, opacity;
+  }
+
+  .cta-building-image.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (min-width: 1024px) {
+    .cta-building-image {
+      opacity: 0.85;
+    }
+
+    .cta-building-image.is-visible {
+      opacity: 1;
+    }
+  }
+</style>

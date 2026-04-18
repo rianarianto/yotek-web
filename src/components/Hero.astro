@@ -5,6 +5,8 @@
 * tepat seperti imajinasi user dan referensi desain.
 */
 import { SITE } from '../constants/site';
+import { Image } from 'astro:assets';
+import globeImg from '../assets/images/globe.png';
 ---
 
 <section class="relative w-full h-[110vh] lg:h-[115vh] bg-[#F8F8F8] overflow-hidden">
@@ -25,8 +27,8 @@ import { SITE } from '../constants/site';
     <!-- LAYER 2: GLOBE -->
     <div id="globe-parallax"
       class="absolute top-[12%] md:top-[8%] lg:top-[10%] left-1/2 -translate-x-1/2 w-[180%] max-w-[800px] md:w-full md:max-w-[800px] lg:max-w-[1000px] aspect-square z-10 pointer-events-none">
-      <img src="/images/globe.png" id="hero-globe" alt="Yotek Global"
-        class="w-full h-full object-contain globe-visual opacity-0 scale-90" />
+      <Image src={globeImg} id="hero-globe" alt="Yotek Global" format="avif" quality={100}
+        class="w-full h-full object-contain globe-visual opacity-0 scale-90" loading="eager" />
     </div>
 
     <!-- LAYER 3: TAGLINE -->

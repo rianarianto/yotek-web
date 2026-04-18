@@ -5,7 +5,9 @@
 */
 ---
 
-<section class="relative py-24 lg:!py-40 bg-[#F9F9F9] overflow-hidden w-full flex justify-center">
+<!-- Penggunaan min-h-[100vh] dan items-center secara native meletakkan konten di tengah layar tanpa script -->
+<section id="about-brief-section"
+  class="relative min-h-[100vh] py-20 bg-[#F9F9F9] overflow-hidden w-full flex items-center justify-center" style="will-change: transform;">
   <!-- Ganti max-w-[1500px] ini untuk mengatur seberapa lebar halamannya -->
   <!-- Semakin besar angkanya, semakin lebar (kurang ke tengah) posisinya -->
   <div class="w-full !px-6 lg:!px-16">
@@ -19,11 +21,13 @@
           style="text-transform: none !important;">Kami hadir untuk menyatukan berbagai lini bisnis dalam visi
           memberikan solusi industri yang transparan, inovatif, dan bertanggung jawab.</h2>
 
-        <!-- Call to Action -->
-        <a href="/about"
-          class="inline-block bg-black text-white !px-8 !py-3.5 text-[14px] font-600 transition-all duration-300 hover:bg-[#333333] normal-case tracking-normal">
-          Pelajari Lebih Jauh
-        </a>
+        <!-- Call to Action (Hidden awalnya lalu muncul pas teks di tengah) -->
+        <div id="about-btn-wrapper" class="opacity-0 translate-y-6">
+          <a href="/about"
+            class="inline-flex items-center gap-3 bg-[#111] text-white !px-8 !py-4 text-[14px] font-bold tracking-wide hover:bg-[#FDF7EB] outline-1 hover:text-[#111] transition-colors duration-300 w-fit mx-auto lg:mx-0 group mt-2 shadow-lg">
+            Pelajari Lebih Jauh
+          </a>
+        </div>
       </div>
 
       <!-- Right Content: Accent Text -->
@@ -43,6 +47,12 @@
     font-family: 'Manrope', sans-serif;
   }
 
+  /* GPU layer promotion untuk mencegah scroll jank pada animasi warna kata */
+  .brief-word {
+    will-change: color;
+    display: inline;
+  }
+
   @media (max-width: 1024px) {
     .lg\:writing-vertical-rl {
       writing-mode: horizontal-tb;
@@ -58,7 +68,8 @@
 
   function initAboutBrief() {
     const textEl = document.getElementById('about-brief-text');
-    if (!textEl) return;
+    const sectionEl = document.getElementById('about-brief-section');
+    if (!textEl || !sectionEl) return;
 
     // Pisah teks per kata jika belum di-split
     if (!textEl.hasAttribute('data-split')) {
@@ -74,17 +85,40 @@
       textEl.setAttribute('data-split', 'true');
     }
 
-    // GSAP ScrollTrigger untuk mewarnai kata demi kata
-    gsap.to('.brief-word', {
+    // GSAP ScrollTrigger sistem Pinned (stuck di layar)
+    // SOLUSI HENTAKAN: anticipatePin membuat GSAP mempersiapkan pin lebih awal sehingga tidak ada lompatan
+    const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: textEl,
-        start: 'top 80%',
-        end: 'bottom 40%',
-        scrub: 1,
+        trigger: sectionEl,
+        start: 'top top',          // Menempel tanpa hentakan sejak batas atas section menyentuh atas layar
+        end: '+=250%',             // Durasi scroll virtual
+        pin: true,                 // Pin secara mulus
+        scrub: 1.5,                // Interpolasi mulus
+        pinSpacing: true,          // Mengatur jarak otomatis
+        anticipatePin: 1,          // FIX: Menghilangkan hentakan saat pinning dimulai
+        fastScrollEnd: true,       // FIX: Mencegah overshoot saat scroll cepat
+      }
+    });
+
+    // Animasikan perubahan warna kata-per-kata selagi elemen sedang menempel (pinned)
+    tl.to('.brief-word', {
+      color: '#000000',
+      stagger: 0.15,
+      ease: 'power2.inOut',
+      duration: 1,
+      force3D: true,               // FIX: Paksa GPU layer untuk animasi lebih smooth
+    });
+
+    // Animasi Button
+    gsap.to('#about-btn-wrapper', {
+      scrollTrigger: {
+        trigger: sectionEl,
+        start: 'top top',          // Sync persis saat layar mulai pinned
       },
-      color: '#000000', // Berubah jadi Hitam
-      stagger: 0.1,
-      ease: 'none'
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: 'power3.out'
     });
   }
 

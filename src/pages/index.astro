@@ -11,13 +11,8 @@ import Achievement from '../components/Achievement.astro';
 import BusinessUnits from '../components/BusinessUnits.astro';
 import GlobalImpact from '../components/GlobalImpact.astro';
 import CTA from '../components/CTA.astro';
+import LatestNews from '../components/LatestNews.astro';
 import { SITE, STATS } from '../constants/site';
-import { getCollection } from 'astro:content';
-
-const allNews = await getCollection('news');
-const latestNews = allNews
-  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
-  .slice(0, 3);
 ---
 
 <BaseLayout>
@@ -38,6 +33,9 @@ const latestNews = allNews
 
   <!-- GLOBAL IMPACT SECTION -->
   <GlobalImpact />
+
+  <!-- LATEST NEWS SECTION -->
+  <LatestNews />
 
   <!-- CTA SECTION -->
   <CTA />

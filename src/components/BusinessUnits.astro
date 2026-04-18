@@ -4,67 +4,70 @@
 * Showcasing different units with an asymmetrical staggered layout.
 * Refined for premium mobile responsiveness.
 */
+import { Image } from 'astro:assets';
+import tempUnitImg from '../assets/images/temp_business_unit.jpg';
+
 const units = [
-{
-title: "Industrial Services & Maintenance",
-company: "PT Indo Riau Perkasa",
-image: "/images/temp_business_unit.jpg",
-width: "lg:w-[600px]",
-aspect: "aspect-[4/5]",
-align: "justify-center lg:ml-[20%]",
-mt: "",
-mobileOffset: ""
-},
-{
-title: "Formal Education Services",
-company: "JR Education",
-image: "/images/temp_business_unit.jpg",
-width: "lg:w-[500px]",
-aspect: "aspect-[4/5]",
-align: "justify-end lg:mr-[5%]",
-mt: "lg:-mt-40",
-mobileOffset: "pl-[10%]"
-},
-{
-title: "Property & Real Estate",
-company: "PT Hunian Hijau Indonesia",
-image: "/images/temp_business_unit.jpg",
-width: "lg:w-[460px]",
-aspect: "aspect-[4/5]",
-align: "justify-center lg:ml-[14%]",
-mt: "lg:-mt-48",
-mobileOffset: ""
-},
-{
-title: "Advertising & Printing Materials",
-company: "PT Sumber Display Dunia",
-image: "/images/temp_business_unit.jpg",
-width: "lg:w-[480px]",
-aspect: "aspect-[4/5]",
-align: "justify-start lg:!ml-[8%]",
-mt: "lg:-mt-40",
-mobileOffset: "pr-[10%]"
-},
-{
-title: "Security System Integration",
-company: "PT Sanyus Hutama",
-image: "/images/temp_business_unit.jpg",
-width: "lg:w-[440px]",
-aspect: "aspect-[4/5]",
-align: "justify-end lg:mr-[10%]",
-mt: "lg:-mt-52",
-mobileOffset: "pl-[5%]"
-},
-{
-title: "Electric Vehicle Charging Infrastructure",
-company: "Dayagreen",
-image: "/images/temp_business_unit.jpg",
-width: "lg:w-[460px]",
-aspect: "aspect-[4/5]",
-align: "justify-center lg:mr-[5%]",
-mt: "lg:-mt-40",
-mobileOffset: ""
-}
+  {
+    title: "Industrial Services & Maintenance",
+    company: "PT Indo Riau Perkasa",
+    image: tempUnitImg,
+    width: "lg:w-[600px]",
+    aspect: "aspect-[4/5]",
+    align: "justify-center lg:ml-[20%]",
+    mt: "",
+    mobileOffset: ""
+  },
+  {
+    title: "Formal Education Services",
+    company: "JR Education",
+    image: tempUnitImg,
+    width: "lg:w-[500px]",
+    aspect: "aspect-[4/5]",
+    align: "justify-end lg:mr-[5%]",
+    mt: "lg:-mt-40",
+    mobileOffset: "pl-[10%]"
+  },
+  {
+    title: "Property & Real Estate",
+    company: "PT Hunian Hijau Indonesia",
+    image: tempUnitImg,
+    width: "lg:w-[460px]",
+    aspect: "aspect-[4/5]",
+    align: "justify-center lg:ml-[14%]",
+    mt: "lg:-mt-48",
+    mobileOffset: ""
+  },
+  {
+    title: "Advertising & Printing Materials",
+    company: "PT Sumber Display Dunia",
+    image: tempUnitImg,
+    width: "lg:w-[480px]",
+    aspect: "aspect-[4/5]",
+    align: "justify-start lg:!ml-[8%]",
+    mt: "lg:-mt-40",
+    mobileOffset: "pr-[10%]"
+  },
+  {
+    title: "Security System Integration",
+    company: "PT Sanyus Hutama",
+    image: tempUnitImg,
+    width: "lg:w-[440px]",
+    aspect: "aspect-[4/5]",
+    align: "justify-end lg:mr-[10%]",
+    mt: "lg:-mt-52",
+    mobileOffset: "pl-[5%]"
+  },
+  {
+    title: "Electric Vehicle Charging Infrastructure",
+    company: "Dayagreen",
+    image: tempUnitImg,
+    width: "lg:w-[460px]",
+    aspect: "aspect-[4/5]",
+    align: "justify-center lg:mr-[5%]",
+    mt: "lg:-mt-40",
+    mobileOffset: ""
+  }
 ];
 ---
 
@@ -81,8 +84,14 @@ mobileOffset: ""
           <!-- Image Container with Parallax -->
           <div class={`w-[100%] md:w-full ${unit.width} overflow-hidden rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.1)]
             ${unit.aspect} relative bg-gray-50 group`}>
-            <img src={unit.image} alt={unit.title}
-              class="unit-parallax-img w-full h-[140%] object-cover absolute top-[-20%] transition-transform duration-700 group-hover:scale-110" />
+            
+            <Image 
+              src={unit.image} 
+              alt={unit.title}
+              format="avif"
+              quality={85}
+              class="unit-parallax-img w-full h-[140%] object-cover absolute top-[-20%] transition-transform duration-700 group-hover:scale-110" 
+            />
 
             <!-- Subtle Overlay for Premium feel -->
             <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500"></div>

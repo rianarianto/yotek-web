@@ -1,7 +1,7 @@
 ---
 title: "Selamat Datang di Website Resmi PT. Yogura Tekindo"
 pubDate: 2026-04-14
-image: "/images/news/welcome.jpg"
+image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop"
 description: "PT. Yogura Tekindo dengan bangga meluncurkan website resmi perusahaan sebagai wujud komitmen kami dalam transformasi digital."
 ---
 
