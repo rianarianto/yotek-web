@@ -71,51 +71,67 @@ const units = [
 ];
 ---
 
-<section id="business-units" class="relative !px-8 !py-32 lg:py-72 bg-white overflow-hidden w-full flex">
+<section id="business-units" class="relative !py-32 lg:py-64 bg-[#FDFDFD] overflow-hidden w-full">
   <div class="w-full mx-auto px-6 lg:px-16">
+    
+    <!-- Section Title -->
+    <div class="max-w-4xl !mb-32 lg:!mb-48">
+      <p class="unit-reveal text-[13px] font-800 uppercase tracking-widest text-[#B89456] !mb-6 opacity-0 translate-y-4">Core Ecosystem</p>
+      <h2 class="unit-reveal text-[40px] md:text-[64px] font-700 tracking-[-0.04em] text-black leading-[1.1] opacity-0 translate-y-8">
+        Sinergi Unit Bisnis <br/>
+        <span class="text-gray-300">Lintas Sektor & Industri.</span>
+      </h2>
+    </div>
 
     <!-- Container Utama: Menggunakan sistem tumpuk asimetris -->
-    <div class="flex flex-col gap-24 lg:gap-24 relative">
+    <div class="flex flex-col gap-32 lg:gap-48 relative">
       {units.map((unit, index) => (
       <div class={`business-unit-item flex w-full ${unit.align} ${unit.mt} opacity-0 relative ${unit.mobileOffset}`}
         style={`z-index: ${10 + index};`}>
 
-        <div class="flex flex-col lg:flex-row items-center lg:items-center gap-8 lg:gap-16 w-full lg:w-auto">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-20 w-full lg:w-auto group">
           <!-- Image Container with Parallax -->
-          <div class={`w-[100%] md:w-full ${unit.width} overflow-hidden rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.1)]
-            ${unit.aspect} relative bg-gray-50 group`}>
+          <div class={`w-full ${unit.width} overflow-hidden ${unit.aspect} relative bg-[#F8F8F6] shadow-2xl shadow-black/5`}>
             
             <Image 
               src={unit.image} 
               alt={unit.title}
               format="avif"
-              quality={85}
-              class="unit-parallax-img w-full h-[140%] object-cover absolute top-[-20%] transition-transform duration-700 group-hover:scale-110" 
+              quality={90}
+              class="unit-parallax-img w-full h-[130%] object-cover absolute top-[-15%] grayscale hover:grayscale-0 transition-all duration-1000" 
             />
 
-            <!-- Subtle Overlay for Premium feel -->
-            <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500"></div>
+            <!-- Subtle Overlay -->
+            <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-700"></div>
+            
+            <!-- Index Number (Subtle) -->
+            <div class="absolute bottom-8 right-8 z-10">
+              <span class="text-[60px] font-900 leading-none text-white/20 tracking-tighter">0{index + 1}</span>
+            </div>
           </div>
 
           <!-- Text Content -->
-          <div class="w-full lg:max-w-[380px] lg:pt-16 flex flex-col gap-3 px-2 lg:px-0">
+          <div class="w-full lg:max-w-[420px] flex flex-col gap-6">
             <div class="overflow-hidden">
               <span
-                class="unit-kicker text-[11px] uppercase font-800 text-[var(--color-gold)] tracking-[0.2em] mb-1 block translate-y-full">
-                Business Unit
+                class="unit-kicker text-[12px] uppercase font-800 text-[#B89456] tracking-[0.3em] block translate-y-full">
+                {unit.title}
               </span>
             </div>
             <div class="overflow-hidden">
               <h3
-                class="unit-title text-2xl md:text-3xl lg:text-[28px] font-700 leading-tight mb-2 text-black tracking-tight translate-y-full"
+                class="unit-title text-3xl md:text-4xl lg:text-[42px] font-700 leading-[1.1] text-black tracking-tight translate-y-full"
                 style="text-transform: none !important;">
                 {unit.company}
               </h3>
             </div>
-            <div class="overflow-hidden">
-              <p class="unit-desc text-[13px] uppercase font-700 text-gray-400 tracking-[0.1em] translate-y-full">
-                {unit.title}
-              </p>
+            <div class="pt-4 border-t border-black/5">
+              <a href="/business" class="group/btn flex items-center gap-4 text-[13px] font-800 uppercase tracking-widest text-black">
+                Explore Unit
+                <div class="w-10 h-[1.5px] bg-black/10 relative overflow-hidden transition-all group-hover/btn:w-14">
+                   <div class="absolute inset-0 bg-black translate-x-[-101%] group-hover/btn:translate-x-0 transition-transform duration-500"></div>
+                </div>
+              </a>
             </div>
           </div>
         </div>

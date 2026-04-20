@@ -7,34 +7,41 @@
 
 <!-- Penggunaan min-h-[100vh] dan items-center secara native meletakkan konten di tengah layar tanpa script -->
 <section id="about-brief-section"
-  class="relative min-h-[100vh] py-20 bg-[#F9F9F9] overflow-hidden w-full flex items-center justify-center" style="will-change: transform;">
-  <!-- Ganti max-w-[1500px] ini untuk mengatur seberapa lebar halamannya -->
-  <!-- Semakin besar angkanya, semakin lebar (kurang ke tengah) posisinya -->
-  <div class="w-full !px-6 lg:!px-16">
-    <div class="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-24">
+  class="relative min-h-[100vh] py-32 lg:py-48 bg-white overflow-hidden w-full flex items-center justify-center">
+  
+  <div class="w-full !px-6 lg:!px-16 container mx-auto">
+    <div class="flex flex-col lg:flex-row justify-between items-start gap-16 lg:gap-32">
 
       <!-- Left Content: Primary Message -->
-      <div class="w-full lg:w-[70%] flex flex-col items-start gap-12">
+      <div class="w-full lg:w-[75%] flex flex-col items-start gap-16">
+        <p class="opacity-80 text-[13px] font-800 uppercase tracking-[0.4em] text-[#B89456]">Our Purpose</p>
+        
         <!-- GSAP will split this text into individual words for the scroll effect -->
         <h2 id="about-brief-text"
-          class="text-3xl md:text-5xl lg:!text-[46px] font-700 leading-[1.3] tracking-[-0.02em] text-[#D1D1D1]"
-          style="text-transform: none !important;">Kami hadir untuk menyatukan berbagai lini bisnis dalam visi
-          memberikan solusi industri yang transparan, inovatif, dan bertanggung jawab.</h2>
+          class="text-3xl md:text-5xl lg:text-[62px] font-700 leading-[1.1] tracking-[-0.04em] text-[#E5E5E5]"
+          style="text-transform: none !important;">
+          Kami hadir untuk menyatukan berbagai lini bisnis dalam visi memberikan solusi industri yang transparan, inovatif, dan bertanggung jawab bagi masa depan yang lebih baik.
+        </h2>
 
-        <!-- Call to Action (Hidden awalnya lalu muncul pas teks di tengah) -->
-        <div id="about-btn-wrapper" class="opacity-0 translate-y-6">
-          <a href="/about"
-            class="inline-flex items-center gap-3 bg-[#111] text-white !px-8 !py-4 text-[14px] font-bold tracking-wide hover:bg-[#FDF7EB] outline-1 hover:text-[#111] transition-colors duration-300 w-fit mx-auto lg:mx-0 group mt-2 shadow-lg">
-            Pelajari Lebih Jauh
+        <!-- Call to Action -->
+        <div id="about-btn-wrapper" class="opacity-0 translate-y-8">
+          <a href="/about" class="group flex items-center gap-6 text-[14px] font-800 uppercase tracking-widest text-black">
+            <span class="bg-black text-white px-10 py-5 group-hover:bg-[#B89456] transition-colors duration-500">Learn More</span>
+            <div class="w-12 h-[1px] bg-black/20 relative overflow-hidden transition-all group-hover:w-16">
+               <div class="absolute inset-0 bg-black translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500"></div>
+            </div>
           </a>
         </div>
       </div>
 
-      <!-- Right Content: Accent Text -->
-      <div class="w-full lg:w-[25%] flex lg:justify-end lg:pt-4">
-        <p class="text-[16px] font-800 text-gray-500 tracking-normal" style="text-transform: none !important;">
-          Integritas dan Kepercayaan
-        </p>
+      <!-- Right Content: Brand Accent -->
+      <div class="w-full lg:w-[20%] flex lg:justify-end">
+        <div class="flex flex-col gap-4 border-l border-black/10 pl-8 lg:pl-12">
+          <p class="text-[13px] font-800 uppercase tracking-widest text-black mb-2">Philosophy</p>
+          <p class="text-[15px] font-500 text-gray-500 leading-relaxed" style="text-transform: none !important;">
+            Integritas dan Kepercayaan adalah mata uang kami dalam membangun transparansi di setiap sektor industri.
+          </p>
+        </div>
       </div>
 
     </div>
@@ -42,21 +49,10 @@
 </section>
 
 <style>
-  /* Refined typography precision */
-  h2 {
-    font-family: 'Manrope', sans-serif;
-  }
-
-  /* GPU layer promotion untuk mencegah scroll jank pada animasi warna kata */
+  /* GPU layer promotion for smooth scroll color transition */
   .brief-word {
     will-change: color;
     display: inline;
-  }
-
-  @media (max-width: 1024px) {
-    .lg\:writing-vertical-rl {
-      writing-mode: horizontal-tb;
-    }
   }
 </style>
 
@@ -71,54 +67,47 @@
     const sectionEl = document.getElementById('about-brief-section');
     if (!textEl || !sectionEl) return;
 
-    // Pisah teks per kata jika belum di-split
+    // Split text into words if not already done
     if (!textEl.hasAttribute('data-split')) {
       const words = textEl.innerText.split(' ');
       textEl.innerHTML = '';
       words.forEach((word) => {
         const span = document.createElement('span');
         span.innerText = word + ' ';
-        // Default font jadi abu-abu muda dulu (akan menggelap kena scroll)
-        span.className = 'brief-word inline text-[#D1D1D1]';
+        span.className = 'brief-word inline text-[#E5E5E5]';
         textEl.appendChild(span);
       });
       textEl.setAttribute('data-split', 'true');
     }
 
-    // GSAP ScrollTrigger sistem Pinned (stuck di layar)
-    // SOLUSI HENTAKAN: anticipatePin membuat GSAP mempersiapkan pin lebih awal sehingga tidak ada lompatan
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionEl,
-        start: 'top top',          // Menempel tanpa hentakan sejak batas atas section menyentuh atas layar
-        end: '+=250%',             // Durasi scroll virtual
-        pin: true,                 // Pin secara mulus
-        scrub: 1.5,                // Interpolasi mulus
-        pinSpacing: true,          // Mengatur jarak otomatis
-        anticipatePin: 1,          // FIX: Menghilangkan hentakan saat pinning dimulai
-        fastScrollEnd: true,       // FIX: Mencegah overshoot saat scroll cepat
+        start: 'top top',
+        end: '+=200%',
+        pin: true,
+        scrub: 1.2,
+        anticipatePin: 1,
       }
     });
 
-    // Animasikan perubahan warna kata-per-kata selagi elemen sedang menempel (pinned)
+    // Animate color change word by word
     tl.to('.brief-word', {
       color: '#000000',
-      stagger: 0.15,
-      ease: 'power2.inOut',
-      duration: 1,
-      force3D: true,               // FIX: Paksa GPU layer untuk animasi lebih smooth
+      stagger: 0.1,
+      ease: 'none',
     });
 
-    // Animasi Button
+    // Reveal button after some scroll
     gsap.to('#about-btn-wrapper', {
       scrollTrigger: {
         trigger: sectionEl,
-        start: 'top top',          // Sync persis saat layar mulai pinned
+        start: 'center center',
       },
       opacity: 1,
       y: 0,
       duration: 1.2,
-      ease: 'power3.out'
+      ease: "power3.out"
     });
   }
 
