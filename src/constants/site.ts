@@ -18,10 +18,10 @@ export const SITE = {
 };
 
 export const CEO = {
-  name: "Nama CEO",
-  title: "Chief Executive Officer",
-  bio: "Deskripsi singkat tentang CEO dan visi beliau untuk PT. Yogura Tekindo. Silakan ganti teks ini dengan bio yang sebenarnya.",
-  image: "/images/ceo.jpg",
+  name: "Oyong Wisman",
+  title: "President",
+  bio: "Dengan pengalaman lebih dari dua dekade di industri strategis, kepemimpinan beliau telah membawa Yotek bertransformasi dari perusahaan lokal menjadi pemain utama berskala nasional. Beliau berkomitmen untuk terus menghadirkan inovasi dan integritas di setiap lini bisnis Yotek Group.",
+  image: "oyongwisman.avif",
 };
 
 export const SOCIAL = {

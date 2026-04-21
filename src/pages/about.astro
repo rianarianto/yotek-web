@@ -10,19 +10,21 @@ import riauImg from '../assets/images/riau.avif';
 import footerBgImg from '../assets/images/footer-bg.avif';
 import tempBusinessImg from '../assets/images/temp_business_unit.jpg';
 import ctaBuildingImg from '../assets/images/cta-building.avif';
+import leaderImg from '../assets/images/oyongwisman.avif';
+import CTA from '../components/CTA.astro';
 ---
 
 <BaseLayout title="About Us | Yotek" description="Pelajari lebih lanjut tentang PT. Yogura Tekindo, visi misi kami.">
 
   <!-- HERO SECTION -->
   <section
-    class="relative w-full h-[100svh] min-h-[600px] md:h-[120vh] md:min-h-[800px] bg-[#FCFCFC] overflow-hidden flex items-center justify-center">
+    class="relative w-full h-[100svh] min-h-[600px] md:h-[120vh] md:min-h-[800px] bg-[#f8f8f8] overflow-hidden flex items-center justify-center">
 
     <!-- Massive Headline (Background layer) -->
     <div
       class="absolute inset-x-0 w-full flex justify-center top-[25%] md:top-[24%] -translate-y-1/2 z-0 pointer-events-none px-4">
       <h1
-        class="!text-[12vw] md:!text-[12vw] lg:!text-[6vw] max-w-[100vw] font-700 tracking-tighter leading-none text-[#222222] opacity-0 transform translate-y-10 text-center"
+        class="!text-[14vw] md:!text-[12vw] lg:!text-[6vw] max-w-[100vw] font-700 tracking-tighter leading-none text-[#222222] opacity-0 transform translate-y-10 text-center"
         id="hero-title">
         All About Yotek
       </h1>
@@ -38,16 +40,16 @@ import ctaBuildingImg from '../assets/images/cta-building.avif';
 
     <!-- Left Floating Text -->
     <div
-      class="absolute left-[4%] md:left-[10%] lg:left-[15%] top-[58%] md:top-[50%] z-20 opacity-0 transform -translate-x-8"
+      class="absolute left-[4%] md:left-[10%] lg:left-[15%] top-[70%] md:top-[50%] z-20 opacity-0 transform -translate-x-8 reveal"
       id="hero-text-left">
-      <p class="text-[14px] md:text-[24px] lg:text-[32px] font-600 text-[#333333] tracking-tight">
+      <p class="text-[14px] md:text-[24px] lg:text-[32px] font-800 text-[#333333] tracking-tight">
         Integritas &amp; Kinerja.
       </p>
     </div>
 
     <!-- Right Floating Text -->
     <div
-      class="absolute right-[4%] md:right-[10%] lg:right-[15%] top-[67%] md:top-[60%] z-20 opacity-0 transform translate-x-8"
+      class="absolute right-[4%] md:right-[10%] lg:right-[15%] top-[67%] md:top-[60%] z-20 opacity-0 transform translate-x-8 reveal"
       id="hero-text-right">
       <p class="text-[14px] md:text-[24px] lg:text-[32px] font-600 text-[#333333] tracking-tight">
         Solusi Inovatif.
@@ -57,7 +59,7 @@ import ctaBuildingImg from '../assets/images/cta-building.avif';
   </section>
 
   <!-- Culture / Journey Section (Sticky Left, Scroll Right) -->
-  <section class="relative !py-24 lg:!py-60 bg-[#FCFCFC] w-full border-y border-gray-100 flex justify-center">
+  <section class="relative !py-24 lg:!py-60 bg-[#f8f8f8] w-full border-y border-gray-100 flex justify-center">
     <div class="w-full !px-6 lg:!px-16 max-w-[1500px] mx-auto">
       <div class="flex flex-col lg:flex-row justify-between gap-16 lg:gap-24 relative">
 
@@ -126,9 +128,9 @@ import ctaBuildingImg from '../assets/images/cta-building.avif';
           </div>
         </div>
 
-        <!-- RIGHT: Text – overlaps image slightly via negative left margin -->
-        <div class="w-full relative z-10 lg:!-ml-[10%]">
-          <div class="txt-left-reveal opacity-0 translate-y-8">
+        <!-- RIGHT: Text – overlaps image slightly via negative left margin on desktop -->
+        <div class="w-full relative z-10 lg:!-ml-[10%] !mt-10 lg:!mt-0">
+          <div class="txt-left-reveal opacity-0 translate-y-8 text-left">
             <h2 class="font-700 tracking-tight leading-[1.06] !mb-5 text-[#111]"
               style="font-size: clamp(2rem, 4.5vw, 58px); text-transform: none !important;">
               Ruang Kerja yang Mendorong Inovasi Nyata.
@@ -146,7 +148,7 @@ import ctaBuildingImg from '../assets/images/cta-building.avif';
 
     <!-- Vision & Mission — inside same section, below image+text -->
     <div
-      class="w-full !px-6 lg:!px-16  !mx-auto !mt-24 lg:!mt-40 !pb-12 lg:!pb-24 border-t border-gray-200 !pt-16 lg:!pt-24">
+      class="w-full !px-6 lg:!px-16 !mx-auto !mt-16 lg:!mt-40 !pb-12 lg:!pb-24 border-t border-gray-200 !pt-16 lg:!pt-24">
       <div class="mx-auto">
         <div class="flex flex-col lg:flex-row w-full justify-between !gap-8 lg:!gap-16">
 
@@ -158,13 +160,13 @@ import ctaBuildingImg from '../assets/images/cta-building.avif';
           </div>
 
           <!-- Right: Vision + Mission stacked -->
-          <div class="flex max-w-[40%] flex-col gap-10 lg:gap-12">
+          <div class="flex w-full lg:max-w-[50%] flex-col gap-10 lg:gap-12">
 
             <!-- Vision -->
             <div class="reveal">
               <h2 class="text-black !mb-3 text-2xl md:text-3xl lg:text-4xl font-700 tracking-tight"
                 style="text-transform: none;">Vision</h2>
-              <p class="text-gray-600 leading-relaxed text-[14px] lg:text-[15px] text-justify">
+              <p class="text-gray-600 leading-relaxed text-[15px] lg:text-[16px] text-left">
                 Menjadi perusahaan grup terdepan yang menghadirkan solusi terintegrasi
                 di berbagai sektor industri strategis dengan standar keunggulan tertinggi dan berorientasi pada masa
                 depan.
@@ -175,18 +177,15 @@ import ctaBuildingImg from '../assets/images/cta-building.avif';
             <div class="reveal">
               <h2 class="text-black !mb-3 text-2xl md:text-3xl lg:text-4xl font-700 tracking-tight"
                 style="text-transform: none;">Mission</h2>
-              <div class="space-y-3">
-                <p class="text-gray-600 leading-relaxed text-[14px] lg:text-[15px] text-justify">
+              <div class="space-y-4">
+                <p class="text-gray-600 leading-relaxed text-[15px] lg:text-[16px] text-left">
                   Mengedepankan integritas dan profesionalisme dalam setiap lini layanan, membangun sinergi strategis
                   dan kolaborasi erat dengan seluruh stakeholder.
                 </p>
-                <p class="text-gray-600 leading-relaxed text-[14px] lg:text-[15px] text-justify">
+                <p class="text-gray-600 leading-relaxed text-[15px] lg:text-[16px] text-left">
                   Berinovasi secara konsisten untuk menciptakan nilai tambah yang berkelanjutan. Mengembangkan sumber
                   daya manusia yang kompeten, adaptif, dan berkarakter.
                 </p>
-                <p class="text-gray-600 leading-relaxed text-[14px] lg:text-[15px] text-justify">
-                  Mengembangkan sumber daya manusia yang kompeten, adaptif, dan berkarakter.
-                </p>
               </div>
             </div>
 
@@ -198,304 +197,419 @@ import ctaBuildingImg from '../assets/images/cta-building.avif';
   </section>
 
 
-    <!-- HISTORY SECTION (Ultra-Light GPU Optimized) -->
-    <section id="history-section" class="relative w-full bg-black">
-      <div id="history-wrapper" class="relative w-full h-screen flex items-center justify-center overflow-hidden">
+  <!-- HISTORY SECTION (Ultra-Light GPU Optimized) -->
+  <section id="history-section" class="relative w-full bg-black">
+    <div id="history-wrapper" class="relative w-full h-screen flex items-center justify-center overflow-hidden">
 
-        <!-- Optimized Layers Stack -->
-        <div id="history-layers" class="absolute inset-0">
+      <!-- Optimized Layers Stack -->
+      <div id="history-layers" class="absolute inset-0">
 
-          <!-- Layer 1: 2015 -->
-          <div
-            class="history-layer absolute inset-0 opacity-1 z-10 flex items-center justify-center will-change-[opacity,transform]">
-            <Image src={buildingImage} alt="2015" class="absolute inset-0 w-full h-full object-cover opacity-60"
-              quality={100} />
-            <div class="absolute inset-0 bg-black/40"></div>
-
-            <div
-              class="container mx-auto px-6 lg:px-16 flex flex-col lg:flex-row items-center justify-between relative z-10 w-full">
-              <div class="w-full lg:w-1/2 flex justify-center lg:justify-start items-center">
-                <div class="relative overflow-hidden h-[12vw] lg:h-[10vw]">
-                  <span
-                    class="history-year text-[12vw] lg:text-[10vw] font-800 text-white leading-none tracking-tighter inline-block">2015</span>
-                </div>
-              </div>
-              <div class="w-full lg:w-1/2 mt-10 lg:mt-0 flex justify-center lg:justify-start">
-                <div class="max-w-lg lg:ml-12">
-                  <h3 class="text-3xl lg:text-4xl font-700 !text-white !mb-6 leading-tight">Awal Mula Perjalanan</h3>
-                  <p class="!text-white/60 text-[16px] lg:text-[17px] leading-relaxed">Yotek memulai langkah pertamanya
-                    dengan dedikasi tinggi untuk memberikan solusi teknis terbaik bagi industri di Indonesia. Fokus pada
-                    kualitas dan kepercayaan pelanggan adalah kunci utama kami.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Layer 2: 2018 -->
-          <div
-            class="history-layer absolute inset-0 opacity-0 z-0 flex items-center justify-center will-change-[opacity,transform]">
-            <Image src={riauImg} alt="2018" class="absolute inset-0 w-full h-full object-cover opacity-60"
-              quality={100} />
-            <div class="absolute inset-0 bg-black/40"></div>
-
-            <div
-              class="container mx-auto px-6 lg:px-16 flex flex-col lg:flex-row items-center justify-between relative z-10 w-full">
-              <div class="w-full lg:w-1/2 flex justify-center lg:justify-start items-center">
-                <div class="relative overflow-hidden h-[12vw] lg:h-[10vw]">
-                  <span
-                    class="history-year text-[12vw] lg:text-[10vw] font-800 text-white leading-none tracking-tighter inline-block">2018</span>
-                </div>
-              </div>
-              <div class="w-full lg:w-1/2 mt-10 lg:mt-0 flex justify-center lg:justify-start">
-                <div class="max-w-lg lg:ml-12">
-                  <h3 class="text-3xl lg:text-4xl font-700 !text-white !mb-6 leading-tight">Ekspansi Strategis</h3>
-                  <p class="!text-white/60 text-[16px] lg:text-[17px] leading-relaxed">Melihat potensi pasar yang besar,
-                    Yotek melakukan ekspansi dengan membuka unit bisnis baru. Kami mulai merambah sektor industri pangan
-                    dan manufaktur skala besar dengan tim ahli yang kompeten.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Layer 3: 2022 -->
-          <div
-            class="history-layer absolute inset-0 opacity-0 z-0 flex items-center justify-center will-change-[opacity,transform]">
-            <Image src={tempBusinessImg} alt="2022" class="absolute inset-0 w-full h-full object-cover opacity-60"
-              quality={100} />
-            <div class="absolute inset-0 bg-black/40"></div>
-
-            <div
-              class="container mx-auto px-6 lg:px-16 flex flex-col lg:flex-row items-center justify-between relative z-10 w-full">
-              <div class="w-full lg:w-1/2 flex justify-center lg:justify-start items-center">
-                <div class="relative overflow-hidden h-[12vw] lg:h-[10vw]">
-                  <span
-                    class="history-year text-[12vw] lg:text-[10vw] font-800 text-white leading-none tracking-tighter inline-block">2022</span>
-                </div>
-              </div>
-              <div class="w-full lg:w-1/2 mt-10 lg:mt-0 flex justify-center lg:justify-start">
-                <div class="max-w-lg lg:ml-12">
-                  <h3 class="text-3xl lg:text-4xl font-700 !text-white !mb-6 leading-tight">Era Inovasi Digital</h3>
-                  <p class="!text-white/80 text-[16px] lg:text-[17px] leading-relaxed">Transformasi menjadi pilar utama.
-                    Kami mengintegrasikan teknologi digital dalam setiap proses operasional, memastikan efisiensi
-                    maksimal dan hasil yang akurat bagi seluruh mitra kami.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Layer 4: 2026 -->
-          <div
-            class="history-layer absolute inset-0 opacity-0 z-0 flex items-center justify-center will-change-[opacity,transform]">
-            <Image src={ctaBuildingImg} alt="2026" class="absolute inset-0 w-full h-full object-cover opacity-60"
-              quality={100} />
-            <div class="absolute inset-0 bg-black/40"></div>
-
-            <div
-              class="container mx-auto px-6 lg:px-16 flex flex-col lg:flex-row items-center justify-between relative z-10 w-full">
-              <div class="w-full lg:w-1/2 flex justify-center lg:justify-start items-center">
-                <div class="relative overflow-hidden h-[12vw] lg:h-[10vw]">
-                  <span
-                    class="history-year text-[12vw] lg:text-[10vw] font-800 text-white leading-none tracking-tighter inline-block">2026</span>
-                </div>
-              </div>
-              <div class="w-full lg:w-1/2 mt-10 lg:mt-0 flex justify-center lg:justify-start">
-                <div class="max-w-lg lg:ml-12">
-                  <h3 class="text-3xl lg:text-4xl font-700 !text-white !mb-6 leading-tight">Visi Masa Depan</h3>
-                  <p class="!text-white/80 text-[16px] lg:text-[17px] leading-relaxed">Menatap masa depan dengan
-                    optimisme. Yotek berkomitmen untuk terus berinnovasi dalam menghadirkan solusi yang berkelanjutan
-                    dan memberikan dampak positif bagi industri nasional secara menyeluruh.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Decorative Elements -->
+        <!-- Layer 1: 2015 -->
         <div
-          class="absolute bottom-10 left-16 z-20 flex gap-4 text-xs font-700 text-gray-400 uppercase tracking-widest invisible lg:visible">
-          <span>History Timeline</span>
-          <span class="w-12 h-[1px] bg-gray-300 mt-2.5"></span>
-          <span id="history-index">01 / 04</span>
+          class="history-layer absolute inset-0 opacity-100 z-10 flex items-center justify-center will-change-[opacity,transform]">
+          <Image src={buildingImage} alt="2015" class="absolute inset-0 w-full h-full object-cover opacity-60"
+            quality={100} />
+          <div class="absolute inset-0 bg-black/40"></div>
+
+          <div
+            class="container mx-auto px-6 lg:px-16 flex flex-col lg:flex-row items-center justify-between relative z-10 w-full text-center lg:text-left">
+            <div class="w-full lg:w-1/2 flex justify-center lg:justify-start items-center">
+              <div class="relative overflow-hidden h-[12vw] lg:h-[10vw]">
+                <span
+                  class="history-year text-[15vw] lg:text-[10vw] font-800 text-white leading-none tracking-tighter inline-block">2015</span>
+              </div>
+            </div>
+            <div class="w-full lg:w-1/2 max-w-2xl mt-8 lg:mt-0 flex flex-col items-center lg:items-start lg:ml-12">
+              <h3 class="text-3xl lg:text-4xl font-700 !text-white !mb-6 leading-tight">Awal Mula Perjalanan</h3>
+              <p class="!text-white/60 text-[16px] lg:text-[17px] leading-relaxed max-w-prose lg:max-w-lg">Yotek memulai
+                langkah pertamanya
+                dengan dedikasi tinggi untuk memberikan solusi teknis terbaik bagi industri di Indonesia. Fokus pada
+                kualitas dan kepercayaan pelanggan adalah kunci utama kami.</p>
+            </div>
+          </div>
         </div>
+
+        <!-- Layer 2: 2018 -->
+        <div
+          class="history-layer absolute inset-0 opacity-0 z-0 flex items-center justify-center will-change-[opacity,transform]">
+          <Image src={riauImg} alt="2018" class="absolute inset-0 w-full h-full object-cover opacity-60"
+            quality={100} />
+          <div class="absolute inset-0 bg-black/40"></div>
+
+          <div
+            class="container mx-auto px-6 lg:px-16 flex flex-col lg:flex-row items-center justify-between relative z-10 w-full text-center lg:text-left">
+            <div class="w-full lg:w-1/2 flex justify-center lg:justify-start items-center">
+              <div class="relative overflow-hidden h-[12vw] lg:h-[10vw]">
+                <span
+                  class="history-year text-[15vw] lg:text-[10vw] font-800 text-white leading-none tracking-tighter inline-block">2018</span>
+              </div>
+            </div>
+            <div class="w-full lg:w-1/2 max-w-2xl mt-8 lg:mt-0 flex flex-col items-center lg:items-start lg:ml-12">
+              <h3 class="text-3xl lg:text-4xl font-700 !text-white !mb-6 leading-tight">Ekspansi Strategis</h3>
+              <p class="!text-white/60 text-[16px] lg:text-[17px] leading-relaxed max-w-prose lg:max-w-lg">Melihat
+                potensi pasar yang besar,
+                Yotek melakukan ekspansi dengan membuka unit bisnis baru. Kami mulai merambah sektor industri pangan
+                dan manufaktur skala besar dengan tim ahli yang kompeten.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer 3: 2022 -->
+        <div
+          class="history-layer absolute inset-0 opacity-0 z-0 flex items-center justify-center will-change-[opacity,transform]">
+          <Image src={tempBusinessImg} alt="2022" class="absolute inset-0 w-full h-full object-cover opacity-60"
+            quality={100} />
+          <div class="absolute inset-0 bg-black/40"></div>
+
+          <div
+            class="container mx-auto px-6 lg:px-16 flex flex-col lg:flex-row items-center justify-between relative z-10 w-full text-center lg:text-left">
+            <div class="w-full lg:w-1/2 flex justify-center lg:justify-start items-center">
+              <div class="relative overflow-hidden h-[12vw] lg:h-[10vw]">
+                <span
+                  class="history-year text-[15vw] lg:text-[10vw] font-800 text-white leading-none tracking-tighter inline-block">2022</span>
+              </div>
+            </div>
+            <div class="w-full lg:w-1/2 max-w-2xl mt-8 lg:mt-0 flex flex-col items-center lg:items-start lg:ml-12">
+              <h3 class="text-3xl lg:text-4xl font-700 !text-white !mb-6 leading-tight">Era Inovasi Digital</h3>
+              <p class="!text-white/80 text-[16px] lg:text-[17px] leading-relaxed max-w-prose lg:max-w-lg">Transformasi
+                menjadi pilar utama.
+                Kami mengintegrasikan teknologi digital dalam setiap proses operasional, memastikan efisiensi
+                maksimal dan hasil yang akurat bagi seluruh mitra kami.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer 4: 2026 -->
+        <div
+          class="history-layer absolute inset-0 opacity-0 z-0 flex items-center justify-center will-change-[opacity,transform]">
+          <Image src={ctaBuildingImg} alt="2026" class="absolute inset-0 w-full h-full object-cover opacity-60"
+            quality={100} />
+          <div class="absolute inset-0 bg-black/40"></div>
+
+          <div
+            class="container mx-auto px-6 lg:px-16 flex flex-col lg:flex-row items-center justify-between relative z-10 w-full text-center lg:text-left">
+            <div class="w-full lg:w-1/2 flex justify-center lg:justify-start items-center">
+              <div class="relative overflow-hidden h-[12vw] lg:h-[10vw]">
+                <span
+                  class="history-year text-[15vw] lg:text-[10vw] font-800 text-white leading-none tracking-tighter inline-block">2026</span>
+              </div>
+            </div>
+            <div class="w-full lg:w-1/2 max-w-2xl mt-8 lg:mt-0 flex flex-col items-center lg:items-start lg:ml-12">
+              <h3 class="text-3xl lg:text-4xl font-700 !text-white !mb-6 leading-tight">Visi Masa Depan</h3>
+              <p class="!text-white/80 text-[16px] lg:text-[16px] leading-relaxed max-w-prose lg:max-w-lg">Menatap masa
+                depan dengan
+                optimisme. Yotek berkomitmen untuk terus berinnovasi dalam menghadirkan solusi yang berkelanjutan
+                dan memberikan dampak positif bagi industri nasional secara menyeluruh.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </section>
 
-
-
-  <!-- CEO Section -->
-  <section class="section bg-[#F9F9F9] py-24">
-    <div class="container mx-auto px-6 lg:px-12">
-      <p class="kicker mb-4 text-center text-gray-500 font-700">Pimpinan</p>
-      <h2 class="text-black mb-16 text-center text-4xl lg:text-5xl font-700 tracking-tight"
-        style="text-transform: none;">Sosok di Balik Yotek</h2>
-
-      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 max-w-5xl mx-auto items-center reveal">
-        <div
-          class="w-full max-w-[360px] mx-auto lg:max-w-none lg:w-2/5 aspect-[3/4] relative overflow-hidden bg-gray-200">
-          <img src={CEO.image} alt={CEO.name} class="w-full h-full object-cover grayscale opacity-90" loading="lazy" />
-        </div>
-        <div class="w-full lg:w-3/5">
-          <h3 class="text-3xl font-display font-700 text-[#111] tracking-tight mb-2">{CEO.name}</h3>
-          <p class="text-[var(--color-gold)] text-sm font-display font-700 uppercase tracking-wider mb-8">{CEO.title}
-          </p>
-          <div class="text-gray-600 leading-relaxed space-y-4 text-[16px]">
-            <p>
-              Dengan pengalaman lebih dari dua dekade di industri strategis, kepemimpinan beliau telah membawa Yotek
-              bertransformasi dari perusahaan lokal menjadi pemain utama berskala nasional.
-            </p>
-            <p>
-              {CEO.bio}
-            </p>
-          </div>
-        </div>
+      <!-- Decorative Elements -->
+      <div
+        class="absolute bottom-10 left-16 z-20 flex gap-4 text-xs font-700 text-gray-400 uppercase tracking-widest invisible lg:visible">
+        <span>History Timeline</span>
+        <span class="w-12 h-[1px] bg-gray-300 mt-2.5"></span>
+        <span id="history-index">01 / 04</span>
       </div>
     </div>
   </section>
 
-  <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-    import { animateReveal } from '../scripts/animations';
 
-    gsap.registerPlugin(ScrollTrigger);
 
-    function initAboutPages() {
-      // Pass imported images to client script via data attributes
-      const historyEl = document.getElementById('history-section');
-      const riauSrc = historyEl?.getAttribute('data-riau') || "";
-      const footerBgSrc = historyEl?.getAttribute('data-footer') || "";
-      const tempBusinessSrc = historyEl?.getAttribute('data-temp') || "";
-      const ctaBuildingSrc = historyEl?.getAttribute('data-cta') || "";
+  <!-- LEADERSHIP TEAM SECTION -->
+  <section class="relative !py-24 lg:!py-36 bg-[#FCFCFC] w-full" id="leadership-section">
+    <div class="w-full !px-6 lg:!px-16 max-w-[1200px] !mx-auto">
 
-      // Hero Animations
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      <!-- Heading -->
+      <div class="!mb-16 lg:!mb-16">
+        <h2 class="font-700 tracking-tight leading-none text-[#111] !mb-6"
+          style="font-size: clamp(2.5rem, 5vw, 64px); text-transform: none !important;">
+          Yotek Leadership Team
+        </h2>
+        <p class="text-[16px] lg:text-[16px] text-gray-500 max-w-[600px]">
+          Digerakkan oleh visi, integritas, dan komitmen terhadap keunggulan di setiap sektor industri.
+        </p>
+      </div>
 
-      tl.to("#hero-title", {
+      <!-- Interactive Reveal Container -->
+      <div
+        class="relative w-full max-w-[600px] !mx-auto overflow-hidden border-y border-gray-100 group cursor-pointer h-[120px]"
+        id="leader-reveal-container">
+
+        <div class="leader-img-wrapper w-full h-full relative overflow-hidden">
+          <Image src={leaderImg} alt={CEO.name} class="w-full h-full object-cover grayscale will-change-transform"
+            style="object-position: center 28%;" id="leader-photo" quality={100} />
+
+          <!-- Overlay hint -->
+          <div
+            class="absolute inset-0 bg-black/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            <span
+              class="text-[11px] font-800 text-white uppercase tracking-[0.4em] bg-black/40 backdrop-blur-md !px-8 !py-4 rounded-full">Explore
+              Portrait</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info Area Wrapper -->
+      <div class="relative w-full !mt-12 lg:!mt-16 overflow-hidden" id="leader-info-wrapper">
+
+        <!-- 1. Collapsed State: Centered Name & Title -->
+        <div class="w-full text-center" id="leader-info-collapsed">
+          <h3 class="text-3xl lg:text-4xl font-700 text-black tracking-tight">{CEO.name}</h3>
+          <p class="text-gray-500 text-[16px] lg:text-[18px] mt-1">{CEO.title}</p>
+        </div>
+
+        <!-- 2. Expanded State: Full Details (Initially off-stage) -->
+        <div
+          class="w-full flex flex-col lg:flex-row justify-between items-start gap-10 lg:gap-20 opacity-0 absolute top-0 left-0 pointer-events-none"
+          id="leader-info-expanded">
+          <div class="w-full lg:w-1/3">
+            <h3 class="text-3xl lg:text-4xl font-700 text-black mb-1 tracking-tight">{CEO.name}</h3>
+            <p class="text-gray-500 text-[18px] lg:text-[20px]">{CEO.title}</p>
+          </div>
+          <div class="w-full lg:w-2/3">
+            <div class="flex flex-col gap-6 text-gray-600 leading-relaxed text-[16px] lg:text-[16px]">
+              <p>
+                Dengan pengalaman lebih dari dua dekade di industri strategis, kepemimpinan beliau telah membawa Yotek
+                bertransformasi dari perusahaan lokal menjadi pemain utama berskala nasional.
+              </p>
+              <p>
+                Beliau berkomitmen untuk terus menghadirkan inovasi dan integritas di setiap lini bisnis Yotek Group,
+                memastikan konektivitas industri yang berkelanjutan bagi seluruh mitra strategis.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <CTA />
+
+</BaseLayout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { animateReveal } from '../scripts/animations';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initAboutPages() {
+    // Hero Animations
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    tl.to("#hero-title", {
+      y: 0,
+      opacity: 1,
+      duration: 1.2,
+    })
+      .to("#hero-building", {
+        scale: 1,
+        opacity: 1,
+        duration: 1.5,
+      }, "-=0.6")
+      .to(["#hero-text-left", "#hero-text-right"], {
+        x: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.2
+      }, "-=1");
+
+    // Floating parallax effect for building & texts based on mouse move
+    const section = document.querySelector('section');
+    if (section && !window.matchMedia('(max-width: 768px)').matches) {
+      section.addEventListener('mousemove', (e) => {
+        const xPos = (e.clientX / window.innerWidth - 0.5) * 20;
+        const yPos = (e.clientY / window.innerHeight - 0.5) * 20;
+
+        gsap.to("#hero-building", {
+          x: xPos,
+          y: yPos,
+          duration: 1,
+          ease: "power2.out"
+        });
+        gsap.to("#hero-text-left", {
+          x: -xPos * 0.5,
+          y: -yPos * 0.5,
+          duration: 1,
+        });
+        gsap.to("#hero-text-right", {
+          x: xPos * 0.5,
+          y: -yPos * 0.5,
+          duration: 1,
+        });
+      });
+    }
+
+    // Culture / Journey Section Animations
+    gsap.fromTo(".culture-txt",
+      {
+        y: 40,
+        opacity: 0,
+        filter: 'blur(10px)',
+        scale: 0.98
+      },
+      {
+        scrollTrigger: {
+          trigger: "#culture-sticky-text",
+          start: "top 75%",
+        },
         y: 0,
         opacity: 1,
+        filter: 'blur(0px)',
+        scale: 1,
         duration: 1.2,
-      })
-        .to("#hero-building", {
-          scale: 1,
-          opacity: 1,
-          duration: 1.5,
-        }, "-=0.6")
-        .to(["#hero-text-left", "#hero-text-right"], {
-          x: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.2
-        }, "-=1");
-
-      // Floating parallax effect for building & texts based on mouse move
-      const section = document.querySelector('section');
-      if (section && !window.matchMedia('(max-width: 768px)').matches) {
-        section.addEventListener('mousemove', (e) => {
-          const xPos = (e.clientX / window.innerWidth - 0.5) * 20;
-          const yPos = (e.clientY / window.innerHeight - 0.5) * 20;
-
-          gsap.to("#hero-building", {
-            x: xPos,
-            y: yPos,
-            duration: 1,
-            ease: "power2.out"
-          });
-          gsap.to("#hero-text-left", {
-            x: -xPos * 0.5,
-            y: -yPos * 0.5,
-            duration: 1,
-          });
-          gsap.to("#hero-text-right", {
-            x: xPos * 0.5,
-            y: -yPos * 0.5,
-            duration: 1,
-          });
-        });
+        stagger: 0.2,
+        ease: "power4.out"
       }
+    );
 
-      // Culture / Journey Section Animations
-      gsap.fromTo(".culture-txt",
-        { y: 30, opacity: 0 },
-        {
-          scrollTrigger: {
-            trigger: "#culture-sticky-text",
-            start: "top 75%",
-          },
-          y: 0,
-          opacity: 1,
-          duration: 1.2,
-          stagger: 0.2,
-          ease: "power4.out"
-        }
-      );
-
-      gsap.to(".culture-img-card", {
+    gsap.fromTo(".culture-img-card",
+      {
+        y: 40,
+        opacity: 0,
+        filter: 'blur(10px)',
+        scale: 0.98
+      },
+      {
         scrollTrigger: {
           trigger: ".culture-img-card",
           start: "top 85%",
         },
         y: 0,
         opacity: 1,
+        filter: 'blur(0px)',
+        scale: 1,
         duration: 1.4,
         ease: "power3.out"
-      });
+      }
+    );
 
-      // Image Left / Text Right Section Animations
-      gsap.to(".img-left-reveal", {
+    // Image Left / Text Right Section Animations
+    gsap.fromTo(".img-left-reveal",
+      { y: 40, opacity: 0, filter: 'blur(10px)', scale: 0.98 },
+      {
         scrollTrigger: { trigger: ".img-left-reveal", start: "top 80%" },
-        y: 0, opacity: 1, duration: 1.2, ease: "power3.out"
-      });
-      gsap.to(".txt-left-reveal", {
+        y: 0, opacity: 1, filter: 'blur(0px)', scale: 1, duration: 1.2, ease: "power3.out"
+      }
+    );
+    gsap.fromTo(".txt-left-reveal",
+      { y: 40, opacity: 0, filter: 'blur(10px)', scale: 0.98 },
+      {
         scrollTrigger: { trigger: ".txt-left-reveal", start: "top 80%" },
-        y: 0, opacity: 1, duration: 1.2, delay: 0.2, ease: "power3.out"
-      });
+        y: 0, opacity: 1, filter: 'blur(0px)', scale: 1, duration: 1.2, delay: 0.2, ease: "power3.out"
+      }
+    );
 
-      // --- ULTRA-LIGHT GPU OPTIMIZED HISTORY SECTION ---
-      const historyLayers = gsap.utils.toArray('.history-layer');
-      const historyIndex = document.getElementById('history-index');
+    // --- ULTRA-LIGHT GPU OPTIMIZED HISTORY SECTION ---
+    const historyLayers = gsap.utils.toArray('.history-layer');
+    const historyIndex = document.getElementById('history-index');
 
-      // Set initial states
-      gsap.set(historyLayers, { opacity: 0 });
-      gsap.set(historyLayers[0] as HTMLElement, { opacity: 1 });
+    // Set initial states
+    gsap.set(historyLayers, { opacity: 0 });
+    gsap.set(historyLayers[0] as HTMLElement, { opacity: 1 });
 
-      // Clean timeline for maximum performance
-      const historyTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: "#history-section",
-          start: "top top",
-          end: "+=300%",
-          scrub: 1,
-          pin: true,
-          pinSpacing: true,
+    // Clean timeline for maximum performance
+    const historyTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#history-section",
+        start: "top top",
+        end: "+=300%",
+        scrub: 1,
+        pin: true,
+        pinSpacing: true,
+      }
+    });
+
+    // Initial state for index
+    historyTl.set(historyIndex, { innerText: "01 / 04" }, 0);
+
+    historyLayers.forEach((layer, i) => {
+      const currentLayer = layer as HTMLElement;
+      const currentYear = currentLayer.querySelector('.history-year');
+
+      if (i === 0) {
+        // Entrance for Layer 1
+        historyTl.fromTo(currentYear, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6 }, 0.1);
+        return;
+      }
+
+      const prevLayer = historyLayers[i - 1] as HTMLElement;
+
+      // Fast GPU Cross-fade
+      historyTl.to(prevLayer, { opacity: 0, duration: 1 }, i - 0.5)
+        .to(currentLayer, { opacity: 1, duration: 1 }, i - 0.5)
+
+        // Subtle entrance to keep it 'still' but smooth
+        .fromTo(currentYear, { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6 }, i - 0.2)
+
+        // Direct property set for reliable bidirectional indexing
+        .set(historyIndex, { innerText: `0${i + 1} / 04` }, i - 0.1);
+    });
+
+    // Re-init reveal animations with stagger for group elements
+    animateReveal('.reveal', { stagger: 0.2 });
+
+    // Leadership Expansion Logic
+    const leaderSection = document.getElementById('leadership-section');
+    const leaderContainer = document.getElementById('leader-reveal-container') as HTMLElement;
+    const leaderCollapsed = document.getElementById('leader-info-collapsed');
+    const leaderExpanded = document.getElementById('leader-info-expanded');
+    const leaderPhoto = document.getElementById('leader-photo');
+    let isLeaderExpanded = false;
+
+    if (leaderContainer && leaderSection) {
+      const getCollapsedHeight = () => 120;
+      gsap.set(leaderContainer, { height: getCollapsedHeight(), willChange: "height" });
+
+      // Entrance Reveal for the entire info area
+      gsap.fromTo("#leader-info-wrapper",
+        { y: 40, opacity: 0, filter: 'blur(10px)', scale: 0.98 },
+        {
+          scrollTrigger: { trigger: "#leadership-section", start: "top 75%" },
+          y: 0, opacity: 1, filter: 'blur(0px)', scale: 1, duration: 1.2, ease: "power3.out"
+        }
+      );
+
+      leaderContainer.addEventListener('click', () => {
+        isLeaderExpanded = !isLeaderExpanded;
+
+        const tl = gsap.timeline({
+          defaults: { duration: 0.7, ease: "power4.inOut" },
+          onUpdate: () => ScrollTrigger.refresh()
+        });
+
+        // 1. Animate Container Height
+        tl.to(leaderContainer, {
+          height: isLeaderExpanded ? "auto" : getCollapsedHeight(),
+          force3D: true
+        }, 0);
+
+        // 2. Animate Photo Filter (Grayscale to Color)
+        tl.to(leaderPhoto, {
+          filter: isLeaderExpanded ? "grayscale(0%)" : "grayscale(100%)",
+          scale: isLeaderExpanded ? 1.05 : 1,
+        }, 0);
+
+        // 3. Cross-fade between Collapsed and Expanded content
+        if (isLeaderExpanded) {
+          tl.to(leaderCollapsed, { opacity: 0, y: -15, duration: 0.3 }, 0);
+          tl.set(leaderExpanded, { position: "relative", pointerEvents: "auto" }, 0.3);
+          tl.to(leaderExpanded, { opacity: 1, y: 0, duration: 0.5 }, 0.3);
+        } else {
+          tl.to(leaderExpanded, { opacity: 0, y: 15, duration: 0.3 }, 0);
+          tl.set(leaderExpanded, { position: "absolute", pointerEvents: "none" }, 0.3);
+          tl.to(leaderCollapsed, { opacity: 1, y: 0, duration: 0.5 }, 0.3);
         }
       });
-
-      historyLayers.forEach((layer, i) => {
-        if (i === 0) return;
-
-        const prevLayer = historyLayers[i - 1] as HTMLElement;
-        const currentLayer = layer as HTMLElement;
-        const currentYear = currentLayer.querySelector('.history-year');
-
-        // Fast GPU Cross-fade
-        historyTl.to(prevLayer, { opacity: 0, duration: 1 }, i - 0.5)
-          .to(currentLayer, { opacity: 1, duration: 1 }, i - 0.5)
-
-          // Subtle entrance to keep it 'still' but smooth
-          .fromTo(currentYear, { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6 }, i - 0.2)
-
-          .add(() => {
-            if (historyIndex) historyIndex.innerText = `0${i + 1} / 04`;
-          }, i - 0.1);
-      });
-
-      // Re-init reveal animations
-      document.querySelectorAll('.reveal').forEach((el) => {
-        animateReveal(el as HTMLElement, { y: 30 });
-      });
     }
+  }
 
-    document.addEventListener('astro:page-load', initAboutPages);
-  </script>
-</BaseLayout>
+  document.addEventListener('astro:page-load', initAboutPages);
+</script>

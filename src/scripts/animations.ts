@@ -30,10 +30,17 @@ export function animateReveal(
 
   gsap.fromTo(
     selector,
-    { opacity: 0, y },
+    { 
+      opacity: 0, 
+      y, 
+      filter: 'blur(10px)',
+      scale: 0.98
+    },
     {
       opacity: 1,
       y: 0,
+      filter: 'blur(0px)',
+      scale: 1,
       duration,
       delay,
       stagger,

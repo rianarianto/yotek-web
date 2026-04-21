@@ -6,35 +6,54 @@
 */
 ---
 
-<section class="relative py-32 lg:py-64 bg-white overflow-hidden" id="ceo-section">
-  <div class="container mx-auto px-6 lg:px-16 relative z-10">
-    <div class="max-w-[1400px] mx-auto text-center !mb-24 lg:!mb-32">
-      <p class="ceo-reveal opacity-0 text-[13px] font-800 uppercase tracking-[0.4em] text-[#B89456] !mb-8">Visionary Leadership</p>
-      <h2 class="ceo-reveal opacity-0 text-[32px] md:text-[56px] lg:text-[72px] font-700 text-black leading-[1.1] tracking-[-0.04em]">
-        Membangun Masa Depan <br/>
-        <span class="text-gray-300">Lewat Integritas & Sinergi.</span>
-      </h2>
-    </div>
+<section class="relative py-32 lg:!pt-30 lg:!pb-32  bg-white overflow-hidden !mb-30 lg:!mb-30" id="ceo-section">
+  <!-- Decorative background elements -->
+  <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-gold/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2">
+  </div>
+  <div
+    class="absolute bottom-0 left-0 w-1/4 h-1/4 bg-blue-50/50 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2">
+  </div>
 
-    <div class="max-w-[1200px] mx-auto relative">
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="max-w-[1200px] mx-auto">
+
+      <!-- Top Quote Area -->
+      <!-- <div class="text-center mb-16 lg:mb-24 opacity-0" id="ceo-header">
+        <span class="inline-block px-4 py-1.5 mb-6 text-[11px] font-700 uppercase tracking-[0.3em] text-[var(--color-gold)] bg-gold/5 rounded-full border border-gold/10">
+          Our Vision
+        </span>
+        <h2 class="text-3xl md:text-5xl lg:text-6xl font-800 text-black leading-[1.1] tracking-tight mb-8">
+          Inspirasi & Integritas: <br class="hidden md:block"/> Membangun Masa Depan Sinergi.
+        </h2>
+        <div class="w-20 h-1 bg-[var(--color-gold)] mx-auto rounded-full"></div>
+      </div> -->
+
       <!-- Main Video Container -->
       <div class="relative group opacity-0 scale-95" id="ceo-video-container">
         <!-- Video Frame -->
-        <div class="relative aspect-video overflow-hidden shadow-2xl shadow-black/10 bg-[#F8F8F6]">
-          <!-- Thumbnail Image -->
-          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=100&w=2000"
+        <div class="relative aspect-video overflow-hidden shadow-[0_30px_100px_-20px_rgba(0,0,0,0.2)] bg-gray-100 ">
+          <!-- Thumbnail Image (Placeholder) -->
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2000"
             alt="CEO Vision"
-            class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
 
-          <!-- Subtle Overlay -->
-          <div class="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-colors duration-700"></div>
+          <!-- Glass Overlay -->
+          <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
 
-          <!-- Play Button (Premium) -->
+          <!-- Professional Play Button -->
           <button class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 group/play cursor-pointer"
             aria-label="Play CEO Video">
-            <div class="relative w-24 h-24 lg:w-32 lg:h-32 bg-white rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 group-hover/play:scale-110 group-hover/play:bg-black">
-              <div id="play-pulse" class="absolute inset-0 bg-black/10 rounded-full z-0"></div>
-              <svg class="w-8 h-8 lg:w-10 lg:h-10 text-black group-hover/play:text-white fill-current relative z-10 translate-x-1"
+            <!-- Animated Background Rings -->
+            <div class="absolute inset-0 scale-150 opacity-0 group-hover/play:opacity-100 transition-opacity">
+              <div class="absolute inset-0 rounded-full border-2 border-white/30 animate-ping"></div>
+            </div>
+
+            <div
+              class="relative w-24 h-24 lg:w-32 lg:h-32 bg-white rounded-full flex items-center justify-center shadow-2xl transition-transform duration-500 group-hover/play:scale-110">
+              <!-- Animated Pulse Circle -->
+              <div id="play-pulse" class="absolute inset-0 bg-[var(--color-gold)]/20 rounded-full z-0"></div>
+
+              <svg class="w-8 h-8 lg:w-10 lg:h-10 text-black fill-current relative z-10 translate-x-1"
                 viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
               </svg>
@@ -42,14 +61,15 @@
           </button>
         </div>
 
-        <!-- CEO Label (Modern Minimalist) -->
-        <div class="absolute -bottom-8 -right-4 lg:-bottom-12 lg:-right-8 bg-white !p-8 lg:!p-10 shadow-2xl border border-black/5 z-30 max-w-[320px] text-right"
+        <!-- Float Info Tag (Bottom Right) -->
+        <div
+          class="absolute -bottom-6 -right-6 lg:-bottom-10 lg:-right-10 bg-white !p-6 lg:!p-4 shadow-xl border border-gray-50 z-30 max-w-[280px] hidden md:block"
           id="ceo-tag">
-          <p class="text-[24px] font-700 text-black leading-tight mb-2 tracking-tight">Oyong Wisman</p>
-          <div class="w-12 h-[2px] bg-[#B89456] ml-auto mb-4"></div>
-          <p class="text-[11px] font-800 text-gray-400 uppercase tracking-[0.2em]">Chief Executive Officer</p>
+          <p class="text-[17px] font-800 text-black leading-tight mb-2">Oyong Wisman</p>
+          <p class="text-[12px] font-600 text-gray-400 uppercase tracking-widest">Chief Executive Officer</p>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -61,23 +81,20 @@
   gsap.registerPlugin(ScrollTrigger);
 
   function initCEOVideo() {
-    const section = document.querySelector('#ceo-section');
-    if (!section) return;
-
-    // 1. Entrance Animation
+    // 1. Entrance Animations
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: section,
-        start: "top 60%",
+        trigger: "#ceo-section",
+        start: "top 70%",
+        toggleActions: "play none none none"
       }
     });
 
-    tl.to(".ceo-reveal", {
+    tl.to("#ceo-header", {
       opacity: 1,
-      y: 0,
-      duration: 1,
-      stagger: 0.15,
-      ease: "power4.out"
+      y: -20,
+      duration: 1.2,
+      ease: "power3.out"
     });
 
     tl.to("#ceo-video-container", {
@@ -88,26 +105,26 @@
     }, "-=1");
 
     tl.from("#ceo-tag", {
-      x: 60,
+      x: 40,
       opacity: 0,
-      duration: 1.2,
-      ease: "power3.out"
-    }, "-=1");
+      duration: 1,
+      ease: "back.out(1.7)"
+    }, "-=0.8");
 
     // 2. Continuous Play Button Pulse
     gsap.to("#play-pulse", {
-      scale: 1.5,
+      scale: 1.4,
       opacity: 0,
-      duration: 2.5,
+      duration: 2,
       repeat: -1,
       ease: "power1.out"
     });
 
-    // 3. Subtle Parallax for UI
+    // 3. Subtle Parallax for the Tag
     gsap.to("#ceo-tag", {
-      y: -60,
+      y: -40,
       scrollTrigger: {
-        trigger: section,
+        trigger: "#ceo-section",
         start: "top bottom",
         end: "bottom top",
         scrub: true

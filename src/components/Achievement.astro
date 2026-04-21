@@ -6,83 +6,86 @@
 */
 ---
 
-<section class="relative !py-32 lg:!py-64 bg-white w-full flex justify-center overflow-hidden">
+<section class="relative !py-24 lg:!py-40 bg-[#F9F9F9] w-full flex justify-center">
   <div class="w-full !px-6 lg:!px-16 max-w-[1600px] mx-auto">
-    <div class="flex flex-col-reverse lg:flex-row justify-between !gap-16 lg:!gap-32 relative">
+    <!-- Hilangkan items-start agar kolom kiri dan kanan sama tinggi (stretch), yang merupakan syarat mutlak agar fitur 'sticky' bisa bekerja -->
+    <div class="flex flex-col-reverse lg:flex-row justify-between !gap-16 lg:!gap-24 relative">
 
-      <!-- Left Group: Achievement Cards -->
+      <!-- Left Group: Pembungkus yang menjamin posisi tengah / center -->
       <div class="w-full lg:w-[55%] flex lg:justify-center">
-        <div class="w-full lg:max-w-[700px] flex flex-col !gap-12 md:!gap-20" id="achievement-cards">
+        <!-- Scrolling Cards (Ukurannya dibatasi agar simetris di tengah kolom kiri) -->
+        <div class="w-full lg:max-w-[600px] xl:max-w-[700px] flex flex-col !gap-8 md:!gap-14" id="achievement-cards">
 
           <!-- Card 1 -->
           <div
-            class="bg-[#F8F8F6] border border-black/5 !p-12 md:!p-16 lg:!p-20 flex flex-col justify-between achievement-card opacity-0 translate-y-10 group rounded-none shadow-sm transition-all duration-700 hover:bg-black hover:border-black">
-            <div class="flex justify-between items-start !mb-16 md:!mb-24">
-              <h3 class="font-900 tracking-[-0.05em] leading-none text-black group-hover:text-white transition-colors duration-500" style="font-size: clamp(4rem, 10vw, 150px);">
+            class="bg-white border border-gray-100 !p-10 md:!p-12 lg:!p-16 flex flex-col justify-between achievement-card opacity-0 translate-y-10 group rounded-sm shadow-sm">
+            <div class="flex justify-between items-center !mb-12 md:!mb-20">
+              <h3 class="font-800 tracking-tighter leading-none text-black" style="font-size: clamp(4rem, 8vw, 120px);">
                 100%</h3>
-              <!-- Gold Arrow Icon -->
-              <div class="w-20 h-20 lg:w-24 lg:h-24 flex items-center justify-center border border-black/10 rounded-full group-hover:border-white/20 transition-all duration-500">
-                <svg
-                  class="w-8 h-8 lg:w-10 lg:h-10 text-[#B89456] transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <path d="M7 17 L17 7 M7 7 H17 V17" />
-                </svg>
-              </div>
+              <!-- Gold Arrow -->
+              <svg
+                class="w-24 h-24 lg:w-32 lg:h-32 text-[var(--color-gold)] transition-transform duration-500 group-hover:translate-x-3 group-hover:-translate-y-3"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="butt"
+                stroke-linejoin="miter">
+                <path d="M7 17 L17 7 M7 7 H17 V17" />
+              </svg>
             </div>
-            <div class="space-y-4">
-              <h4 class="text-2xl lg:text-3xl font-700 text-black group-hover:text-white transition-colors duration-500 tracking-tight"
-                style="text-transform: none !important;">Indeks Kepercayaan Mitra</h4>
-              <p class="text-[15px] lg:text-[16px] text-gray-500 font-500 leading-relaxed group-hover:text-white/60 transition-colors duration-500"
+            <div class="border-t border-gray-200 !pt-8 !mt-auto">
+              <h4 class="text-2xl lg:text-3xl font-700 !mb-3 text-black tracking-[-0.02em]"
+                style="text-transform: none !important;">Indeks Kepercayaan Mitra.</h4>
+              <p class="text-[15px] text-gray-500 font-500 leading-relaxed lg:w-[90%]"
                 style="text-transform: none !important;">
-                Dedikasi berkelanjutan yang membangun fondasi kepercayaan dengan mitra strategis selama lebih dari satu dekade.
+                Persentase klien dan mitra strategis yang telah bekerja sama dengan kami selama lebih dari 5 tahun.
               </p>
             </div>
           </div>
 
           <!-- Card 2 -->
           <div
-            class="bg-[#F8F8F6] border border-black/5 !p-12 md:!p-16 lg:!p-20 flex flex-col justify-between achievement-card opacity-0 translate-y-10 group rounded-none shadow-sm transition-all duration-700 hover:bg-black hover:border-black">
-            <div class="flex justify-between items-start !mb-16 md:!mb-24">
-              <h3 class="font-900 tracking-[-0.05em] leading-none text-black group-hover:text-white transition-colors duration-500" style="font-size: clamp(4rem, 10vw, 150px);">
+            class="bg-white border border-gray-100 !p-10 md:!p-12 lg:!p-16 flex flex-col justify-between achievement-card opacity-0 translate-y-10 group rounded-sm shadow-sm">
+            <div class="flex justify-between items-center !mb-12 md:!mb-20">
+              <h3 class="font-800 tracking-tighter leading-none text-black" style="font-size: clamp(4rem, 8vw, 120px);">
                 10+</h3>
-              <div class="w-20 h-20 lg:w-24 lg:h-24 flex items-center justify-center border border-black/10 rounded-full group-hover:border-white/20 transition-all duration-500">
-                <svg
-                  class="w-8 h-8 lg:w-10 lg:h-10 text-[#B89456] transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <path d="M7 17 L17 7 M7 7 H17 V17" />
-                </svg>
-              </div>
+              <!-- Gold Arrow -->
+              <svg
+                class="w-24 h-24 lg:w-32 lg:h-32 text-[var(--color-gold)] transition-transform duration-500 group-hover:translate-x-3 group-hover:-translate-y-3"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="butt"
+                stroke-linejoin="miter">
+                <path d="M7 17 L17 7 M7 7 H17 V17" />
+              </svg>
             </div>
-            <div class="space-y-4">
-              <h4 class="text-2xl lg:text-3xl font-700 text-black group-hover:text-white transition-colors duration-500 tracking-tight"
-                style="text-transform: none !important;">Tahun Pengalaman Kerja</h4>
-              <p class="text-[15px] lg:text-[16px] text-gray-500 font-500 leading-relaxed group-hover:text-white/60 transition-colors duration-500"
+            <div class="border-t border-gray-200 !pt-8 !mt-auto">
+              <h4 class="text-2xl lg:text-3xl font-700 !mb-3 text-black tracking-[-0.02em]"
+                style="text-transform: none !important;">Tahun Pengalaman.</h4>
+              <p class="text-[15px] text-gray-500 font-500 leading-relaxed lg:w-[90%]"
                 style="text-transform: none !important;">
-                Perjalanan panjang dalam menyatukan inovasi teknis dengan eksekusi presisi untuk hasil yang tak tertandingi.
+                Penyatuan berbagai sektor industri inti, menjadikan kami unggul dalam inovasi dan eksekusi pada setiap
+                proyek strategis.
               </p>
             </div>
           </div>
 
           <!-- Card 3 -->
           <div
-            class="bg-[#F8F8F6] border border-black/5 !p-12 md:!p-16 lg:!p-20 flex flex-col justify-between achievement-card opacity-0 translate-y-10 group rounded-none shadow-sm transition-all duration-700 hover:bg-black hover:border-black">
-            <div class="flex justify-between items-start !mb-16 md:!mb-24">
-              <h3 class="font-900 tracking-[-0.05em] leading-none text-black group-hover:text-white transition-colors duration-500" style="font-size: clamp(4rem, 10vw, 150px);">
+            class="bg-white border border-gray-100 !p-10 md:!p-12 lg:!p-16 flex flex-col justify-between achievement-card opacity-0 translate-y-10 group rounded-sm shadow-sm">
+            <div class="flex justify-between items-center !mb-12 md:!mb-20">
+              <h3 class="font-800 tracking-tighter leading-none text-black" style="font-size: clamp(4rem, 8vw, 120px);">
                 50+</h3>
-              <div class="w-20 h-20 lg:w-24 lg:h-24 flex items-center justify-center border border-black/10 rounded-full group-hover:border-white/20 transition-all duration-500">
-                <svg
-                  class="w-8 h-8 lg:w-10 lg:h-10 text-[#B89456] transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <path d="M7 17 L17 7 M7 7 H17 V17" />
-                </svg>
-              </div>
+              <!-- Gold Arrow -->
+              <svg
+                class="w-24 h-24 lg:w-32 lg:h-32 text-[var(--color-gold)] transition-transform duration-500 group-hover:translate-x-3 group-hover:-translate-y-3"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="butt"
+                stroke-linejoin="miter">
+                <path d="M7 17 L17 7 M7 7 H17 V17" />
+              </svg>
             </div>
-            <div class="space-y-4">
-              <h4 class="text-2xl lg:text-3xl font-700 text-black group-hover:text-white transition-colors duration-500 tracking-tight"
-                style="text-transform: none !important;">Proyek Skala Nasional</h4>
-              <p class="text-[15px] lg:text-[16px] text-gray-500 font-500 leading-relaxed group-hover:text-white/60 transition-colors duration-500"
+            <div class="border-t border-gray-200 !pt-8 !mt-auto">
+              <h4 class="text-2xl lg:text-3xl font-700 !mb-3 text-black tracking-[-0.02em]"
+                style="text-transform: none !important;">Proyek Skala Nasional.</h4>
+              <p class="text-[15px] text-gray-500 font-500 leading-relaxed lg:w-[90%]"
                 style="text-transform: none !important;">
-                Portofolio lintas daerah yang membuktikan kapasitas kepemimpinan Yotek di berbagai sektor industri strategis.
+                Portofolio pengerjaan tingkat tinggi di berbagai daerah, bukti nyata kepemimpinan tangguh di sektor
+                industri.
               </p>
             </div>
           </div>
@@ -90,27 +93,26 @@
         </div>
       </div>
 
-      <!-- Right Group: Sticky Text -->
-      <div class="w-full lg:w-[35%] relative">
-        <div class="lg:sticky lg:top-40 !pt-4" id="achievement-text">
-          <p class="achievement-txt opacity-0 text-[13px] font-800 uppercase tracking-widest text-[#B89456] !mb-6">Performance Index</p>
+      <!-- Right Group: Kolom kanan yang tingginya merentang setara tinggi kartu kiri -->
+      <div class="w-full lg:w-[40%] relative">
+        <!-- Sticky Text: Sekarang elemen ini punya jalur vertikal untuk meluncur -->
+        <div class="lg:sticky lg:top-40 !pt-10" id="achievement-text">
+          <p class="achievement-txt opacity-0 text-[12px] font-600 tracking-normal text-black !mb-6 normal-case"
+            style="text-transform: none !important;">Achievement</p>
 
-          <h2 class="achievement-txt opacity-0 font-700 leading-[1.1] tracking-[-0.04em] text-black !mb-8"
-            style="font-size: clamp(2.5rem, 5vw, 72px); text-transform: none !important;">
-            Torehan Bukti <br />
-            <span class="text-gray-300">di Setiap Langkah.</span>
+          <h2 class="achievement-txt opacity-0 font-700 leading-[1.1] tracking-[-0.03em] !mb-8 text-black"
+            style="font-size: clamp(2rem, 4vw, 56px); text-transform: none !important;">
+            Visi adalah pondasi.<br />
+            Integritas adalah bukti.
           </h2>
 
-          <p class="achievement-txt opacity-0 text-[16px] lg:text-[18px] text-gray-500 font-500 leading-relaxed lg:w-[95%]"
+          <p class="achievement-txt opacity-0 text-[15px] lg:text-[16px] text-gray-500 font-500 leading-[1.7] lg:w-[90%]"
             style="text-transform: none !important;">
-            Kami tidak hanya mengejar angka, tetapi memastikan setiap langkah memberikan nilai nyata bagi seluruh mitra melalui integritas dan dedikasi tinggi.
+            Kami tidak hanya mengejar angka, tetapi memastikan setiap langkah memberikan nilai nyata bagi seluruh mitra
+            dan masyarakat melalui tata kelola perusahaan yang transparan.
           </p>
         </div>
       </div>
-
-    </div>
-  </div>
-</section>
 
     </div>
   </div>

@@ -9,56 +9,47 @@ import { Image } from 'astro:assets';
 import globeImg from '../assets/images/globe.png';
 ---
 
-<section class="relative w-full h-[100vh] lg:h-[110vh] bg-[#F8F8F6] overflow-hidden flex items-center justify-center">
-  
-  <!-- STAGE: Full width stage -->
-  <div class="relative w-full h-full container mx-auto px-6">
+<section class="relative w-full h-[110vh] lg:h-[115vh] bg-[#F8F8F8] overflow-hidden">
 
-    <!-- LAYER 1: HEADING (Massive Background Title) -->
+  <!-- STAGE: Full width stage without restrictive container -->
+  <div class="relative w-full h-full mx-auto">
+
+    <!-- LAYER 1: HEADING -->
     <div id="hero-title-parallax"
-      class="absolute top-[20%] md:top-[15%] lg:top-[12%] left-1/2 -translate-x-1/2 w-full text-center z-0">
-      <div class="hero-title-wrapper overflow-hidden select-none">
-        <h1 class="hero-title font-900 leading-[0.85] tracking-[-0.06em] text-black" id="hero-title">
+      class="absolute top-[18%] md:top-[12%] lg:top-[12%] left-1/2 -translate-x-1/2 w-full text-center z-0 !px-4 !py-4">
+      <div class="hero-title-wrapper overflow-hidden pb-4">
+        <h1 class="font-800 leading-[0.9] tracking-tighter uppercase hero-title" id="hero-title">
           Yogura Tekindo
         </h1>
       </div>
     </div>
 
-    <!-- LAYER 2: GLOBE (Floating Central Piece) -->
+    <!-- LAYER 2: GLOBE -->
     <div id="globe-parallax"
-      class="absolute top-[15%] md:top-[10%] lg:top-[12%] left-1/2 -translate-x-1/2 w-[160%] max-w-[700px] md:w-[90%] md:max-w-[750px] lg:max-w-[950px] aspect-square z-10 pointer-events-none">
+      class="absolute top-[12%] md:top-[8%] lg:top-[10%] left-1/2 -translate-x-1/2 w-[180%] max-w-[800px] md:w-full md:max-w-[800px] lg:max-w-[1000px] aspect-square z-10 pointer-events-none">
       <Image src={globeImg} id="hero-globe" alt="Yotek Global" format="avif" quality={100}
         class="w-full h-full object-contain globe-visual opacity-0 scale-90" loading="eager" />
-      
-      <!-- Subtle Ambient Glow -->
-      <div class="absolute inset-0 bg-gradient-to-t from-[#B89456]/5 to-transparent rounded-full blur-[100px]"></div>
     </div>
 
-    <!-- LAYER 3: TAGLINE & CALL TO ACTION -->
+    <!-- LAYER 3: TAGLINE -->
     <div id="tagline-parallax"
-      class="absolute top-[68%] md:top-[68%] lg:top-[72%] left-1/2 -translate-x-1/2 w-full text-center px-6 z-20 flex flex-col items-center gap-12">
-      <div class="overflow-hidden">
-        <p class="hero-reveal text-[20px] md:text-[24px] lg:text-[32px] font-700 text-black leading-tight tracking-tight opacity-0 translate-y-full"
-          id="hero-tagline">
-          Integritas dalam Sinergi. <br class="md:hidden"/>
-          <span class="text-gray-400">Keunggulan di Setiap Sektor.</span>
-        </p>
-      </div>
-
-      <div class="hero-reveal opacity-0 translate-y-8">
-        <a href="#about-brief-section" class="group flex items-center justify-center gap-4 text-[13px] font-900 uppercase tracking-[0.3em] text-black">
-          Discover Our Impact
-          <div class="w-10 h-[1.5px] bg-black/10 relative overflow-hidden transition-all group-hover:w-16">
-             <div class="absolute inset-0 bg-black translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500"></div>
-          </div>
-        </a>
-      </div>
+      class="absolute top-[64%] md:top-[65%] lg:top-[64%] left-1/2 -translate-x-1/2 w-full text-center px-6 z-20">
+      <p class="text-[24px] font-bold md:text-2xl lg:text-3xl font-800 text-[#1a1a1a] leading-[1.2] tracking-tight opacity-0"
+        id="hero-tagline">
+        Integritas dalam Sinergi.<br />
+        Keunggulan di Setiap Sektor.
+      </p>
     </div>
 
-    <!-- LAYER 4: SCROLL INDICATOR -->
-    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 opacity-0" id="hero-scroll">
-      <div class="flex flex-col items-center gap-4">
-        <div class="w-[1px] h-20 bg-gradient-to-b from-black/20 via-black to-transparent animate-scroll-line"></div>
+    <!-- LAYER 4: ARROW -->
+    <div class="absolute bottom-40 left-1/2 -translate-x-1/2 z-30 opacity-0" id="hero-arrow">
+      <div class="flex flex-col items-center gap-2 text-gray-400">
+        <span class="text-[10px] uppercase tracking-[0.3em] font-700">Explore</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="arrow-icon">
+          <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke="#EAAE36" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
       </div>
     </div>
 
@@ -67,29 +58,49 @@ import globeImg from '../assets/images/globe.png';
 </section>
 
 <style>
+  /* Base Desktop Styling */
   .hero-title {
-    font-size: 14vw;
-    will-change: transform, opacity;
-    transform: translateY(100%);
+    font-size: 11.5vw;
+    color: #1a1a1a;
+    letter-spacing: -0.051em;
+    display: block;
+    white-space: nowrap;
+    will-change: opacity, transform;
+    transform: translateY(110%);
+    /* Start hidden below the mask */
   }
 
-  @media (max-width: 768px) {
+  /* Mobile Only Isolation */
+  @media (max-width: 767px) {
     .hero-title {
-      font-size: 18vw;
+      font-size: clamp(3rem, 11vw, 5rem);
       white-space: normal;
-      line-height: 0.9;
+      line-height: 1;
     }
   }
 
-  @keyframes scroll-line {
-    0% { transform: scaleY(0); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
-    50.1% { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
+  /* Bounce Animation */
+  .arrow-icon {
+    animation: bounce 2s infinite;
   }
 
-  .animate-scroll-line {
-    animation: scroll-line 2.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  @keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
+    }
+
+    40% {
+      transform: translateY(-5px);
+    }
+
+    60% {
+      transform: translateY(-3px);
+    }
   }
 </style>
 
@@ -99,16 +110,16 @@ import globeImg from '../assets/images/globe.png';
 
   gsap.registerPlugin(ScrollTrigger);
 
-  function initHero() {
-    gsap.killTweensOf("#hero-title, #hero-globe, .hero-reveal, #hero-scroll");
+  function initHeroDesign() {
+    gsap.killTweensOf("#hero-title, #hero-globe, #hero-tagline, #hero-arrow");
 
-    const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+    const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 1.8 } });
 
-    // 1. Title Reveal
+    // 1. Masked Text Reveal (Professional Agency Style)
     tl.to("#hero-title", {
-      y: 0,
+      translateY: 0,
       duration: 2,
-      delay: 0.5
+      ease: "power4.out"
     });
 
     // 2. Globe Smooth Appearance
@@ -116,35 +127,35 @@ import globeImg from '../assets/images/globe.png';
       opacity: 1,
       scale: 1,
       duration: 2.5
+    }, "-=1.7");
+
+    // 3. Tagline Appearance
+    tl.to("#hero-tagline", {
+      opacity: 1,
+      y: -10,
+      duration: 1.5
+    }, "-=2.2");
+
+    tl.to("#hero-arrow", {
+      opacity: 1,
+      duration: 1
     }, "-=1.5");
 
-    // 3. Tagline & CTA reveal
-    tl.to(".hero-reveal", {
-      opacity: 1,
-      y: 0,
-      duration: 1.5,
-      stagger: 0.2
-    }, "-=1.8");
-
-    // 4. Scroll Indicator
-    tl.to("#hero-scroll", {
-      opacity: 1,
-      duration: 1.5
-    }, "-=1");
-
-    // --- AMBIENT ---
+    // --- INFINITE AMBIENT ANIMATION ---
+    // Smooth 3D-like float & rotation
     gsap.to("#hero-globe", {
-      y: 20,
-      rotationY: 10,
-      duration: 5,
+      y: 25,
+      rotationY: 15,
+      duration: 6,
       repeat: -1,
       yoyo: true,
       ease: "sine.inOut"
     });
 
-    // --- PARALLAX ---
+    // --- PARALLAX EFFECTS ON SCROLL ---
+    // Globe Parallax (Moves slightly slower/down)
     gsap.to("#globe-parallax", {
-      y: 150,
+      y: 100,
       scrollTrigger: {
         trigger: "section",
         start: "top top",
@@ -153,8 +164,9 @@ import globeImg from '../assets/images/globe.png';
       }
     });
 
-    gsap.to("#hero-title", {
-      y: 80,
+    // Tagline Parallax (Moves faster up)
+    gsap.to("#tagline-parallax", {
+      y: -150,
       scrollTrigger: {
         trigger: "section",
         start: "top top",
@@ -164,5 +176,7 @@ import globeImg from '../assets/images/globe.png';
     });
   }
 
-  document.addEventListener('astro:page-load', initHero);
+  document.addEventListener('astro:page-load', () => {
+    initHeroDesign();
+  });
 </script>

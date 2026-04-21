@@ -14,34 +14,42 @@ import globalGlobeImg from '../assets/images/global_impact_globe.avif';
   <div class="global-impact-window absolute inset-0 z-0 pointer-events-none" style="clip-path: inset(0px);">
     <!-- Fixed Background Image inside the window -->
     <div class="fixed inset-0 w-full h-full">
-      <Image src={globalGlobeImg} alt="Global Vision Fixed Background" format="avif" quality={100}
-        class="global-impact-bg-img w-full h-full object-cover opacity-60" loading="eager" />
-      <!-- Premium Overlays -->
-      <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-90"></div>
+      <Image src={globalGlobeImg} alt="Global Vision Fixed Background" format="avif" quality={90}
+        class="global-impact-bg-img w-full h-full object-cover opacity-80" loading="eager" />
+      <!-- Gradient Overlays -->
+      <div class="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-80 lg:opacity-60"></div>
       <div class="absolute inset-0 bg-black/40"></div>
     </div>
   </div>
 
-  <!-- Sticky Content Container -->
-  <div class="global-impact-sticky sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden z-10">
+  <!-- Content Container (Pinned by GSAP) -->
+  <div class="global-impact-sticky relative h-screen w-full flex items-center justify-center overflow-hidden z-10">
     <!-- Animated Wrapper for Scroll-to-Sticky behavior -->
     <div class="global-impact-content-wrapper w-full mx-auto px-6 lg:!px-16 relative">
-      <div class="flex flex-col items-center text-center max-w-5xl mx-auto">
-        
-        <p class="global-impact-kicker opacity-0 text-[13px] font-800 uppercase tracking-[0.4em] text-[#B89456] !mb-8">Global Connectivity</p>
+      <div class="flex flex-col lg:flex-row justify-between items-center lg:items-end gap-12 lg:gap-8">
 
-        <h2 class="global-impact-title opacity-0 text-white font-700 leading-[1] tracking-[-0.04em] !mb-12"
-          style="font-size: clamp(3rem, 7vw, 110px); text-transform: none !important;">
-          Expanding Worlds, <br />
-          <span class="text-white/30 italic font-medium">Connecting Visions.</span>
-        </h2>
+        <!-- Left: Heading -->
+        <div class="w-full lg:w-3/5 flex flex-col gap-6 text-center lg:text-left">
+          <h2 class="global-impact-title opacity-0 text-white font-700 leading-tight tracking-[-0.03em]"
+            style="font-size: clamp(2.5rem, 5.5vw, 84px); text-transform: none !important; color: whitesmoke;">
+            Expanding Worlds, <br />
+            <span class="text-[var(--color-gold)]">Connecting Visions.</span>
+          </h2>
+        </div>
 
-        <div class="global-impact-line opacity-0 w-[1px] h-0 bg-[#B89456]/40 !mb-12"></div>
+        <!-- Right: Paragraph -->
+        <div
+          class="w-full lg:w-auto flex flex-col lg:flex-row gap-6 text-center lg:text-left items-center lg:items-start lg:pl-8 max-w-[450px]">
+          <div class="global-impact-line hidden lg:block w-[1px] h-0 bg-[var(--color-gold)] opacity-50 self-center">
+          </div>
 
-        <p class="global-impact-desc opacity-0 text-[18px] lg:text-[24px] text-white/60 font-medium leading-relaxed max-w-3xl"
-          style="text-transform: none !important;">
-          Membangun konektivitas industri global melalui solusi teknologi dan infrastruktur berkelanjutan yang melampaui batas geografis.
-        </p>
+          <div class="flex flex-col gap-4">
+            <p class="global-impact-desc opacity-0 text-[18px] lg:text-[20px] !text-white/60 font-medium leading-relaxed"
+              style="text-transform: none !important;">
+              Membangun konektivitas industri global melalui solusi teknologi dan infrastruktur berkelanjutan.
+            </p>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -89,30 +97,32 @@ import globalGlobeImg from '../assets/images/global_impact_globe.avif';
         start: "top top",
         end: "bottom bottom",
         scrub: 1,
+        pin: ".global-impact-sticky",
+        pinSpacing: false,
       }
     });
 
-    // --- PHASE 1: Entrance (Scroll from bottom to center) ---
-    // Text starts below the center and moves up while fading in.
+    // --- PHASE 1: Entrance (Fast Entrance) ---
+    // Text starts closer to the center and moves in while fading.
     tl.fromTo(content,
-      { y: "100vh", opacity: 0 },
-      { y: 0, opacity: 1, duration: 3, ease: "power2.out" },
+      { y: 150, opacity: 0 },
+      { y: 0, opacity: 1, duration: 2, ease: "power2.out" },
       0
     );
 
     // Initial reveal of elements inside
-    tl.to(title, { opacity: 1, duration: 1 }, 0.5);
-    tl.to(desc, { opacity: 1, duration: 1 }, 0.8);
-    tl.to(line, { height: 96, duration: 1 }, 1);
+    tl.to(title, { opacity: 1, duration: 1 }, 0.2);
+    tl.to(desc, { opacity: 1, duration: 1 }, 0.5);
+    tl.to(line, { height: 96, duration: 1 }, 0.8);
 
-    // --- PHASE 2: Sticky Hold (Maintain at center) ---
-    // This empty tween holds the 'y: 0' state for a long duration.
-    tl.to({}, { duration: 6 });
+    // --- PHASE 2: Sticky Hold (Long Constant Presence) ---
+    // This empty tween holds the 'y: 0' state for a long duration (70% of total scroll).
+    tl.to({}, { duration: 8 });
 
-    // --- PHASE 3: Exit (Scroll from center to top) ---
-    // Text continues moving up and fades out as the section ends.
+    // --- PHASE 3: Exit (Scroll out to top) ---
+    // Text moves up slightly and fades as we approach the end of the section.
     tl.to(content, {
-      y: "-30vh",
+      y: -150,
       opacity: 0,
       duration: 2,
       ease: "power2.in"

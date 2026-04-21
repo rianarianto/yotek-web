@@ -8,120 +8,66 @@ import { getCollection } from 'astro:content';
 const allCareers = await getCollection('career');
 ---
 
-<BaseLayout title="Careers | Yotek" description="Join our team and build the future with PT. Yogura Tekindo. Discover career opportunities across multiple industrial sectors.">
-  
-  <!-- PREMIUM CAREER HERO -->
-  <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-[#F8F8F6] overflow-hidden">
-    <div class="container mx-auto px-6 lg:px-16 relative z-10">
-      <div class="max-w-4xl">
-        <p class="reveal text-[13px] font-800 uppercase tracking-widest text-gray-400 mb-6 font-display">
-          Careers & Growth
-        </p>
-        <h1 class="reveal text-black font-700 leading-tight tracking-[-0.03em] mb-8"
-          style="font-size: clamp(2.5rem, 6vw, 80px); text-transform: none !important;">
-          Bangun Masa Depan <br />
-          <span class="text-gray-400">Bersama Tim Yotek.</span>
-        </h1>
-        <p class="reveal text-gray-500 text-[18px] lg:text-[20px] max-w-2xl leading-relaxed mb-10">
-          Kami mencari individu berbakat, adaptif, dan berintegritas untuk bergabung dalam perjalanan inovasi kami di berbagai sektor industri strategis.
-        </p>
-        <div class="reveal w-20 h-1 bg-black/10"></div>
-      </div>
-    </div>
-
-    <!-- Decorative Grid/Line -->
-    <div class="absolute top-0 right-0 w-1/3 h-full opacity-[0.03] pointer-events-none">
-       <div class="w-full h-full border-l border-black"></div>
+<BaseLayout title="Karir" description="Temukan peluang karir di PT. Yogura Tekindo. Bergabunglah dengan tim kami.">
+  <!-- Page Header -->
+  <section class="section-sm bg-[var(--color-light)]">
+    <div class="container mx-auto px-6 lg:px-12">
+      <div class="golden-line mb-4"></div>
+      <h1 class="text-4xl lg:text-6xl font-heading font-800 text-[var(--color-dark)]">
+        Karir
+      </h1>
+      <p class="text-[var(--color-gray)] mt-3 max-w-xl">
+        Bergabunglah dengan tim kami dan kembangkan potensi Anda bersama PT. Yogura Tekindo.
+      </p>
     </div>
   </section>
 
-  <!-- CAREER LISTINGS -->
-  <section class="pb-32 bg-[#F8F8F6]">
-    <div class="container mx-auto px-6 lg:px-16">
-      <div class="flex justify-between items-center mb-16 lg:mb-24">
-        <h2 class="text-2xl font-700 text-black uppercase tracking-tight">Available Positions</h2>
-        <span class="text-[13px] font-800 text-gray-400 uppercase tracking-widest">{allCareers.length} Openings</span>
-      </div>
-
+  <!-- Career Listings -->
+  <section class="section bg-white">
+    <div class="container mx-auto px-6 lg:px-12">
       {allCareers.length > 0 ? (
-        <div class="space-y-4 lg:space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {allCareers.map((job) => (
-            <a href={`/career/${job.id}`} class="career-item group block bg-white border border-gray-100 !p-10 lg:!p-12 hover:border-black/10 transition-all duration-500 shadow-sm hover:shadow-xl hover:shadow-black/5">
-              <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
-                <div class="flex-1">
-                  <div class="flex items-center gap-4 mb-4">
-                    <span class="text-[11px] font-800 uppercase tracking-widest text-gray-400">
-                      {job.data.location}
-                    </span>
-                    <span class="w-4 h-[1px] bg-gray-200"></span>
-                    <span class="text-[11px] font-800 uppercase tracking-widest text-[#B89456]">
-                      {job.data.type}
-                    </span>
-                  </div>
-                  
-                  <h3 class="text-2xl lg:text-3xl font-700 text-black tracking-tight mb-4 group-hover:translate-x-2 transition-transform duration-500">
-                    {job.data.position}
-                  </h3>
-                  
-                  <p class="text-gray-500 text-[16px] leading-relaxed max-w-3xl line-clamp-2">
-                    {job.data.description}
-                  </p>
-                </div>
-                
-                <div class="flex items-center gap-3 text-[12px] font-800 uppercase tracking-wider text-black group-hover:gap-6 transition-all duration-500 bg-[#F8F8F6] !px-8 !py-4">
-                  View Position
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </div>
+            <a
+              href={`/career/${job.id}`}
+              class="career-card group block bg-white rounded-xl p-6 border border-[var(--color-gray-lighter)] transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-1 hover:border-[var(--color-primary)]/30"
+            >
+              <div class="flex items-start justify-between mb-4">
+                <span class="inline-flex items-center px-3 py-1 bg-[var(--color-primary-50)] text-[var(--color-primary-600)] text-xs font-semibold rounded-full">
+                  {job.data.type}
+                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[var(--color-gray-light)] transition-all duration-300 group-hover:text-[var(--color-primary)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
+                </svg>
+              </div>
+              <h2 class="text-xl font-heading font-700 text-[var(--color-dark)] mb-2 group-hover:text-[var(--color-primary)] transition-colors duration-300">
+                {job.data.position}
+              </h2>
+              <p class="text-sm text-[var(--color-gray)] mb-4 line-clamp-2">
+                {job.data.description}
+              </p>
+              <div class="flex items-center gap-1 text-xs text-[var(--color-gray-light)]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+                </svg>
+                {job.data.location}
               </div>
             </a>
           ))}
         </div>
       ) : (
-        <div class="text-center py-40 bg-gray-50 rounded-lg">
-          <p class="text-gray-400 font-700 uppercase tracking-widest text-sm">No positions available at the moment.</p>
+        <div class="text-center py-20">
+          <h3 class="text-xl font-heading font-600 text-[var(--color-dark)] mb-2">Belum Ada Lowongan</h3>
+          <p class="text-[var(--color-gray)]">Saat ini belum ada lowongan yang tersedia. Silakan cek kembali nanti.</p>
         </div>
       )}
     </div>
   </section>
 
   <script>
-    import { gsap } from 'gsap';
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
-    import { animateReveal } from '../../scripts/animations';
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    function initCareerPage() {
-      // Reveal hero elements
-      document.querySelectorAll('.reveal').forEach((el) => {
-        animateReveal(el as HTMLElement, { y: 30, duration: 1.2 });
-      });
-
-      // Reveal career items
-      gsap.to(".career-item", {
-        scrollTrigger: {
-          trigger: ".career-item",
-          start: "top 85%",
-        },
-        y: 0,
-        opacity: 1,
-        duration: 1.2,
-        stagger: 0.15,
-        ease: "power3.out"
-      });
-    }
-
-    document.addEventListener('astro:page-load', initCareerPage);
+    import { staggerChildren } from '../../scripts/animations';
+    document.addEventListener('astro:page-load', () => {
+      staggerChildren('.grid', '.career-card', { stagger: 0.1, y: 20 });
+    });
   </script>
-
-  <style>
-    .career-item {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-  </style>
-</BaseLayout>
-
 </BaseLayout>

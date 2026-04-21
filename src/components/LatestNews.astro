@@ -18,40 +18,41 @@ const latestNews = allNews
 .slice(0, limit);
 ---
 
-<section id="latest-news" class="!py-24 lg:!py-32 bg-[#F8F8F6] w-full overflow-hidden">
+<section id="latest-news" class="!py-24 lg:!py-32 bg-[#F8F8F8] w-full overflow-hidden">
   <div class="w-full !px-6 lg:!px-16 mx-auto">
 
-    <!-- Section Header with Navigation -->
-    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end !mb-12 lg:!mb-20 gap-8">
-      <div class="max-w-2xl">
-        <p class="news-header-title opacity-0 translate-y-4 text-[13px] font-800 uppercase tracking-widest text-[#B89456] mb-4">Insights & Updates</p>
-        <h2 class="news-header-title opacity-0 translate-y-4 text-[32px] md:text-[48px] font-700 tracking-[-0.03em] text-black leading-[1.1]"
+    <!-- Section Header mit Navigation -->
+    <div class="flex flex-row justify-between items-center !mb-12 lg:!mb-16 gap-8">
+      <div class="flex flex-col gap-2">
+        <h2
+          class="news-header-title text-[32px] md:text-[42px] font-700 tracking-[-0.02em] text-[#1A1A1A] leading-tight opacity-0 translate-y-4"
           style="text-transform: none !important;">
-          Torehan Jejak & <br/>
-          <span class="text-gray-400">Inovasi Terbaru.</span>
+          Latest News
         </h2>
       </div>
 
-      <div class="flex items-center gap-6 opacity-0 translate-y-4 news-header-controls">
+      <div class="flex items-center gap-4 opacity-0 translate-y-4 news-header-controls">
+        <!-- View All Button -->
         <a href="/news"
-          class="hidden sm:inline-flex items-center gap-2 text-[13px] font-800 uppercase tracking-widest text-black hover:opacity-50 transition-all border-b-2 border-black/10 pb-1">
-          Explore All News
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
+          class="inline-flex items-center gap-3 bg-[#111] text-white !px-5 !py-3 text-[14px] font-bold tracking-wide hover:bg-[#FDF7EB] outline-1 hover:text-[#111] transition-colors duration-300 w-fit mx-auto lg:mx-0 group mt-2 shadow-lg">
+          View All
         </a>
 
         <!-- Navigation Buttons -->
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
           <button id="news-prev"
-            class="w-12 h-12 flex items-center justify-center border border-black/10 rounded-full text-black transition-all duration-300 hover:border-black hover:bg-black hover:text-white disabled:opacity-20 disabled:cursor-not-allowed group">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            class="w-11 h-11 flex items-center justify-center border border-[#1A1A1A] text-[#1A1A1A] transition-all duration-300 hover:bg-[#1A1A1A] hover:text-white disabled:opacity-20 disabled:cursor-not-allowed group">
+            <svg xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button id="news-next"
-            class="w-12 h-12 flex items-center justify-center border border-black/10 rounded-full text-black transition-all duration-300 hover:border-black hover:bg-black hover:text-white disabled:opacity-20 disabled:cursor-not-allowed group">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            class="w-11 h-11 flex items-center justify-center border border-[#1A1A1A] text-[#1A1A1A] transition-all duration-300 hover:bg-[#1A1A1A] hover:text-white disabled:opacity-20 disabled:cursor-not-allowed group">
+            <svg xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -62,36 +63,37 @@ const latestNews = allNews
     <!-- Swiper Carousel - Premium Centered Experience -->
     <div class="swiper news-swiper opacity-0 translate-y-8 w-full">
       <div class="swiper-wrapper">
-        {latestNews.map((post) => (
+        {latestNews.map((post, index) => (
         <div class="swiper-slide">
           <a href={`/news/${post.id}`} class="news-card group block">
-            <div class="relative aspect-[4/5] mb-8 overflow-hidden bg-gray-100 shadow-sm border border-black/5">
+            <div class="relative aspect-square mb-6 overflow-hidden bg-gray-200">
               {post.data.image ? (
               <img src={post.data.image} alt={post.data.title} loading="lazy"
-                class="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-110" />
+                class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110" />
               ) : (
-              <div class="w-full h-full flex items-center justify-center text-gray-300 bg-gray-50">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              <div
+                class="w-full h-full flex items-center justify-center text-gray-400 bg-gray-100 grayscale transition-all duration-700 group-hover:grayscale-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
               )}
               <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500"></div>
-              
-              <!-- Date Badge -->
-              <div class="absolute top-6 left-6 z-10">
-                <span class="bg-white/90 backdrop-blur-sm shadow-sm !px-4 !py-2 text-[10px] font-800 uppercase tracking-widest text-black">
-                  {new Date(post.data.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                </span>
-              </div>
             </div>
 
-            <div class="space-y-4">
-              <h3 class="text-[22px] font-700 leading-tight text-black line-clamp-3 group-hover:text-gray-600 transition-colors duration-300">
-                {post.data.title}
-              </h3>
-              <p class="text-[14px] text-gray-500 leading-relaxed line-clamp-2">
+            <div class="flex flex-col gap-3 !py-8">
+              <span class="text-[13px] font-800 uppercase tracking-wider text-[#1A1A1A]">
+                News
+              </span>
+              <h3
+                class="text-[18px] lg:text-[20px] font-600 leading-[1.4] text-[#333333] transition-colors duration-300 group-hover:text-black line-clamp-3"
+                style="text-transform: none !important;">
                 {post.data.description}
+              </h3>
+              <p class="text-[13px] font-800 uppercase tracking-wider text-[#1A1A1A]">
+                {post.data.pubDate}
               </p>
             </div>
           </a>
@@ -99,17 +101,14 @@ const latestNews = allNews
         ))}
       </div>
 
-      <!-- Mobile Button -->
+      <!-- Responsiveness Tip: Button for mobile if hidden above -->
       <div class="!mt-12 sm:hidden text-center opacity-0 translate-y-4 news-mobile-btn">
         <a href="/news"
-          class="inline-flex items-center justify-center bg-black text-white px-10 py-4 text-[13px] font-800 uppercase tracking-widest shadow-lg">
-          View All news
+          class="inline-flex items-center gap-3 bg-[#111] text-white !px-8 !py-4 text-[14px] font-bold tracking-wide hover:bg-[#FDF7EB] outline-1 hover:text-[#111] transition-colors duration-300 w-fit mx-auto lg:mx-0 group mt-2 shadow-lg">
+          View All
         </a>
       </div>
     </div>
-
-  </div>
-</section>
 
   </div>
 </section>
@@ -207,8 +206,16 @@ const latestNews = allNews
     /* Allows slides to bleed out to the right edge as they start from the page center */
   }
 
+  .swiper-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+  }
+
   .swiper-slide {
     height: auto;
+    width: 85%;
+    /* Default mobile width untuk mencegah stacking */
     transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     opacity: 0.4;
     transform: scale(0.85);
