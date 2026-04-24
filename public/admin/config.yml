@@ -1,51 +1,37 @@
-# ===========================================================
-# Decap CMS Configuration — PT. Yogura Tekindo
-# ===========================================================
-# For local development, run: npx decap-server
-# Then access the admin panel at: http://localhost:4321/admin
-# ===========================================================
-
-local_backend: true
-
 backend:
-  name: git-gateway
+  name: github
+  repo: rianarianto/yotek-web
   branch: main
+# local_backend: true # Uncomment this to test locally using 'npx decap-server'
 
-media_folder: "public/images/uploads"
-public_folder: "/images/uploads"
+media_folder: "public/images" 
+public_folder: "/images"
 
 collections:
-  # ----- News Collection -----
   - name: "news"
-    label: "Berita"
-    label_singular: "Berita"
+    label: "Berita Yotek"
     folder: "src/content/news"
     create: true
-    slug: "{{slug}}"
-    sortable_fields: ["pubDate", "title"]
-    summary: "{{title}} — {{pubDate}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { label: "Judul", name: "title", widget: "string" }
-      - { label: "Tanggal Publikasi", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Gambar Utama", name: "image", widget: "image", required: false, media_folder: "/public/images/news", public_folder: "/images/news" }
+      - { label: "Judul Berita", name: "title", widget: "string" }
+      - { label: "Tanggal Publikasi", name: "pubDate", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: "Kategori", name: "category", widget: "string", default: "Company" }
       - { label: "Deskripsi Singkat", name: "description", widget: "text" }
-      - { label: "Konten", name: "body", widget: "markdown" }
+      - { label: "Gambar Thumbnail (Link atau Upload)", name: "image", widget: "image", required: false }
+      - { label: "Isi Berita Lengkap", name: "body", widget: "markdown" }
 
-  # ----- Career Collection -----
   - name: "career"
-    label: "Karir"
-    label_singular: "Lowongan"
+    label: "Lowongan Pekerjaan"
     folder: "src/content/career"
     create: true
     slug: "{{slug}}"
-    summary: "{{position}} ({{type}}) — {{location}}"
     fields:
-      - { label: "Posisi", name: "position", widget: "string" }
-      - { label: "Tipe", name: "type", widget: "select", options: ["Full-time", "Contract"] }
-      - { label: "Lokasi", name: "location", widget: "string" }
-      - { label: "Deskripsi Singkat", name: "description", widget: "text" }
-      - label: "Persyaratan"
-        name: "requirements"
-        widget: "list"
-        field: { label: "Persyaratan", name: "requirement", widget: "string" }
-      - { label: "Detail Lowongan", name: "body", widget: "markdown" }
+      - { label: "Posisi Pekerjaan", name: "position", widget: "string" }
+      - { label: "Tipe Pekerjaan", name: "type", widget: "select", options: ["Full-time", "Part-time", "Contract", "Internship"] }
+      - { label: "Lokasi Penempatan", name: "location", widget: "string", default: "Pekanbaru, Indonesia" }
+      - { label: "Tanggal Buka", name: "pubDate", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: "Tanggal Tutup", name: "closeDate", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", required: false }
+      - { label: "Deskripsi Pekerjaan", name: "description", widget: "text" }
+      - { label: "Syarat & Kualifikasi", name: "requirements", widget: "list", field: {label: "Syarat", name: "requirement", widget: "string"} }
+      - { label: "Detail Lainnya", name: "body", widget: "markdown" }

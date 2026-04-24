@@ -57,5 +57,10 @@ export const STATS = [
   },
 ];
 
-export const FORM_ACTION = "/api/contact.php";
-export const FORM_ACTION_CAREER = "/api/career.php";
+// ── FORM ENDPOINTS ──
+// Untuk testing/development → Formspark (aktif sekarang)
+// Untuk production di shared hosting → ganti ke PHP
+export const FORM_ACTION = "https://submit-form.com/KkZ1FKs9s";
+export const FORM_ACTION_CAREER = "https://submit-form.com/sNG4Q8jjb";
+// export const FORM_ACTION = "/api/contact.php";        // ← Aktifkan ini saat deploy ke shared hosting
+// export const FORM_ACTION_CAREER = "/api/career.php";  // ← Aktifkan ini saat deploy ke shared hosting

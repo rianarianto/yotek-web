@@ -5,6 +5,7 @@
 */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
+import { FORM_ACTION_CAREER } from '../../constants/site';
 
 export async function getStaticPaths() {
 const careers = await getCollection('career');
@@ -230,7 +231,7 @@ year: 'numeric'
             </div>
           </header>
 
-          <form id="apply-form" class="!space-y-8">
+          <form id="apply-form" action={FORM_ACTION_CAREER} method="POST" class="!space-y-8">
             <!-- Hidden: Position & Anti-Spam -->
             <input type="hidden" name="position" value={job.data.position} />
             <input type="hidden" name="_redirect" value="false" />
@@ -386,7 +387,7 @@ year: 'numeric'
               const data: Record<string, string> = {};
               formData.forEach((value, key) => { data[key] = value.toString(); });
 
-              const response = await fetch('/api/career.php', {
+              const response = await fetch(form.action, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
