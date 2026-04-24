@@ -57,5 +57,5 @@ export const STATS = [
   },
 ];
 
-export const FORM_ACTION = "https://submit-form.com/KkZ1FKs9s";
-export const FORM_ACTION_CAREER = "https://submit-form.com/sNG4Q8jjb";
+export const FORM_ACTION = "/api/contact.php";
+export const FORM_ACTION_CAREER = "/api/career.php";
