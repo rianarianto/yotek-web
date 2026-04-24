@@ -57,4 +57,5 @@ export const STATS = [
   },
 ];
 
-export const FORM_ACTION = "https://formspark.io/f/{YOUR_FORM_ID}";
+export const FORM_ACTION = "https://submit-form.com/KkZ1FKs9s";
+export const FORM_ACTION_CAREER = "https://submit-form.com/sNG4Q8jjb";
