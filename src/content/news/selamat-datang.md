@@ -1,9 +1,10 @@
 ---
-title: "Selamat Datang di Website Resmi PT. Yogura Tekindo"
-pubDate: 2026-04-14
-image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop"
-description: "PT. Yogura Tekindo dengan bangga meluncurkan website resmi perusahaan sebagai wujud komitmen kami dalam transformasi digital."
-category: "Company"
+title: Selamat Datang di Website Resmi PT. Yogura Tekindo
+pubDate: 2026-04-24
+category: Company
+description: PT. Yogura Tekindo dengan bangga meluncurkan website resmi
+  perusahaan sebagai wujud komitmen kami dalam transformasi digital.
+image: /images/cta-building-dark.jpg
 ---
 
 PT. Yogura Tekindo (YOTEK) dengan bangga mengumumkan peluncuran website resmi perusahaan. Website ini merupakan wujud nyata dari komitmen kami dalam mengadopsi transformasi digital dan memberikan akses informasi yang lebih baik kepada seluruh stakeholder.
