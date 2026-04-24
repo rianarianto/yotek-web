@@ -1,73 +1,373 @@
 ---
 /**
- * Career Archive Page
- */
+* Career Page — PT. Yogura Tekindo
+* Premium Overhaul with GSAP Animations & Responsive Design
+*/
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import buildingImg from '../../assets/images/building.avif';
 
 const allCareers = await getCollection('career');
+
+const values = [
+{
+title: "Integritas Tinggi",
+description: "Kami menjunjung tinggi kejujuran dan etika dalam setiap aspek pekerjaan kami.",
+icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+</svg>`
+},
+{
+title: "Inovasi Berkelanjutan",
+description: "Mendorong batas kreativitas untuk memberikan solusi terbaik bagi industri.",
+icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+</svg>`
+},
+{
+title: "Kesejahteraan Tim",
+description: "Mendukung pertumbuhan profesional dan keseimbangan kehidupan kerja.",
+icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+  <circle cx="9" cy="7" r="4" />
+  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+</svg>`
+}
+];
+
+const steps = [
+{ step: "01", title: "Apply", desc: "Kirimkan CV dan portofolio Anda melalui lowongan yang tersedia." },
+{ step: "02", title: "Review", desc: "Tim HR kami akan meninjau kualifikasi Anda dengan teliti." },
+{ step: "03", title: "Interview", desc: "Sesi diskusi mendalam untuk saling mengenal lebih jauh." }
+];
 ---
 
-<BaseLayout title="Karir" description="Temukan peluang karir di PT. Yogura Tekindo. Bergabunglah dengan tim kami.">
-  <!-- Page Header -->
-  <section class="section-sm bg-[var(--color-light)]">
-    <div class="container mx-auto px-6 lg:px-12">
-      <div class="golden-line mb-4"></div>
-      <h1 class="text-4xl lg:text-6xl font-heading font-800 text-[var(--color-dark)]">
-        Karir
-      </h1>
-      <p class="text-[var(--color-gray)] mt-3 max-w-xl">
-        Bergabunglah dengan tim kami dan kembangkan potensi Anda bersama PT. Yogura Tekindo.
-      </p>
+<BaseLayout title="Karir"
+  description="Membangun karir bersama PT. Yogura Tekindo. Temukan peluang profesional di industri teknologi dan sinergi bisnis.">
+
+  <!-- HERO SECTION -->
+  <section
+    class="hero-container relative w-full h-[70vh] lg:h-[72vh] flex items-center overflow-hidden bg-[var(--color-dark)] text-white">
+    <div class="absolute inset-0 z-0 h-full w-full hero-bg-wrapper">
+      <Image src={buildingImg} alt="Yotek Office" class="w-full h-full object-cover opacity-50 scale-125"
+        id="career-hero-bg" />
+      <!-- Dark Overlays for Legibility -->
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 text-left !px-5 md:!px-12 lg:!px-20">
+      <div class="max-w-4xl">
+        <div class="overflow-hidden !pb-2 !mb-6">
+          <h2
+            class="!text-white !text-[32px] md:!text-[40px] lg:!text-[48px] translate-y-full leading-[1.1] !text-left !normal-case"
+            id="career-title">
+            Temukan Peluang Karier Anda, <br class="hidden md:block" /> Membangun Masa Depan Dalam Sinergi
+          </h2>
+        </div>
+        <div class="opacity-0 translate-y-4" id="career-desc">
+          <p class="!text-white/80 text-md md:text-lg max-w-xl leading-relaxed">
+            Kami mengundang talenta terbaik untuk bergabung dalam perjalanan inovasi dan keunggulan operasional di
+            berbagai sektor industri.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce cursor-pointer opacity-0"
+      id="hero-scroll-hint">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke="var(--color-gold)" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
     </div>
   </section>
 
-  <!-- Career Listings -->
-  <section class="section bg-white">
-    <div class="container mx-auto px-6 lg:px-12">
+  <!-- OPEN POSITIONS SECTION -->
+  <section class="section bg-white !pt-24 !pb-40" id="positions">
+    <div class="!px-5 md:!px-12 lg:!px-20">
+
+      <!-- Filters -->
+      <div class="grid grid-cols-1 lg:grid-cols-4 !gap-6 !mb-24">
+        <div class="lg:col-span-2 relative group">
+          <input 
+            type="text" 
+            id="job-search"
+            placeholder="Cari posisi..."
+            class="w-full bg-[#f1f1f1] !border-1 !border-transparent !py-5 !px-8 text-md font-600 focus:bg-white focus:!border-[var(--color-gray-light)] outline-none rounded-sm transition-all" />
+          <div class="absolute right-6 top-1/2 -translate-y-1/2 opacity-30">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8" />
+              <path d="M21 21l-4.35-4.35" />
+            </svg>
+          </div>
+        </div>
+        <div class="relative">
+          <select
+            id="category-filter"
+            class="w-full bg-[#f1f1f1] border border-transparent !py-5 !px-8 text-md font-600 appearance-none outline-none cursor-pointer rounded-sm hover:group-bg-[#EAEAEA] focus:bg-white transition-colors">
+            <option value="all">Semua Bidang</option>
+            {[...new Set(allCareers.map(j => j.data.type))].map(type => (
+              <option value={type}>{type}</option>
+            ))}
+          </select>
+          <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none opacity-40">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </div>
+        </div>
+        <div class="relative">
+          <select
+            id="location-filter"
+            class="w-full bg-[#f1f1f1] border border-transparent !py-5 !px-8 text-md font-600 appearance-none outline-none cursor-pointer rounded-sm hover:group-bg-[#EAEAEA] focus:bg-white transition-colors">
+            <option value="all">Semua Lokasi</option>
+            {[...new Set(allCareers.map(j => j.data.location))].map(loc => (
+              <option value={loc}>{loc}</option>
+            ))}
+          </select>
+          <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none opacity-40">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
       {allCareers.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {allCareers.map((job) => (
-            <a
-              href={`/career/${job.id}`}
-              class="career-card group block bg-white rounded-xl p-6 border border-[var(--color-gray-lighter)] transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-1 hover:border-[var(--color-primary)]/30"
-            >
-              <div class="flex items-start justify-between mb-4">
-                <span class="inline-flex items-center px-3 py-1 bg-[var(--color-primary-50)] text-[var(--color-primary-600)] text-xs font-semibold rounded-full">
+      <div class="!border-t !border-[#EEE]" id="careers-list">
+        {allCareers.map((job) => (
+        <a href={`/career/${job.id}`}
+          data-position={job.data.position.toLowerCase()}
+          data-type={job.data.type}
+          data-location={job.data.location}
+          class="career-row group block !py-16 md:!py-20 !px-8 md:!px-12 !border-b !border-[#EEE] transition-all duration-500 ease-out relative hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.05)] hover:rounded-xl hover:z-10 hover:-translate-y-1">
+
+          <div
+            class="flex flex-col lg:flex-row lg:items-start justify-between gap-8 !mb-10 transition-all duration-500">
+            <div class="max-w-3xl">
+              <h3
+                class="!text-3xl md:!text-4xl !font-800 !text-black !normal-case !tracking-tight group-hover:!text-[var(--color-gold)] transition-colors duration-500 !mb-4">
+                {job.data.position}
+              </h3>
+              <div
+                class="flex items-center gap-6 text-[11px] md:text-[12px] font-700 text-[#999] uppercase tracking-[0.1em]">
+                <span class="flex items-center gap-2">
+                  <div
+                    class="w-1.5 h-1.5 bg-[var(--color-gold)]/40 group-hover:bg-[var(--color-gold)] rounded-full transition-colors duration-500 text-black">
+                  </div>
                   {job.data.type}
                 </span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[var(--color-gray-light)] transition-all duration-300 group-hover:text-[var(--color-primary)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
-                </svg>
               </div>
-              <h2 class="text-xl font-heading font-700 text-[var(--color-dark)] mb-2 group-hover:text-[var(--color-primary)] transition-colors duration-300">
-                {job.data.position}
-              </h2>
-              <p class="text-sm text-[var(--color-gray)] mb-4 line-clamp-2">
-                {job.data.description}
-              </p>
-              <div class="flex items-center gap-1 text-xs text-[var(--color-gray-light)]">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
-                </svg>
-                {job.data.location}
+            </div>
+
+            <div
+              class="flex flex-wrap lg:flex-nowrap items-start gap-x-12 gap-y-6 text-[12px] font-700 text-[#888] uppercase tracking-wider whitespace-nowrap pt-2">
+              <div class="reveal-stagger">
+                <div
+                  class="text-[10px] font-800 text-[var(--color-gold)] mb-2 opacity-50 group-hover:opacity-100 transition-opacity duration-500">
+                  DIBUKA</div>
+                <div class="text-black/60 group-hover:text-black transition-colors duration-500">{job.data.pubDate ? new
+                  Date(job.data.pubDate).toLocaleDateString('id-ID', {
+                  day: 'numeric', month: 'short', year: 'numeric' }) : 'ASAP'}</div>
               </div>
-            </a>
-          ))}
+              <div class="reveal-stagger">
+                <div
+                  class="text-[10px] font-800 text-[var(--color-gold)] mb-2 opacity-50 group-hover:opacity-100 transition-opacity duration-500">
+                  DITUTUP</div>
+                <div class="text-black/60 group-hover:text-black transition-colors duration-500">{job.data.closeDate ?
+                  new
+                  Date(job.data.closeDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric'
+                  }) : '-'}</div>
+              </div>
+              <div class="reveal-stagger">
+                <div
+                  class="text-[10px] font-800 text-[var(--color-gold)] mb-2 opacity-50 group-hover:opacity-100 transition-opacity duration-500">
+                  LOKASI</div>
+                <div class="text-black/60 group-hover:text-black transition-colors duration-500">{job.data.location}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="max-w-5xl transition-all duration-500">
+            <p
+              class="!text-[16px] md:!text-[16px] !leading-[1.8] !text-[#888] group-hover:!text-[#444] transition-colors duration-500">
+              {job.data.description}
+            </p>
+          </div>
+        </a>
+        ))}
+        
+        <!-- No Results -->
+        <div id="no-results" class="hidden py-32 text-center border-b border-dashed border-[#DDD]">
+          <p class="text-xl text-[#888] italic tracking-tight">Tidak ditemukan lowongan yang sesuai dengan kriteria pencarian Anda.</p>
         </div>
+      </div>
       ) : (
-        <div class="text-center py-20">
-          <h3 class="text-xl font-heading font-600 text-[var(--color-dark)] mb-2">Belum Ada Lowongan</h3>
-          <p class="text-[var(--color-gray)]">Saat ini belum ada lowongan yang tersedia. Silakan cek kembali nanti.</p>
-        </div>
+      <div class="py-32 text-center border-t border-b border-dashed border-[#DDD]">
+        <p class="text-xl text-[#888] italic tracking-tight">Saat ini sedang tidak ada lowongan yang dibuka. Silakan
+          kembali lagi nanti.</p>
+      </div>
       )}
     </div>
   </section>
 
+  <!-- VALUES SECTION -->
+  <section class="section bg-[#f8f8f8]">
+    <div class="!px-6 lg:!px-20">
+      <div class="flex flex-col md:flex-row justify-between items-end !mb-16 !gap-8">
+        <div class="max-w-2xl">
+          <span class="kicker">Mengapa Yotek?</span>
+          <h2 class="mt-4">Lebih dari sekadar pekerjaan, <br /> Ini Adalah Pertumbuhan.</h2>
+        </div>
+        <p class="text-[var(--color-gray)] max-w-sm">
+          Kami menciptakan lingkungan di mana setiap individu memiliki kesempatan untuk berkembang dan memberikan dampak
+          nyata.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {values.map((v) => (
+        <div class="card value-card">
+          <div
+            class="w-12 h-12 bg-[var(--color-bg-light)] text-[var(--color-gold)] flex items-center justify-center mb-6 rounded-lg">
+            <Fragment set:html={v.icon} />
+          </div>
+          <h3 class="text-xl mb-4 text-[var(--color-dark)]">{v.title}</h3>
+          <p>{v.description}</p>
+        </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <script>
-    import { staggerChildren } from '../../scripts/animations';
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initCareerAnimations() {
+      ScrollTrigger.refresh();
+
+      const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 1.5 } });
+
+      tl.to("#career-hero-bg", { scale: 1, duration: 3, ease: "power2.out" })
+        .to("#career-kicker", { y: 0, duration: 1 }, "-=2.5")
+        .to("#career-title", { y: 0, duration: 1.2 }, "-=2.2")
+        .to("#career-desc", { opacity: 1, y: 0, duration: 1 }, "-=1.8")
+        .to("#hero-scroll-hint", { opacity: 1, duration: 0.5 }, "-=1.5");
+
+      gsap.to("#career-hero-bg", {
+        y: "20%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero-container",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+          invalidateOnRefresh: true
+        }
+      });
+
+      setTimeout(() => ScrollTrigger.refresh(), 500);
+    }
+
+    // --- FILTER LOGIC ---
+    function initFilters() {
+      const searchInput = document.getElementById('job-search') as HTMLInputElement;
+      const categoryFilter = document.getElementById('category-filter') as HTMLSelectElement;
+      const locationFilter = document.getElementById('location-filter') as HTMLSelectElement;
+      const jobRows = document.querySelectorAll('.career-row');
+      const noResults = document.getElementById('no-results');
+
+      if (!searchInput || !categoryFilter || !locationFilter) return;
+
+      const filterJobs = () => {
+        const query = searchInput.value.toLowerCase();
+        const category = categoryFilter.value;
+        const location = locationFilter.value;
+        let hasResults = false;
+
+        jobRows.forEach((row: any) => {
+          const rowPos = row.getAttribute('data-position') || '';
+          const rowType = row.getAttribute('data-type') || '';
+          const rowLoc = row.getAttribute('data-location') || '';
+
+          const matchesSearch = rowPos.includes(query);
+          const matchesCategory = category === 'all' || rowType === category;
+          const matchesLocation = location === 'all' || rowLoc === location;
+
+          if (matchesSearch && matchesCategory && matchesLocation) {
+            row.style.display = 'block';
+            hasResults = true;
+          } else {
+            row.style.display = 'none';
+          }
+        });
+
+        if (noResults) {
+          noResults.style.display = hasResults ? 'none' : 'block';
+        }
+        
+        ScrollTrigger.refresh();
+      };
+
+      searchInput.addEventListener('input', filterJobs);
+      categoryFilter.addEventListener('change', filterJobs);
+      locationFilter.addEventListener('change', filterJobs);
+    }
+
     document.addEventListener('astro:page-load', () => {
-      staggerChildren('.grid', '.career-card', { stagger: 0.1, y: 20 });
+      initCareerAnimations();
+      initFilters();
     });
+
+    if (document.readyState === 'complete') {
+      initCareerAnimations();
+      initFilters();
+    } else {
+      window.addEventListener('load', () => {
+        initCareerAnimations();
+        initFilters();
+      });
+    }
   </script>
 </BaseLayout>
+
+<style>
+  .card {
+    border: 1px solid #F0F0F0;
+  }
+
+  .value-card:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-10px);
+  }
+
+  /* --- Animations --- */
+  .reveal {
+    /* No default opacity 0 to prevent "white gaps" when JS doesn't trigger */
+    will-change: transform, opacity;
+  }
+
+  .hero-bg-wrapper {
+    clip-path: inset(0 0 0 0);
+  }
+
+  #career-hero-bg {
+    position: absolute;
+    top: -15%;
+    /* Spacing for the parallax movement */
+    left: 0;
+    width: 100%;
+    height: 130%;
+    object-fit: cover;
+    z-index: -1;
+  }
+</style>

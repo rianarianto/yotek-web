@@ -1,0 +1,270 @@
+---
+/**
+* Our Business Page — Scroll-Pinned Unit Showcase
+*/
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import worldYotekImg from '../assets/images/worldyotek.avif';
+import buildingImg from '../assets/images/building.avif';
+import riauImg from '../assets/images/riau.avif';
+import tempUnitImg from '../assets/images/temp_business_unit.jpg';
+import ctaBuildingImg from '../assets/images/cta-building.avif';
+import CTA from '../components/CTA.astro';
+
+const businessUnits = [
+{
+company: `PT Indo Riau Perkasa`,
+sector: `Layanan Industri & Pemeliharaan`,
+tagline: `Kualitas Tanpa Kompromi, Solusi Terintegrasi.`,
+desc: `Motor industri Yotek Group yang menyediakan pemeliharaan ahli, konstruksi, dan layanan teknis untuk operasional industri skala besar di seluruh Indonesia.`,
+image: buildingImg,
+logoText: `IRP`
+},
+{
+company: `JR Education`,
+sector: `Layanan Pendidikan Formal`,
+tagline: `Memberdayakan Pemikiran untuk Masa Depan yang Cerah.`,
+desc: `Membangun keunggulan melalui platform pendidikan terintegrasi, mulai dari kurikulum standar hingga program pengembangan profesional.`,
+image: riauImg,
+logoText: `JRE`
+},
+{
+company: `PT Hunian Hijau Indonesia`,
+sector: `Properti & Real Estate`,
+tagline: `Hunian Berkelanjutan, Ruang Strategis.`,
+desc: `Mengembangkan ruang hunian dan komersial premium yang mengutamakan keberlanjutan lingkungan dan standar hidup modern.`,
+image: tempUnitImg,
+logoText: `HHI`
+},
+{
+company: `Dayagreen`,
+sector: `Infrastruktur Pengisian EV`,
+tagline: `Mempercepat Revolusi Energi Hijau.`,
+desc: `Membangun tulang punggung mobilitas masa depan dengan solusi pengisian daya EV canggih dan integrasi energi berkelanjutan.`,
+image: ctaBuildingImg,
+logoText: `DG`
+}
+];
+---
+
+<BaseLayout title="Our Business | Yotek" description="Explore Yotek's diverse business units and industrial solutions.">
+
+  <!-- HERO SECTION -->
+  <section
+    class="relative w-full h-[100vh] bg-[#f8f8f8] overflow-hidden flex flex-col justify-end pb-28 md:pb-36 lg:pb-32 px-6 lg:px-20">
+
+    <!-- Decorative Graphic (Right Aligned - Constrained Size) -->
+    <div id="hero-globe"
+      class="absolute !right-[-10%] lg:!right-0 top-[15%] !h-[70%] md:!h-[80%] !w-[110%] md:!w-[80%] lg:!w-3/5 opacity-0 mix-blend-multiply pointer-events-none z-0">
+      <Image src={worldYotekImg} alt="Decorative Globe" class="w-full object-contain object-right" loading="eager" />
+    </div>
+
+    <!-- Hero Content (Bottom-Left Alignment) -->
+    <div class="relative z-10 w-full !ml-6 !mb-8 lg:mb-0">
+      <div class="max-w-6xl" id="business-hero-text">
+        <span id="hero-kicker"
+          class="text-[var(--color-gold)] font-800 text-[11px] md:text-[14px] uppercase tracking-[0.4em] !mb-4 md:!mb-6 block opacity-0 translate-y-6">
+          Bisnis Kami
+        </span>
+        <h1 id="hero-headline"
+          class="text-3xl md:text-5xl lg:!text-[44px] font-800 tracking-tight text-[#111] leading-[1.1] md:leading-[1.05] text-left uppercase opacity-0 translate-y-8">
+          Dukungan Lintas Sektor untuk Masa Depan yang Berkelanjutan.
+        </h1>
+        <div id="hero-line" class="!mt-8 !h-[2px] !w-0 !bg-[var(--color-gold)] opacity-0"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PINNED BUSINESS UNITS SECTION -->
+  <section id="pinned-business-section" class="relative w-full bg-black overflow-hidden">
+
+
+    <div id="business-wrapper" class="relative w-full !h-[100svh] lg:!h-screen">
+      <!-- Layers Stack -->
+      <div class="absolute inset-0">
+        {businessUnits.map((item, index) => (
+        <div
+          class="business-layer absolute inset-0 opacity-0 z-0 flex items-center justify-center will-change-[opacity,transform]"
+          data-index={index}>
+
+          <!-- Dynamic Background Image -->
+          <Image src={item.image} alt={item.company}
+            class="absolute inset-0 w-full h-full object-cover opacity-40 lg:opacity-30" quality={100} />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/70"></div>
+
+          <div
+            class="mx-auto h-full !px-5 md:!px-16 lg:!px-32 !pt-20 md:!pt-24 lg:!pt-32 !pb-16 md:!pb-24 lg:!pb-32 relative z-10 flex flex-col justify-end md:justify-between !w-full">
+
+            <!-- TOP ROW: Identity & Logo (same row on md+) -->
+            <div class="flex flex-row justify-between items-start w-full">
+              <!-- Logo (absolute on mobile, inline on md+) -->
+              <div
+                class="business-top-right opacity-0 absolute !top-20 !right-5 md:!relative md:!top-auto md:!right-auto order-last">
+                <div
+                  class="!w-14 !h-14 md:!w-24 md:!h-24 lg:!w-32 lg:!h-32 !rounded-full !bg-white/95 backdrop-blur-sm flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+                  <span
+                    class="!text-[#111] !font-900 !text-sm md:!text-xl lg:!text-2xl !tracking-tighter">{item.logoText}</span>
+                </div>
+              </div>
+
+              <!-- Identity Text -->
+              <div class="business-top-left opacity-0 max-w-full md:!max-w-xl">
+                <p
+                  class="!text-[var(--color-gold)] !font-700 !text-[11px] md:!text-[12px] lg:!text-[13px] !uppercase !tracking-[0.2em] md:!tracking-[0.25em] !mb-3 md:!mb-4 !opacity-90">
+                  {item.sector}
+                </p>
+                <h2
+                  class="!text-[28px] md:!text-5xl lg:!text-7xl !font-800 !text-white !mb-0 !tracking-tight md:!tracking-tighter !leading-[1.1] md:!leading-none">
+                  {item.company}
+                </h2>
+              </div>
+            </div>
+
+            <!-- Content Block (bottom section) -->
+            <div class="flex flex-col !gap-5 md:!gap-0 md:justify-end">
+
+              <!-- Description & CTA -->
+              <div class="flex flex-col !gap-5 md:flex-row md:justify-between md:items-end w-full md:!gap-8">
+                <div class="business-bottom-left max-w-full md:!max-w-[460px] opacity-0">
+                  <p class="!text-white/50 !text-[13px] md:!text-[15px] lg:!text-[17px] !leading-[1.7] !font-400">
+                    {item.desc}
+                  </p>
+                </div>
+
+                <div class="business-bottom-right opacity-0">
+                  <a href="#"
+                    class="group inline-flex items-center !gap-3 !text-white/80 hover:!text-[var(--color-gold)] !font-700 !text-[11px] md:!text-xs lg:!text-sm !uppercase !tracking-[0.2em] transition-colors duration-300">
+                    <span>Lihat Detail</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                      class="transition-transform duration-300 group-hover:translate-x-1">
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+            </div> <!-- end Content Block -->
+          </div>
+        </div>
+        ))}
+      </div>
+
+      <!-- Persistent Index Indicator -->
+      <div
+        class="absolute !bottom-4 md:!bottom-8 lg:!bottom-10 !left-5 md:!left-16 z-30 flex items-center gap-3 md:gap-4 !text-[8px] md:!text-[10px] font-800 text-white/40 uppercase tracking-[0.3em] md:tracking-[0.4em]">
+        <span>Sektor Bisnis</span>
+        <span class="w-8 h-[1px] bg-white/20"></span>
+        <span id="unit-index" class="text-white">01 / 04</span>
+      </div>
+
+    </div>
+  </section>
+
+  <CTA />
+
+</BaseLayout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initBusinessShowcase() {
+    // 1. Hero Entrance — Elegant Staggered Reveal
+    const heroTl = gsap.timeline({ defaults: { ease: "power4.out" }, delay: 0.3 });
+
+    // Globe fades in first (atmospheric backdrop)
+    heroTl.to("#hero-globe", {
+      opacity: 0.45,
+      scale: 1,
+      duration: 2,
+      ease: "power2.out"
+    }, 0)
+
+      // Kicker slides up
+      .to("#hero-kicker", {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+      }, 0.4)
+
+      // Headline slides up (slightly delayed)
+      .to("#hero-headline", {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+      }, 0.6)
+
+      // Gold accent line draws in
+      .to("#hero-line", {
+        opacity: 1,
+        width: "80px",
+        duration: 0.8,
+        ease: "power2.inOut"
+      }, 1.0);
+
+    // Subtle scroll parallax on globe
+    gsap.to("#hero-globe", {
+      y: -120,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "section",
+        start: "top top",
+        end: "bottom top",
+        scrub: 1
+      }
+    });
+
+    // 2. Scroll-Pinned Transitions
+    const layers = gsap.utils.toArray('.business-layer');
+    const indexEl = document.getElementById('unit-index');
+
+    if (!layers.length) return;
+
+    // Set first layer visible with all its elements
+    gsap.set(layers[0] as HTMLElement, { opacity: 1 });
+    gsap.set((layers[0] as HTMLElement).querySelectorAll('.business-top-left, .business-top-right, .business-bottom-left, .business-bottom-right'), {
+      opacity: 1
+    });
+
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#pinned-business-section",
+        start: "top top",
+        end: `+=${layers.length * 100}%`,
+        scrub: 1,
+        pin: true,
+        pinSpacing: true,
+      }
+    });
+
+    layers.forEach((layer, i) => {
+      const currentLayer = layer as HTMLElement;
+
+      if (i === 0) return;
+
+      const prevLayer = layers[i - 1] as HTMLElement;
+      const elements = currentLayer.querySelectorAll('.business-top-left, .business-top-right, .business-bottom-left, .business-bottom-right');
+
+      // Clean cross-fade: previous out, current in
+      timeline.to(prevLayer, { opacity: 0, duration: 1 }, i)
+        .to(currentLayer, { opacity: 1, duration: 1 }, i)
+        // Uniform subtle fade-in for all elements
+        .fromTo(elements,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.8, stagger: 0.05, ease: "power2.out" },
+          i + 0.15
+        )
+        .set(indexEl, { innerText: `0${i + 1} / 04` }, i);
+    });
+  }
+
+  document.addEventListener('astro:page-load', initBusinessShowcase);
+</script>
+
+<style>
+  /* Base cleanup */
+</style>

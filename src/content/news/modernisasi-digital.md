@@ -3,6 +3,7 @@ title: "Modernisasi Infrastruktur Digital YOTEK"
 pubDate: 2026-04-12
 image: "https://images.unsplash.com/photo-1541888941259-7b9d9ef9cad0?q=80&w=800&auto=format&fit=crop"
 description: "Penerapan sistem ERP terintegrasi dan cloud infrastructure untuk meningkatkan efisiensi operasional di seluruh unit bisnis."
+category: "Technology"
 ---
 
 YOTEK mempercepat transformasi digital dengan melakukan modernisasi infrastruktur teknologi informasi di seluruh unit bisnisnya.

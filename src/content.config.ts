@@ -12,6 +12,7 @@ const news = defineCollection({
     pubDate: z.coerce.date(),
     image: z.string().optional(),
     description: z.string(),
+    category: z.string().optional(),
   }),
 });
 
@@ -26,6 +27,8 @@ const career = defineCollection({
     type: z.enum(['Full-time', 'Contract']),
     location: z.string(),
     description: z.string(),
+    pubDate: z.coerce.date().optional(),
+    closeDate: z.coerce.date().optional(),
     requirements: z.array(z.string()),
   }),
 });

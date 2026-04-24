@@ -1,31 +1,34 @@
 ---
 position: "Project Manager"
 type: "Full-time"
-location: "Jakarta, Indonesia"
-description: "Pimpin dan kelola proyek-proyek strategis perusahaan dengan standar manajemen proyek internasional."
+location: "Surabaya, Indonesia"
+pubDate: "2024-03-10"
+closeDate: "2024-04-20"
+description: "Kami mencari Project Manager yang berorientasi pada hasil untuk mengelola portofolio proyek konstruksi dan infrastruktur di seluruh wilayah operasional YOTEK."
 requirements:
-  - "Minimal 5 tahun pengalaman dalam manajemen proyek"
-  - "Sertifikasi PMP atau setara lebih diutamakan"
-  - "Kemampuan leadership dan komunikasi yang kuat"
-  - "Berpengalaman mengelola tim lintas fungsi"
-  - "Memahami metodologi Agile dan Waterfall"
-  - "Bersedia melakukan perjalanan dinas"
+  - "Minimal 5 tahun pengalaman dalam manajemen proyek industri atau teknologi"
+  - "Memiliki sertifikasi PMP, PRINCE2, atau Scrum Master lebih diutamakan"
+  - "Kemampuan kepemimpinan yang kuat dengan rekam jejak tim yang sukses"
+  - "Ahli dalam manajemen risiko, anggaran, dan pemangku kepentingan"
+  - "Kemampuan komunikasi verbal dan tertulis yang luar biasa (ID & EN)"
+  - "Berorientasi pada solusi dengan pola pikir analitis yang tajam"
 ---
 
 ## Tentang Posisi Ini
 
-Sebagai Project Manager di PT. Yogura Tekindo, Anda akan memimpin dan mengelola proyek-proyek strategis yang melibatkan berbagai unit bisnis perusahaan.
+Sebagai **Project Manager** di PT. Yogura Tekindo, Anda memegang peran krusial dalam memastikan kesuksesan eksekusi berbagai proyek lintas unit bisnis. Anda akan menjembatani komunikasi antara visi strategis manajemen dan implementasi teknis tim di lapangan.
 
 ## Tanggung Jawab Utama
 
-- Perencanaan dan eksekusi proyek dari awal hingga akhir
-- Koordinasi dengan stakeholder internal dan eksternal
-- Pengelolaan anggaran dan timeline proyek
-- Pelaporan progress kepada manajemen senior
+- Merumuskan rencana proyek yang komprehensif, mencakup scope, timeline, dan budget.
+- Mengomandoi tim lintas fungsi untuk mencapai target Milestone proyek dengan tepat waktu.
+- Mengidentifikasi, mengelola, dan memitigasi risiko proyek secara proaktif.
+- Membangun dan menjaga hubungan profesional yang kuat dengan seluruh stakeholder.
+- Memberikan laporan update yang akurat dan berbasis data kepada jajaran manajemen.
 
-## Benefit
+## Kompensasi & Keuntungan
 
-- Gaji dan bonus kompetitif
-- Asuransi kesehatan keluarga
-- Kendaraan operasional
-- Kesempatan pengembangan profesional
+- **Remunerasi Premium**: Gaji yang kompetitif ditambah dengan bonus berbasis kinerja.
+- **Fasilitas Kerja**: Kendaraan operasional dan tunjangan mobilitas lainnya.
+- **Perlindungan Kedokteran**: Asuransi kesehatan keluarga dengan cakupan luas.
+- **Otonomi Professional**: Kepercayaan penuh dalam memimpin dan mengambil keputusan strategis di tingkat proyek.

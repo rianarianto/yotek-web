@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../constants/site';
+---
+
+<BaseLayout title="Terms & Conditions | Yotek" description="Syarat & Ketentuan penggunaan layanan PT. Yogura Tekindo.">
+  <div class="bg-white min-h-screen">
+
+    <!-- Hero Section — Left aligned title in a container with background image -->
+    <header class="relative !py-32 lg:!py-48 !px-6 lg:!px-16 w-full flex items-center overflow-hidden">
+      <!-- Background Asset -->
+      <div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2000"
+          alt="Terms Background" class="w-full h-full object-cover opacity-100" />
+        <div class="absolute inset-0 bg-black/90"></div>
+      </div>
+
+      <div class="relative z-10 w-full !mx-auto reveal">
+        <h1 class="!text-[32px] md:!text-[48px] lg:!text-[48px] font-700 !text-white !leading-tight !mb-0"
+          style="text-transform: none !important;">
+          Syarat & Ketentuan
+        </h1>
+      </div>
+    </header>
+
+    <!-- Content Container — Focused in center, but text left-aligned with accordions -->
+    <div class="!py-24 lg:!py-32 !px-6 lg:!px-16 flex justify-center">
+      <div class="w-full !max-w-[800px] flex flex-col reveal text-left">
+
+        <p class="text-gray-400 text-[13px] font-600 !mb-16">Terakhir diperbarui: 24 April 2026</p>
+
+        <div class="space-y-0" id="terms-accordion">
+
+          {[
+          { id: '01', q: `Penerimaan Ketentuan`, a: `Dengan mengakses dan menggunakan website PT. Yogura Tekindo (Yotek
+          Group), Anda secara sadar dan sukarela menyetujui untuk terikat oleh Syarat & Ketentuan ini. Jika Anda tidak
+          setuju dengan bagian apapun dari ketentuan ini, mohon untuk tidak melanjutkan penggunaan layanan digital
+          kami.` },
+          { id: '02', q: `Hak Kekayaan Intelektual`, a: `Seluruh materi yang terdapat di website ini, termasuk namun
+          tidak terbatas pada teks, grafik, kode, desain, dan antarmuka pengguna, adalah milik penuh PT. Yogura Tekindo
+          dan dilindungi oleh undang-undang hak cipta. Penggunaan materi ini tanpa izin merupakan pelanggaran hukum.` },
+          { id: '03', q: `Penggunaan yang Diperbolehkan`, a: `Website ini hanya boleh digunakan untuk tujuan informasi
+          profesional yang sah. Anda dilarang keras menggunakan website ini dengan cara yang dapat merusak,
+          menonaktifkan, atau membebani infrastruktur digital kami atau mengganggu kenyamanan pengguna lain.` },
+          { id: '04', q: `Batasan Tanggung Jawab`, a: `Yotek Group berupaya menjaga keakuratan informasi namun tidak
+          memberikan jaminan terkait kelengkapan data. Penggunaan informasi dari website ini sepenuhnya merupakan risiko
+          pengguna; perusahaan tidak bertanggung jawab atas kerugian bisnis yang mungkin timbul.` },
+          { id: '05', q: `Perubahan Ketentuan`, a: `Yotek Group berhak mutlak untuk memperbarui Syarat & Ketentuan ini
+          sewaktu-waktu. Keberlanjutan penggunaan website Anda setelah perubahan tersebut dipublikasikan merupakan
+          bentuk penerimaan terhadap ketentuan baru yang berlaku secara hukum.` }
+          ].map((item) => (
+          <div class="legal-item !border-b !border-gray-100 last:border-0 transition-colors duration-500">
+            <button
+              class="legal-trigger w-full !py-8 flex items-center justify-between text-left focus:outline-none group">
+              <h2 class="text-[18px] md:text-[22px] lg:!text-[26px] font-700 text-black flex items-center !gap-6 transition-colors duration-500 group-hover:text-[var(--color-gold)]">
+                {item.q}
+              </h2>
+              <span class="legal-icon opacity-30 group-hover:opacity-100 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </span>
+            </button>
+            <div
+              class="legal-content overflow-hidden" style="height: 0;">
+              <div class="!pb-10 !pl-14">
+                <p class="text-gray-500 text-[16px] lg:text-[17px] !leading-[1.8] !max-w-2xl font-500">
+                  {item.a}
+                </p>
+              </div>
+            </div>
+          </div>
+          ))}
+
+        </div>
+
+        <footer class="!mt-24 !pt-16 border-t border-gray-100">
+          <p class="text-[11px] font-800 uppercase tracking-widest text-[#AAA] !mb-4">Legal Inquiry</p>
+          <a href={`mailto:${SITE.email}`}
+            class="text-[18px] font-700 text-black hover:text-[var(--color-gold)] transition-colors underline underline-offset-8 decoration-gray-200 hover:decoration-[var(--color-gold)]">
+            {SITE.email}
+          </a>
+        </footer>
+
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { gsap } from 'gsap';
+  import { animateReveal } from '../scripts/animations';
+
+  function initLegalPage() {
+    const container = document.querySelector('.space-y-0') as HTMLElement;
+    if (!container || container.dataset.initialized) return;
+
+    animateReveal('.reveal', { stagger: 0.15 });
+
+    // Single delegated listener
+    const handleToggle = (e: Event) => {
+      const target = e.target as HTMLElement;
+      const trigger = target.closest('.legal-trigger');
+      if (!trigger) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const item = trigger.closest('.legal-item');
+      if (!item) return;
+
+      const content = item.querySelector('.legal-content') as HTMLElement;
+      const icon = item.querySelector('.legal-icon svg');
+      const isActive = item.classList.contains('active');
+
+      // Close others first
+      if (!isActive) {
+        document.querySelectorAll('.legal-item.active').forEach(other => {
+          if (other !== item) {
+            other.classList.remove('active');
+            gsap.to(other.querySelector('.legal-content'), { height: 0, duration: 0.4, ease: "power2.inOut", overwrite: true });
+            gsap.to(other.querySelector('.legal-icon svg'), { rotate: 0, duration: 0.4, ease: "power2.inOut", overwrite: true });
+          }
+        });
+      }
+
+      // Toggle current
+      if (isActive) {
+        item.classList.remove('active');
+        gsap.to(content, { height: 0, duration: 0.5, ease: "power2.inOut", overwrite: true, force3D: true });
+        gsap.to(icon, { rotate: 0, duration: 0.5, ease: "power2.inOut", overwrite: true });
+      } else {
+        item.classList.add('active');
+        gsap.to(content, { height: "auto", duration: 0.6, ease: "power2.out", overwrite: true, force3D: true });
+        gsap.to(icon, { rotate: 180, duration: 0.6, ease: "power2.out", overwrite: true });
+      }
+    };
+
+    container.addEventListener('click', handleToggle);
+    container.dataset.initialized = "true";
+  }
+
+  document.addEventListener('astro:page-load', initLegalPage);
+</script>

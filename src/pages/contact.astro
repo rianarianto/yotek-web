@@ -1,132 +1,365 @@
 ---
 /**
- * Contact Page — Dark Cathedral with GSAP success state
- */
+* Contact Page — Redesigned for Premium Minimalist Aesthetic
+* Follows light theme editorial style with GSAP animations.
+*/
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE, FORM_ACTION } from '../constants/site';
 ---
 
-<BaseLayout title="Kontak" description="Hubungi PT. Yogura Tekindo.">
-  <section class="py-20 lg:py-28 bg-[var(--color-abyss)]">
-    <div class="container mx-auto px-6 lg:px-12">
-      <p class="kicker mb-4">Kontak</p>
-      <h1 class="text-white mb-3">
-        Hubungi <span class="text-[var(--color-gold)]">Kami</span>
-      </h1>
-      <p class="text-[var(--color-ash)] max-w-xl text-sm">Kami siap membantu Anda. Kirimkan pesan atau hubungi kami langsung.</p>
-    </div>
-  </section>
+<BaseLayout title="Contact Us | Yotek"
+  description="Hubungi PT. Yogura Tekindo untuk pertanyaan, kerjasama bisnis, atau informasi lebih lanjut.">
 
-  <section class="pb-24 bg-[var(--color-abyss)]">
-    <div class="container mx-auto px-6 lg:px-12">
-      <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
-        <!-- Form -->
-        <div class="lg:col-span-3">
-          <form id="contact-form" action={FORM_ACTION} method="POST" class="space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label for="name" class="block text-xs font-display font-600 text-[var(--color-steel)] uppercase tracking-wider mb-2">Nama Lengkap</label>
-                <input type="text" id="name" name="name" required class="w-full px-4 py-3.5 bg-[var(--color-charcoal)] border border-[var(--color-dark-surface)] text-white placeholder:text-[var(--color-ash)] focus:outline-none focus:border-[var(--color-gold)] transition-colors duration-300 text-sm" placeholder="Nama Anda" />
-              </div>
-              <div>
-                <label for="email" class="block text-xs font-display font-600 text-[var(--color-steel)] uppercase tracking-wider mb-2">Email</label>
-                <input type="email" id="email" name="email" required class="w-full px-4 py-3.5 bg-[var(--color-charcoal)] border border-[var(--color-dark-surface)] text-white placeholder:text-[var(--color-ash)] focus:outline-none focus:border-[var(--color-gold)] transition-colors duration-300 text-sm" placeholder="email@contoh.com" />
-              </div>
-            </div>
-            <div>
-              <label for="company" class="block text-xs font-display font-600 text-[var(--color-steel)] uppercase tracking-wider mb-2">Perusahaan <span class="text-[var(--color-ash)]">(Opsional)</span></label>
-              <input type="text" id="company" name="company" class="w-full px-4 py-3.5 bg-[var(--color-charcoal)] border border-[var(--color-dark-surface)] text-white placeholder:text-[var(--color-ash)] focus:outline-none focus:border-[var(--color-gold)] transition-colors duration-300 text-sm" placeholder="Nama Perusahaan" />
-            </div>
-            <div>
-              <label for="subject" class="block text-xs font-display font-600 text-[var(--color-steel)] uppercase tracking-wider mb-2">Subjek</label>
-              <select id="subject" name="subject" required class="w-full px-4 py-3.5 bg-[var(--color-charcoal)] border border-[var(--color-dark-surface)] text-white focus:outline-none focus:border-[var(--color-gold)] transition-colors duration-300 text-sm">
-                <option value="">Pilih Subjek</option>
-                <option value="general">Pertanyaan Umum</option>
-                <option value="business">Kerjasama Bisnis</option>
-                <option value="career">Lamaran Kerja</option>
-                <option value="media">Media & Pers</option>
-                <option value="other">Lainnya</option>
-              </select>
-            </div>
-            <div>
-              <label for="message" class="block text-xs font-display font-600 text-[var(--color-steel)] uppercase tracking-wider mb-2">Pesan</label>
-              <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3.5 bg-[var(--color-charcoal)] border border-[var(--color-dark-surface)] text-white placeholder:text-[var(--color-ash)] focus:outline-none focus:border-[var(--color-gold)] transition-colors duration-300 text-sm resize-none" placeholder="Tuliskan pesan Anda..."></textarea>
-            </div>
-            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-            <button type="submit" id="submit-btn" class="btn-gold">
-              <span id="btn-text">Kirim Pesan</span>
-              <svg id="btn-icon" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg>
-              <svg id="btn-spinner" class="hidden w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.3" /><path d="M4 12a8 8 0 0 1 8-8" stroke="currentColor" stroke-width="3" stroke-linecap="round" /></svg>
-            </button>
-          </form>
-          <!-- Success -->
-          <div id="success-state" class="hidden text-center py-20">
-            <div class="w-16 h-16 bg-[var(--color-gold)] flex items-center justify-center mx-auto mb-6">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-[var(--color-abyss)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-            </div>
-            <h3 class="text-2xl font-display font-700 text-white mb-3 uppercase">Pesan Terkirim</h3>
-            <p class="text-[var(--color-ash)] max-w-md mx-auto text-sm">Terima kasih telah menghubungi kami. Tim kami akan segera merespon pesan Anda.</p>
-          </div>
-        </div>
+  <div class="bg-[#F8F8F8] min-h-screen text-[#111]">
 
-        <!-- Sidebar -->
-        <div class="lg:col-span-2">
-          <div class="sticky top-28 space-y-8">
-            <div>
-              <h4 class="text-xs font-display font-600 uppercase tracking-[0.15em] text-[var(--color-steel)] mb-3">Alamat</h4>
-              <p class="text-sm text-white">{SITE.address}</p>
-            </div>
-            <div class="divider"></div>
-            <div>
-              <h4 class="text-xs font-display font-600 uppercase tracking-[0.15em] text-[var(--color-steel)] mb-3">Email</h4>
-              <a href={`mailto:${SITE.email}`} class="text-sm text-white hover:text-[var(--color-gold)] transition-colors">{SITE.email}</a>
-            </div>
-            <div class="divider"></div>
-            <div>
-              <h4 class="text-xs font-display font-600 uppercase tracking-[0.15em] text-[var(--color-steel)] mb-3">Telepon</h4>
-              <a href={`tel:${SITE.phone}`} class="text-sm text-white hover:text-[var(--color-gold)] transition-colors">{SITE.phone}</a>
+    <!-- HEADER & INFO CARD SECTION -->
+    <section class="!pt-32 !pb-20 lg:!pt-48 lg:!pb-32 overflow-hidden">
+      <div class="!px-6 lg:!px-16">
+        <div class="flex flex-col lg:flex-row justify-between items-start !gap-16 lg:!gap-24">
+
+          <!-- Left: Content -->
+          <div class="w-full lg:w-[50%]">
+            <div class="reveal">
+              <p class="text-[12px] font-800 uppercase tracking-[0.3em] text-[var(--color-gold)] !mb-6">Hubungi Kami</p>
+              <h1
+                class="text-[42px] md:text-[64px] lg:text-[72px] font-700 tracking-tight leading-[1.05] !mb-8 text-[#111]"
+                style="text-transform: none !important;">
+                Hubungkan visi Anda dengan solusi kami.
+              </h1>
+              <p class="text-[16px] lg:text-[18px] text-gray-500 leading-relaxed max-w-lg">
+                Tim kami siap membantu Anda menjawab pertanyaan, mengeksplorasi peluang kerjasama, atau memberikan
+                informasi mendalam tentang layanan Yotek Group.
+              </p>
             </div>
           </div>
+
+          <!-- Right: Info Card -->
+          <div class="w-full lg:w-[40%] reveal" style="transition-delay: 0.2s;">
+            <div
+              class="bg-[#F1F1F1] !p-10 lg:!p-14 shadow-sm relative group overflow-hidden transition-all duration-700 hover:shadow-xl hover:bg-white border border-transparent hover:border-gray-100">
+              <!-- Subtle Background Text or Pattern if needed -->
+              <div class="relative z-10 !space-y-12" id="info-card-content">
+                <div class="info-item-reveal opacity-0">
+                  <p class="text-[11px] font-700 uppercase tracking-[0.2em] text-gray-400 !mb-2">Kirim Email ke</p>
+                  <a href={`mailto:${SITE.email}`}
+                    class="text-[20px] md:text-[24px] lg:text-[28px] font-700 text-[#111] hover:text-[var(--color-gold)] transition-colors break-words">
+                    {SITE.email}
+                  </a>
+                </div>
+
+                <div class="flex flex-col md:flex-row !gap-12 justify-between">
+                  <div class="info-item-reveal opacity-0">
+                    <p class="text-[11px] font-700 uppercase tracking-[0.2em] text-gray-400 !mb-3">Jam Operasional</p>
+                    <p class="text-[14px] font-600 text-[#333] leading-relaxed">
+                      Senin — Jumat<br />
+                      08:30 — 17:00
+                    </p>
+                  </div>
+                  <div class="info-item-reveal opacity-0">
+                    <p class="text-[11px] font-700 uppercase tracking-[0.2em] text-gray-400 !mb-3">Alamat Kantor Pusat
+                    </p>
+                    <p class="text-[14px] font-600 text-[#333] leading-relaxed max-w-[200px]">
+                      {SITE.address}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- FORM SECTION -->
+    <section class="!pb-24 lg:!pb-40">
+      <div class="!px-6 lg:!px-16">
+        <div class="border-t border-gray-200 !pt-20">
+
+          <form id="contact-form" action={FORM_ACTION} method="POST" class="reveal">
+            <div class="grid grid-cols-1 lg:grid-cols-12 !gap-8 lg:!gap-12 items-end">
+
+              <!-- Subject Select -->
+              <div class="lg:col-span-4 relative group">
+                <label for="subject"
+                  class="block text-[10px] font-800 uppercase tracking-[0.2em] text-gray-400 !mb-4 !px-2">Pilih
+                  Kebutuhan Anda</label>
+                <div class="relative">
+                  <select id="subject" name="subject" required
+                    class="w-full bg-[#F1F1F1] border-none !px-6 !py-5 text-[15px] font-600 text-[#111] focus:ring-1 focus:ring-[var(--color-gold)] outline-none transition-all appearance-none cursor-pointer">
+                    <option value="" disabled selected>Pertanyaan Umum</option>
+                    <option value="partnership">Kemitraan Bisnis</option>
+                    <option value="career">Peluang Karir</option>
+                    <option value="project">Diskusi Proyek</option>
+                    <option value="others">Lainnya</option>
+                  </select>
+                  <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none opacity-40">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Email/Phone Input -->
+              <div class="lg:col-span-5">
+                <label for="email"
+                  class="block text-[10px] font-800 uppercase tracking-[0.2em] text-gray-400 !mb-4 !px-2">Email /
+                  Telepon</label>
+                <input type="text" id="contact_info" name="contact_info" required placeholder="contact@example.com"
+                  class="w-full bg-[#F1F1F1] border-none !px-6 !py-5 text-[15px] font-600 text-[#111] placeholder:text-gray-400 focus:ring-1 focus:ring-[var(--color-gold)] outline-none transition-all" />
+              </div>
+
+              <!-- Submit Button -->
+              <div class="lg:col-span-3">
+                <button type="submit" id="submit-btn"
+                  class="w-full bg-[#111] text-white !py-5 !px-8 text-[14px] font-700 uppercase tracking-[0.2em] hover:bg-[#FDF7EB] outline-1 hover:text-[#000] transition-all duration-500 relative overflow-hidden group">
+                  <span id="btn-text">Kirim Sekarang</span>
+                  <div id="btn-loader" class="hidden absolute inset-0 items-center justify-center bg-inherit">
+                    <svg class="animate-spin h-5 w-5 text-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                      viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                      </path>
+                    </svg>
+                  </div>
+                </button>
+              </div>
+
+              <!-- Hidden Honeypot -->
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+            </div>
+          </form>
+
+          <!-- Success Message (Same layout space) -->
+          <div id="success-state" class="hidden !py-10 reveal">
+            <div class="flex items-center !gap-6 border-l-4 border-[var(--color-gold)] !pl-8">
+              <div class="w-12 h-12 rounded-full bg-[var(--color-gold)] flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-[20px] font-700 text-[#111]">Pesan Terkirim</h3>
+                <p class="text-gray-500 text-[14px]">Terima kasih. Kami akan segera menghubungi Anda melalui kontak yang
+                  diberikan.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="!pb-32 lg:!pb-52">
+      <div class="!px-6 lg:!px-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 !gap-16 items-start">
+
+          <!-- Left Column: Heading -->
+          <div class="lg:col-span-5 reveal">
+            <h2 class="text-[32px] md:text-[40px] lg:text-[48px] font-700 tracking-tight leading-[1.1] text-[#111]"
+              style="text-transform: none !important;">
+              Pertanyaan yang<br class="hidden lg:block" /> sering ditanyakan
+            </h2>
+          </div>
+
+          <!-- Right Column: Accordions -->
+          <div class="lg:col-span-7">
+            <div class="space-y-0 reveal" id="faq-container">
+
+              {[
+              { q: `Layanan apa saja yang disediakan oleh Yotek Group?`, a: `Yotek Group merupakan perusahaan
+              konglomerat yang bergerak di berbagai sektor strategis, termasuk manufaktur pakan, operasional pelabuhan,
+              perdagangan, dan investasi industri. Kami menawarkan solusi terintegrasi untuk mendukung pertumbuhan
+              bisnis mitra kami.` },
+              { q: `Bagaimana cara menjalin kemitraan strategis dengan Yotek?`, a: `Kami selalu terbuka untuk kolaborasi
+              yang saling menguntungkan. Silakan hubungi tim Business Development kami melalui form di atas atau
+              kirimkan proposal resmi Anda ke email info@yotek.co.id.` },
+              { q: `Apakah Yotek melayani operasional di luar wilayah Jakarta?`, a: `Ya, kami memiliki berbagai unit
+              bisnis yang beroperasi di lokasi strategis di seluruh Indonesia, termasuk fasilitas produksi dan logistik
+              di wilayah Riau dan Sumatera untuk mendukung distribusi nasional.` },
+              { q: `Bagaimana proses rekrutmen di PT. Yogura Tekindo?`, a: `Informasi mengenai lowongan pekerjaan yang
+              tersedia dapat diakses melalui halaman Karir kami. Proses seleksi kami mengedepankan kompetensi,
+              integritas, dan keselarasan nilai-nilai perusahaan.` },
+              { q: `Kapan jam operasional kantor pusat Yotek?`, a: `Kantor pusat kami beroperasi setiap hari Senin
+              hingga Jumat, mulai pukul 08.30 WIB hingga 17.00 WIB, kecuali pada hari libur nasional.` },
+              { q: `Apa filosofi bisnis utama yang dipegang Yotek?`, a: `Filosofi kami didasarkan pada tiga pilar utama:
+              Integritas, Sinergi, dan Keunggulan. Kami percaya bahwa pertumbuhan yang berkelanjutan hanya dapat dicapai
+              melalui kerjasama yang jujur dan standar kualitas yang tak kenal kompromi.` }
+              ].map((item, i) => (
+              <div class="faq-item border-y border-gray-100 -mt-[1px] group">
+                <button
+                  class="faq-trigger w-full !py-8 flex items-start justify-between text-left focus:outline-none transition-colors group-hover:bg-[#f8f8f8] !px-4">
+                  <span
+                    class="text-[17px] md:text-[19px] font-700 tracking-tight text-[#111] !pr-8 group-hover:text-[var(--color-gold)] transition-colors">
+                    {item.q}
+                  </span>
+                  <span class="faq-icon !mt-1.5 flex-shrink-0 opacity-30 group-hover:opacity-100 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="transition-transform duration-500">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                  </span>
+                </button>
+                <div
+                  class="faq-content overflow-hidden max-h-0 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                  <div class="!pb-10 !px-4 !pt-0">
+                    <p class="text-gray-500 text-[15px] lg:text-[16px] leading-relaxed max-w-2xl">
+                      {item.a}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              ))}
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div>
 
   <script>
-    import gsap from 'gsap';
-    function initContactForm() {
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    import { animateReveal } from '../scripts/animations';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initContactPage() {
+      // 1. Entrance Animations
+      animateReveal('.reveal', { stagger: 0.15 });
+
+      // Staggered reveal for info card items
+      gsap.fromTo('.info-item-reveal',
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: '#info-card-content',
+            start: "top 85%"
+          }
+        }
+      );
+
+      // 2. FAQ Accordion Logic with GSAP
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const trigger = item.querySelector('.faq-trigger');
+        const content = item.querySelector('.faq-content') as HTMLElement;
+        const icon = item.querySelector('.faq-icon svg');
+
+        trigger?.addEventListener('click', () => {
+          const isOpen = item.classList.contains('active');
+
+          // Close others
+          faqItems.forEach(other => {
+            if (other !== item && other.classList.contains('active')) {
+              other.classList.remove('active');
+              const otherContent = other.querySelector('.faq-content') as HTMLElement;
+              const otherIcon = other.querySelector('.faq-icon svg');
+              gsap.to(otherContent, { maxHeight: 0, duration: 0.6, ease: "power4.inOut" });
+              gsap.to(otherIcon, { rotate: 0, duration: 0.6, ease: "power4.inOut" });
+            }
+          });
+
+          // Toggle current
+          if (isOpen) {
+            item.classList.remove('active');
+            gsap.to(content, { maxHeight: 0, duration: 0.6, ease: "power4.inOut" });
+            gsap.to(icon, { rotate: 0, duration: 0.6, ease: "power4.inOut" });
+          } else {
+            item.classList.add('active');
+            gsap.to(content, { maxHeight: content.scrollHeight, duration: 0.8, ease: "power4.out" });
+            gsap.to(icon, { rotate: 45, duration: 0.6, ease: "power4.out" });
+          }
+        });
+      });
+
+      // 3. Form Submission Handling
       const form = document.getElementById('contact-form') as HTMLFormElement | null;
       const successState = document.getElementById('success-state');
       const submitBtn = document.getElementById('submit-btn');
       const btnText = document.getElementById('btn-text');
-      const btnIcon = document.getElementById('btn-icon');
-      const btnSpinner = document.getElementById('btn-spinner');
-      if (!form || !successState || !submitBtn) return;
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        submitBtn.setAttribute('disabled', 'true');
-        if (btnText) btnText.textContent = 'Mengirim...';
-        if (btnIcon) btnIcon.classList.add('hidden');
-        if (btnSpinner) btnSpinner.classList.remove('hidden');
-        try {
-          const formData = new FormData(form);
-          const response = await fetch(form.action, { method: 'POST', body: formData, headers: { Accept: 'application/json' } });
-          if (response.ok) {
-            gsap.to(form, { opacity: 0, y: -20, duration: 0.5, ease: 'power3.out', onComplete: () => {
-              form.classList.add('hidden');
-              successState.classList.remove('hidden');
-              gsap.fromTo(successState, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' });
-            }});
-          } else { throw new Error('Failed'); }
-        } catch {
-          submitBtn.removeAttribute('disabled');
-          if (btnText) btnText.textContent = 'Kirim Pesan';
-          if (btnIcon) btnIcon.classList.remove('hidden');
-          if (btnSpinner) btnSpinner.classList.add('hidden');
-          alert('Terjadi kesalahan. Silakan coba lagi.');
-        }
-      });
+      const btnLoader = document.getElementById('btn-loader');
+
+      if (form && successState && submitBtn) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          // Loading State
+          submitBtn.setAttribute('disabled', 'true');
+          btnText?.classList.add('opacity-0');
+          btnLoader?.classList.remove('hidden');
+          btnLoader?.classList.add('flex');
+
+          try {
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: formData,
+              headers: { Accept: 'application/json' }
+            });
+
+            if (response.ok) {
+              // Smooth Success Transition
+              gsap.to(form, {
+                opacity: 0,
+                y: -10,
+                duration: 0.4,
+                onComplete: () => {
+                  form.classList.add('hidden');
+                  successState.classList.remove('hidden');
+                  gsap.fromTo(successState,
+                    { opacity: 0, y: 10 },
+                    { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }
+                  );
+                }
+              });
+            } else {
+              throw new Error('Submission failed');
+            }
+          } catch (err) {
+            alert('Something went wrong. Please try again.');
+            submitBtn.removeAttribute('disabled');
+            btnText?.classList.remove('opacity-0');
+            btnLoader?.classList.add('hidden');
+            btnLoader?.classList.remove('flex');
+          }
+        });
+      }
     }
-    document.addEventListener('astro:page-load', initContactForm);
+
+    // Initialize on load
+    document.addEventListener('astro:page-load', initContactPage);
   </script>
+
 </BaseLayout>
+
+<style>
+  /* Custom Focus Ring for Gold */
+  select:focus,
+  input:focus {
+    box-shadow: 0 0 0 1px var(--color-gold);
+  }
+
+  /* Smooth reveal for FAQ */
+  .faq-item.active {
+    background-color: #f8f8f8;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.03);
+    z-index: 10;
+    position: relative;
+  }
+</style>

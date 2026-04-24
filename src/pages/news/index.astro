@@ -1,53 +1,245 @@
 ---
+/**
+* Newsroom Page — Magazine-style layout with featured article, category sidebar, and article list
+*/
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+
 const allNews = await getCollection('news');
 const sortedNews = allNews.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
+
+// Featured = latest article
+const featured = sortedNews[0];
+const rest = sortedNews.slice(1);
+
+// Extract unique categories
+const categories = [...new Set(allNews.map(p => p.data.category).filter(Boolean))];
 ---
 
-<BaseLayout title="Berita" description="Berita terbaru seputar PT. Yogura Tekindo.">
-  <section class="py-20 lg:py-28 bg-[var(--color-abyss)]">
-    <div class="container mx-auto px-6 lg:px-12">
-      <p class="kicker mb-4">Berita</p>
-      <h1 class="text-white">Berita Terbaru</h1>
+<BaseLayout title="Berita | Yotek" description="Berita terbaru seputar PT. Yogura Tekindo dan perkembangan industri.">
+
+  <!-- HEADER BAR -->
+  <section class="!h-[30vh] md:!h-[56vh] bg-[#f8f8f8] flex items-end">
+    <div
+      class="!w-full !mx-auto !px-5 md:!px-12 lg:!px-20 !pb-8 md:!pb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+      <h1 class="!text-[36px] !md:text-[48px] !lg:text-[56px] !font-800 !text-[#111] !tracking-tight !leading-none">
+        Berita</h1>
+      <div class="relative w-full md:!w-[280px]">
+        <input type="text" id="news-search" placeholder="Cari Berita"
+          class="!w-full !px-4 !py-3 !text-[13px] !font-400 !text-[#111] !bg-transparent !border !border-[#ddd] !outline-none focus:!border-[#999] transition-colors duration-300 placeholder:!text-[#aaa]" />
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#aaa"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.3-4.3" />
+        </svg>
+      </div>
     </div>
   </section>
 
-  <section class="pb-24 bg-[var(--color-abyss)]">
-    <div class="container mx-auto px-6 lg:px-12">
-      {sortedNews.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
-          {sortedNews.map((post) => (
-            <a href={`/news/${post.id}`} class="news-card group block card-dark">
-              <div class="relative aspect-[16/10] overflow-hidden bg-[var(--color-dark-surface)]">
-                {post.data.image ? (
-                  <img src={post.data.image} alt={post.data.title} class="w-full h-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105 opacity-80 group-hover:opacity-100" loading="lazy" />
-                ) : (
-                  <div class="w-full h-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-[var(--color-dark-surface)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" /></svg>
-                  </div>
-                )}
+  <!-- DIVIDER -->
+  <div class="!w-full !mx-auto !px-5 md:!px-12 lg:!px-20">
+    <div class="!w-full !h-[1px] !bg-[#e0e0e0]"></div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <section class="!pt-10 md:!pt-16 !pb-16 md:!pb-64 bg-[#f8f8f8]">
+    <div class="!w-full !mx-auto !px-5 md:!px-12 lg:!px-20 flex flex-col lg:flex-row !gap-10 lg:!gap-16">
+
+      <!-- SIDEBAR: Categories -->
+      <aside class="lg:!w-[160px] shrink-0">
+        <nav class="flex flex-row lg:flex-col !gap-3 lg:!gap-2 flex-wrap lg:sticky lg:!top-32">
+          <button data-category="all"
+            class="category-btn !text-left !text-[12px] !font-700 !text-[#111] !uppercase !tracking-[0.15em] hover:!text-[var(--color-gold)] transition-colors duration-200 cursor-pointer active-category">Semua</button>
+          {categories.map(cat => (
+          <button data-category={cat}
+            class="category-btn !text-left !text-[12px] !font-400 !text-[#999] !uppercase !tracking-[0.15em] hover:!text-[var(--color-gold)] transition-colors duration-200 cursor-pointer">{cat}</button>
+          ))}
+        </nav>
+      </aside>
+
+      <!-- ARTICLES AREA -->
+      <div class="flex-1 min-w-0" id="articles-container">
+
+        <!-- FEATURED ARTICLE -->
+        {featured && (
+        <a href={`/news/${featured.id}`} id="featured-article" class="group block !mb-16 md:!mb-24"
+          data-category={featured.data.category || '' } data-title={featured.data.title.toLowerCase()}
+          data-desc={featured.data.description.toLowerCase()}>
+          <div class="relative aspect-[16/9] md:aspect-[2/1] overflow-hidden !bg-[#e5e5e5] !mb-6">
+            {featured.data.image ? (
+            <img src={featured.data.image} alt={featured.data.title}
+              class="!w-full !h-full !object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              loading="eager" />
+            ) : (
+            <div class="!w-full !h-full flex items-center justify-center !bg-[#ddd]">
+              <span class="!text-[#bbb] !text-sm">Tidak Ada Gambar</span>
+            </div>
+            )}
+          </div>
+          <div class="flex flex-col md:flex-row md:justify-between md:items-start !gap-4">
+            <div class="flex-1">
+              <h2
+                class="!text-[22px] md:!text-[28px] !font-700 !text-[#111] !leading-[1.2] !tracking-tight group-hover:!text-[var(--color-gold)] transition-colors duration-300 !mb-2">
+                {featured.data.title}
+              </h2>
+              <p class="!text-[14px] md:!text-[15px] !text-[#777] !leading-[1.6] !font-400 max-w-[560px]">
+                {featured.data.description}
+              </p>
+            </div>
+            <time class="!text-[11px] !text-[#aaa] !font-600 !uppercase !tracking-[0.1em] shrink-0 md:!mt-1">
+              {new Date(featured.data.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year:
+              'numeric' })}
+            </time>
+          </div>
+        </a>
+        )}
+
+        <!-- ARTICLE LIST -->
+        <div id="article-list">
+          {rest.map((post) => (
+          <a href={`/news/${post.id}`}
+            class="news-item group flex flex-col md:flex-row !gap-5 md:!gap-8 !py-6 md:!py-8 border-t !border-[#e5e5e5]"
+            data-category={post.data.category || '' } data-title={post.data.title.toLowerCase()}
+            data-desc={post.data.description.toLowerCase()}>
+
+            <!-- Date (left column on desktop) -->
+            <div class="md:!w-[80px] shrink-0 hidden md:block">
+              <time class="!text-[11px] !text-[#bbb] !font-600 !uppercase !tracking-[0.1em]">
+                {new Date(post.data.pubDate).toLocaleDateString('id-ID', { month: 'short', day: 'numeric', year:
+                'numeric' })}
+              </time>
+            </div>
+
+            <!-- Thumbnail -->
+            <div
+              class="!w-full md:!w-[200px] lg:!w-[240px] shrink-0 aspect-[16/10] md:aspect-[16/11] overflow-hidden !bg-[#e5e5e5]">
+              {post.data.image ? (
+              <img src={post.data.image} alt={post.data.title}
+                class="!w-full !h-full !object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                loading="lazy" />
+              ) : (
+              <div class="!w-full !h-full flex items-center justify-center !bg-[#ddd]">
+                <span class="!text-[#bbb] !text-xs">No Image</span>
               </div>
-              <div class="p-6">
-                <time class="text-[10px] text-[var(--color-steel)] uppercase tracking-[0.15em]">
-                  {new Date(post.data.pubDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </time>
-                <h2 class="text-base font-display font-600 text-white mt-3 mb-2 uppercase tracking-tight leading-tight transition-colors duration-300 group-hover:text-[var(--color-gold)] line-clamp-2">{post.data.title}</h2>
-                <p class="text-sm text-[var(--color-ash)] line-clamp-2">{post.data.description}</p>
-              </div>
-            </a>
+              )}
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 flex flex-col min-w-0">
+              <time class="!text-[10px] !text-[#bbb] !font-600 !uppercase !tracking-[0.1em] !mb-2 md:!hidden">
+                {new Date(post.data.pubDate).toLocaleDateString('id-ID', { month: 'short', day: 'numeric', year:
+                'numeric' })}
+              </time>
+              <h3
+                class="!text-[16px] md:!text-[18px] !font-700 !text-[#111] !leading-[1.3] !tracking-tight group-hover:!text-[var(--color-gold)] transition-colors duration-300 !mb-2 line-clamp-2">
+                {post.data.title}z
+              </h3>
+              <p class="!text-[13px] md:!text-[14px] !text-[#999] !leading-[1.6] !font-400 line-clamp-2">
+                {post.data.description}
+              </p>
+            </div>
+
+            <!-- Date (right side on desktop) -->
+            <div class="hidden md:flex items-center shrink-0">
+              <span class="!text-[11px] !text-[#bbb] !font-600 !uppercase !tracking-[0.1em]">
+                {new Date(post.data.pubDate).toLocaleDateString('id-ID', { month: 'short', day: 'numeric', year:
+                'numeric' })}
+              </span>
+            </div>
+          </a>
           ))}
         </div>
-      ) : (
-        <div class="text-center py-20">
-          <p class="text-[var(--color-ash)]">Belum ada berita.</p>
+
+        <!-- Empty State -->
+        <div id="no-results" class="!hidden !py-20 text-center">
+          <p class="!text-[#aaa] !text-[14px]">Berita tidak ditemukan.</p>
         </div>
-      )}
+
+      </div>
     </div>
   </section>
 
-  <script>
-    import { staggerChildren } from '../../scripts/animations';
-    document.addEventListener('astro:page-load', () => { staggerChildren('.grid', '.news-card', { stagger: 0.1, y: 20 }); });
-  </script>
+
 </BaseLayout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const searchInput = document.getElementById('news-search') as HTMLInputElement;
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const featuredEl = document.getElementById('featured-article');
+    const articleList = document.getElementById('article-list');
+    const noResults = document.getElementById('no-results');
+
+    if (!searchInput || !articleList) return;
+
+    const allItems = articleList.querySelectorAll('.news-item');
+    let activeCategory = 'all';
+
+    function filterArticles() {
+      const query = searchInput.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      // Filter featured
+      if (featuredEl) {
+        const fCat = featuredEl.getAttribute('data-category') || '';
+        const fTitle = featuredEl.getAttribute('data-title') || '';
+        const fDesc = featuredEl.getAttribute('data-desc') || '';
+        const catMatch = activeCategory === 'all' || fCat === activeCategory;
+        const searchMatch = !query || fTitle.includes(query) || fDesc.includes(query);
+        featuredEl.style.display = catMatch && searchMatch ? '' : 'none';
+        if (catMatch && searchMatch) visibleCount++;
+      }
+
+      // Filter list items
+      allItems.forEach((item) => {
+        const el = item as HTMLElement;
+        const cat = el.getAttribute('data-category') || '';
+        const title = el.getAttribute('data-title') || '';
+        const desc = el.getAttribute('data-desc') || '';
+        const catMatch = activeCategory === 'all' || cat === activeCategory;
+        const searchMatch = !query || title.includes(query) || desc.includes(query);
+        el.style.display = catMatch && searchMatch ? '' : 'none';
+        if (catMatch && searchMatch) visibleCount++;
+      });
+
+      // Show/hide empty state
+      if (noResults) {
+        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+    }
+
+    // Search handler
+    searchInput.addEventListener('input', filterArticles);
+
+    // Category handler
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeCategory = (btn as HTMLElement).getAttribute('data-category') || 'all';
+
+        // Update active styles
+        categoryBtns.forEach(b => {
+          b.classList.remove('active-category');
+          (b as HTMLElement).style.fontWeight = '400';
+          (b as HTMLElement).style.color = '#999';
+        });
+        btn.classList.add('active-category');
+        (btn as HTMLElement).style.fontWeight = '700';
+        (btn as HTMLElement).style.color = '#111';
+
+        filterArticles();
+      });
+    });
+  });
+</script>
+
+<style>
+  .active-category {
+    font-weight: 700 !important;
+    color: #111 !important;
+  }
+
+  .news-item {
+    text-decoration: none !important;
+  }
+</style>

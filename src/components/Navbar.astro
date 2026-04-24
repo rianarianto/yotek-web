@@ -10,19 +10,19 @@ import logoImg from '../assets/images/logo.png';
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
-{ label: "Home", href: "/" },
-{
-label: "Company",
-href: "#",
-hasDropdown: true,
-dropdown: [
-{ label: "About Us", href: "/about" },
-{ label: "Our Business", href: "/business" },
-{ label: "News", href: "/news" },
-]
-},
-{ label: "Careers", href: "/career" },
-{ label: "Contact", href: "/contact" },
+  { label: "Beranda", href: "/" },
+  {
+    label: "Perusahaan",
+    href: "#",
+    hasDropdown: true,
+    dropdown: [
+      { label: "Tentang Kami", href: "/about" },
+      { label: "Bisnis Kami", href: "/business" },
+      { label: "Berita", href: "/news" },
+    ]
+  },
+  { label: "Karir", href: "/career" },
+  { label: "Kontak", href: "/contact" },
 ];
 
 function isActive(link: { href: string; dropdown?: { href: string }[] }) {
@@ -148,7 +148,7 @@ return currentPath === link.href || (link.href !== '/' && currentPath.startsWith
 
       <!-- Contact Info -->
       <div class="mt-4 !px-6 !pb-8 !pt-6 border-t border-gray-50 flex flex-col gap-1">
-        <p class="text-[11px] uppercase !tracking-[0.3em] text-gray-400 font-700">Get in touch</p>
+        <p class="text-[11px] uppercase !tracking-[0.3em] text-gray-400 font-700">Hubungi Kami</p>
         <a href="mailto:info@yotek.co.id" class="text-[17px] font-700 text-black">info@yotek.co.id</a>
       </div>
     </nav>

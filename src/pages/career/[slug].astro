@@ -1,106 +1,416 @@
 ---
 /**
- * Career Detail Page — Dynamic route
- */
+* Career Detail Page — Dynamic route
+* Premium Refinement with Consistent Brand Styling
+*/
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const careers = await getCollection('career');
-  return careers.map((job) => ({
-    params: { slug: job.id },
-    props: { job },
-  }));
+const careers = await getCollection('career');
+return careers.map((job) => ({
+params: { slug: job.id },
+props: { job },
+}));
 }
 
 const { job } = Astro.props;
 const { Content } = await render(job);
+
+// Format Dates
+const formatDate = (date: Date) => {
+return new Date(date).toLocaleDateString('id-ID', {
+day: 'numeric',
+month: 'long',
+year: 'numeric'
+});
+};
 ---
 
-<BaseLayout title={`${job.data.position} — Karir`} description={job.data.description}>
-  <section class="section bg-white">
-    <div class="container mx-auto px-6 lg:px-12">
-      <div class="max-w-3xl mx-auto">
-        <!-- Back Link -->
-        <a
-          href="/career"
-          class="inline-flex items-center gap-2 text-sm text-[var(--color-gray)] hover:text-[var(--color-primary)] transition-colors duration-300 mb-8"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
-          </svg>
-          Kembali ke Karir
-        </a>
+<BaseLayout title={`${job.data.position} — Karir Yotek`} description={job.data.description}>
+  <section class="bg-white min-h-screen !pt-32 !pb-40">
+    <div class="!px-5 md:!px-12 lg:!px-20">
 
-        <!-- Header -->
-        <header class="mb-10">
-          <div class="flex flex-wrap items-center gap-3 mb-4">
-            <span class="inline-flex items-center px-4 py-1.5 bg-[var(--color-primary-50)] text-[var(--color-primary-600)] text-sm font-semibold rounded-full">
-              {job.data.type}
-            </span>
-            <span class="inline-flex items-center gap-1 text-sm text-[var(--color-gray)]">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
-              </svg>
-              {job.data.location}
-            </span>
+      <!-- Back Link / Breadcrumb -->
+      <a href="/career"
+        class="inline-flex items-center !gap-3 !text-[11px] !font-800 uppercase !tracking-[0.2em] !text-[#999] hover:!text-[var(--color-gold)] transition-all duration-300 !mb-16 group">
+        <svg xmlns="http://www.w3.org/2000/svg"
+          class="!w-4 !h-4 transition-transform duration-300 group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="3">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        Kembali ke Peluang Karir
+      </a>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 !gap-16 xl:!gap-24">
+        <!-- Main Content (8 cols) -->
+        <div class="lg:col-span-8">
+          <!-- Header Area -->
+          <header class="!mb-20">
+            <div class="flex flex-wrap items-center !gap-4 !mb-8">
+              <span
+                class="inline-flex items-center !px-4 !py-1.5 bg-[var(--color-gold)]/5 !text-[var(--color-gold-dark)] !text-[11px] !font-800 uppercase !tracking-widest !border !border-[var(--color-gold)]/10 !rounded-sm">
+                {job.data.type}
+              </span>
+              {job.data.pubDate && (
+              <span class="!text-[11px] !font-700 !text-[#AAA] uppercase !tracking-widest">
+                Dipublikasikan: {formatDate(job.data.pubDate)}
+              </span>
+              )}
+            </div>
+
+            <h1 class="!text-3xl md:!text-4xl !font-800 !text-black !mb-14 !normal-case !tracking-tight !leading-[1.2]">
+              {job.data.position}
+            </h1>
+
+            <div class="flex flex-wrap items-center !gap-x-12 !gap-y-6 !pt-6 !border-t !border-[#F0F0F0] !mt-12">
+              <div class="flex flex-col !gap-1">
+                <span class="!text-[10px] !font-800 !text-[var(--color-gold)] uppercase !tracking-widest">Lokasi</span>
+                <span class="!text-[14px] !font-700 !text-[#333]">{job.data.location}</span>
+              </div>
+              <div class="flex flex-col !gap-1">
+                <span class="!text-[10px] !font-800 !text-[var(--color-gold)] uppercase !tracking-widest">Batas
+                  Pendaftaran</span>
+                <span class="!text-[14px] !font-700 !text-[#333]">{job.data.closeDate ? formatDate(job.data.closeDate) :
+                  'Sesuai Kebutuhan'}</span>
+              </div>
+            </div>
+          </header>
+
+          <!-- Content Body -->
+          <div class="career-content prose prose-sm md:prose-base max-w-none">
+            <Content />
           </div>
-          <h1 class="text-3xl lg:text-5xl font-heading font-800 text-[var(--color-dark)] mb-4">
-            {job.data.position}
-          </h1>
-          <p class="text-lg text-[var(--color-gray)] leading-relaxed">
-            {job.data.description}
-          </p>
-        </header>
+        </div>
 
-        <!-- Requirements -->
-        <div class="mb-10 p-6 bg-[var(--color-light)] rounded-xl">
-          <h2 class="text-lg font-heading font-700 text-[var(--color-dark)] mb-4">Persyaratan</h2>
-          <ul class="space-y-3">
-            {job.data.requirements.map((req) => (
-              <li class="flex items-start gap-3 text-[var(--color-gray)]">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[var(--color-primary)] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12" />
+        <style is:global>
+          /* --- KONTEN KARIR (MANUAL EDIT DI SINI) --- */
+
+          .career-content h2 {
+            font-size: 18px !important;
+            /* Ukuran judul bagian */
+            margin-top: 60px !important;
+            /* Jarak atas judul bagian */
+            margin-bottom: 24px !important;
+            /* Jarak bawah judul ke teks */
+            font-weight: 700 !important;
+            color: black !important;
+            text-transform: none !important;
+            letter-spacing: -0.01em !important;
+          }
+
+          .career-content p {
+            font-size: 15px !important;
+            /* Ukuran teks tubuh */
+            line-height: 1.8 !important;
+            /* Jarak antar baris kalimat */
+            margin-bottom: 24px !important;
+            /* Jarak antar paragraf */
+            color: #555 !important;
+          }
+
+          .career-content ul {
+            margin-bottom: 40px !important;
+            /* Jarak bawah daftar (list) */
+            padding-left: 0 !important;
+            list-style: none !important;
+          }
+
+          .career-content li {
+            font-size: 15px !important;
+            /* Ukuran teks poin rekrutmen */
+            margin-bottom: 14px !important;
+            /* Jarak antar poin list */
+            color: #666 !important;
+            position: relative;
+            padding-left: 0 !important;
+          }
+
+          /* Hilangkan elemen dekorasi bawaan */
+          .career-content li::before {
+            display: none !important;
+          }
+        </style>
+
+        <!-- Sidebar / Action Area (4 cols) -->
+        <div class="lg:col-span-4">
+          <div class="sticky !top-40 !space-y-10">
+            <!-- Apply Card -->
+            <div
+              class="!p-10 md:!p-12 !bg-[#FBFBFB] !border !border-[#EEEEEE] !rounded-sm relative overflow-hidden group">
+              <!-- Accent Line -->
+              <div class="absolute !top-0 !left-0 !w-full !h-[6px] !bg-[var(--color-gold)]"></div>
+
+              <h3 class="!text-[12px] !font-800 uppercase !tracking-widest !text-black !mb-6">Siap Mengambil Peran Ini?
+              </h3>
+              <p class="!text-[16px] !text-[#777] !leading-relaxed !mb-10">
+                Kami mencari talenta yang berani berinovasi dan siap berkolaborasi untuk membangun masa depan industri.
+              </p>
+
+              <button id="apply-now-btn"
+                class="inline-flex items-center justify-center !w-full bg-[#111] text-white uppercase tracking-[0.2em] !py-5 !px-8 text-[14px] font-700 hover:bg-[#FDF7EB] outline-1 hover:text-[#111] transition-all duration-300 w-fit mx-auto lg:mx-0 group mt-2 shadow-lg cursor-pointer">
+                Lamar Sekarang
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  class="!w-5 !h-5 !ml-4 transition-transform duration-500 group-hover/btn:translate-x-1"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-                <span>{req}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+              </button>
 
-        <!-- Content -->
-        <div class="prose prose-lg max-w-none
-          prose-headings:font-heading prose-headings:text-[var(--color-dark)]
-          prose-p:text-[var(--color-gray)] prose-p:leading-relaxed
-          prose-a:text-[var(--color-primary)] prose-a:no-underline hover:prose-a:underline
-          prose-strong:text-[var(--color-dark)]
-          prose-li:text-[var(--color-gray)]
-        ">
-          <Content />
-        </div>
+              <div class="!mt-8 !pt-8 !border-t !border-[#EEEEEE] flex flex-col !gap-4">
+                <span class="!text-[11px] !font-700 !text-[#AAA] !tracking-widest uppercase">Punya Pertanyaan?</span>
+                <a href="mailto:hr@yotek.co.id"
+                  class="!text-[15px] !font-700 !text-black hover:!text-[var(--color-gold)] transition-colors">
+                  hr@yotek.co.id
+                </a>
+              </div>
+            </div>
 
-        <!-- Apply CTA -->
-        <div class="mt-12 p-8 bg-[var(--color-dark)] rounded-2xl text-center">
-          <h3 class="text-xl font-heading font-700 text-white mb-3">Tertarik dengan posisi ini?</h3>
-          <p class="text-[var(--color-gray-light)] mb-6">Kirimkan lamaran Anda melalui halaman kontak kami.</p>
-          <a
-            href="/contact"
-            class="inline-flex items-center gap-2 px-8 py-3.5 bg-[var(--color-primary)] text-[var(--color-dark)] font-semibold rounded-full transition-all duration-300 hover:bg-[var(--color-primary-dark)] hover:shadow-lg hover:-translate-y-0.5"
-          >
-            Lamar Sekarang
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-            </svg>
-          </a>
+            <!-- Share Card (Minimalist) -->
+            <div class="flex items-center !gap-6 !px-2">
+              <span class="!text-[11px] !font-800 !text-[#BBB] uppercase !tracking-widest">Bagikan Peran Ini</span>
+              <div class="flex !gap-4">
+                {['Linkedin', 'Twitter', 'Facebook'].map((social) => (
+                <button
+                  class="!text-[#888] hover:!text-black transition-colors !text-[12px] !font-700 !underline !underline-offset-4 !decoration-1 !decoration-[#DDD] hover:!decoration-black cursor-pointer">
+                  {social}
+                </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Bottom CTA / Other openings -->
+  <section class="section !bg-[#F9F9F9] !border-t !border-[#F0F0F0]">
+    <div class="!px-5 md:!px-12 lg:!px-20 text-center !py-20">
+      <h2 class="!text-3xl !font-800 !text-black !mb-8 !normal-case !tracking-tight">Cari Peluang Lainnya?</h2>
+      <a href="/career"
+        class="inline-flex items-center !gap-3 !text-sm !font-800 !text-[var(--color-gold)] hover:!text-black transition-all duration-300 uppercase !tracking-widest !border-b-2 !border-transparent hover:!border-black !pb-1">
+        Lihat Semua Lowongan
+        <svg xmlns="http://www.w3.org/2000/svg" class="!w-4 !h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="3">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- APPLY MODAL — Improved premium styling with consistent hierarchy -->
+  <div id="apply-modal"
+    class="fixed inset-0 z-[200] hidden overflow-y-auto !py-10 md:!py-20 flex items-center justify-center">
+    <!-- Backdrop -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-md opacity-0"></div>
+
+    <!-- Modal Content -->
+    <div id="modal-content"
+      class="relative w-[94%] !max-w-[650px] bg-white shadow-[0_0_100px_rgba(0,0,0,0.2)] opacity-0 scale-95 origin-center">
+      <div class="!p-10 lg:!p-16 relative !pb-16 lg:!pb-20">
+        <!-- Close Btn -->
+        <button id="close-modal"
+          class="absolute !top-10 !right-10 text-gray-300 hover:text-black transition-all cursor-pointer group"
+          aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+            class="group-hover:rotate-90 transition-transform duration-500">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div id="form-body">
+          <header class="!mb-12">
+            <h2 class="!text-[28px] md:!text-[36px] font-800 text-black !mb-3 !mt-0 !leading-tight">Lamar Pekerjaan</h2>
+            <div class="flex items-center !gap-3">
+              <div class="w-10 h-[2px] bg-[var(--color-gold)]"></div>
+              <p class="!text-[12px] text-[var(--color-gold)] font-800 uppercase tracking-[0.2em]">{job.data.position}</p>
+            </div>
+          </header>
+
+          <form id="apply-form" class="!space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 !gap-8">
+              <div class="space-y-3">
+                <label class="!text-[11px] font-800 uppercase tracking-[0.2em] text-gray-400">Nama Lengkap</label>
+                <input type="text" name="name" required placeholder="Masukkan nama lengkap Anda"
+                  class="w-full bg-white border-b-2 border-gray-200 !px-0 !py-4 text-[16px] focus:border-black outline-none transition-all placeholder:text-gray-200" />
+              </div>
+              <div class="space-y-3">
+                <label class="!text-[11px] font-800 uppercase tracking-[0.2em] text-gray-400">Alamat Email</label>
+                <input type="email" name="email" required placeholder="email.anda@gmail.com"
+                  class="w-full bg-white border-b-2 border-gray-200 !px-0 !py-4 text-[16px] focus:border-black outline-none transition-all placeholder:text-gray-200" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 !gap-8">
+              <div class="space-y-3">
+                <label class="!text-[11px] font-800 uppercase tracking-[0.2em] text-gray-400">Nomor Telepon</label>
+                <input type="tel" name="phone" required placeholder="+62 812 ..."
+                  class="w-full bg-white border-b-2 border-gray-200 !px-0 !py-4 text-[16px] focus:border-black outline-none transition-all placeholder:text-gray-200" />
+              </div>
+              <div class="space-y-3">
+                <label class="!text-[11px] font-800 uppercase tracking-[0.2em] text-gray-400">Tautan Portofolio / LinkedIn</label>
+                <input type="text" name="link" placeholder="linkedin.com/in/..."
+                  class="w-full bg-white border-b-2 border-gray-200 !px-0 !py-4 text-[16px] focus:border-black outline-none transition-all placeholder:text-gray-200" />
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <label class="!text-[11px] font-800 uppercase tracking-[0.2em] text-gray-400">Unggah CV (Format PDF)</label>
+              <div class="relative">
+                <input type="file" name="cv" accept=".pdf" required
+                  class="block w-full text-[13px] text-gray-400 file:!mr-6 file:!py-3 file:!px-6 file:!border-0 file:text-[10px] file:font-800 file:uppercase file:tracking-[0.2em] file:!bg-gray-200 file:!text-black hover:file:!bg-[var(--color-gold)] hover:file:!text-white transition-all cursor-pointer border-2 border-dashed border-gray-200 !p-4 rounded-lg" />
+              </div>
+            </div>
+
+            <div class="!pt-6">
+              <button type="submit" id="apply-submit-btn"
+                class="w-full bg-[#111] text-white uppercase tracking-[0.3em] !py-6 !px-10 text-[14px] font-800 hover:bg-[#FDF7EB] hover:text-[#111] hover:border-1 hover:border-black hover:text-black transition-all duration-500 shadow-xl flex items-center justify-center !gap-4 group">
+                <span id="apply-btn-text">Kirim Lamaran</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                  class="group-hover:translate-x-2 transition-transform">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+                <span id="apply-btn-loader" class="hidden">
+                  <svg class="animate-spin h-5 w-5 text-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                  </svg>
+                </span>
+            </div>
+          </form>
+        </div>
+
+        <!-- Success Message — Premium Upgrade -->
+        <div id="apply-success" class="hidden flex-col items-center !text-center !py-16 lg:!py-28 !px-6">
+          <!-- Animated Check Circle -->
+          <div
+            class="!w-24 !h-24 !bg-black !text-[var(--color-gold)] rounded-full !flex !items-center !justify-center !mb-12 shadow-[0_20px_50px_rgba(0,0,0,0.15)] relative">
+            <div class="absolute inset-0 rounded-full border-4 border-[var(--color-gold)]/20 animate-ping"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="!w-12 !h-12" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+
+          <div class="!max-w-[480px] !mx-auto !space-y-6">
+            <h3 class="!text-[36px] md:!text-[46px] font-800 text-black !leading-none !tracking-tight">Lamaran Terkirim.</h3>
+            <div class="w-12 h-[3px] bg-[var(--color-gold)] !mx-auto"></div>
+            <p class="!text-[16px] md:!text-[18px] text-gray-500 !leading-relaxed font-500">
+              Terima kasih telah melamar. Tim HR kami akan segera meninjau profil Anda dan menghubungi melalui email dalam waktu dekat.
+            </p>
+          </div>
+
+          <div class="!mt-12 !w-full !flex !justify-center">
+            <button id="finish-modal"
+              class="inline-flex items-center !gap-3 bg-[#111] text-white uppercase tracking-[0.2em] !px-10 !py-5 text-[14px] font-800 hover:bg-[#FDF7EB] hover:text-[#111] hover:border-1 hover:border-black hover:text-black transition-all duration-300 group shadow-xl">
+              Tutup Jendela
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                class="group-hover:translate-x-2 transition-transform">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    import { animateReveal } from '../../scripts/animations';
-    document.addEventListener('astro:page-load', () => {
-      animateReveal('section .max-w-3xl', { y: 20 });
-    });
+    import { gsap } from 'gsap';
+
+    function initApplyModal() {
+      const modal = document.getElementById('apply-modal');
+      const backdrop = document.getElementById('modal-backdrop');
+      const content = document.getElementById('modal-content');
+      const openBtn = document.getElementById('apply-now-btn');
+      const closeBtn = document.getElementById('close-modal');
+      const finishBtn = document.getElementById('finish-modal');
+      const form = document.getElementById('apply-form') as HTMLFormElement;
+      const success = document.getElementById('apply-success');
+      const submitBtn = document.getElementById('apply-submit-btn');
+      const btnText = document.getElementById('apply-btn-text');
+      const btnLoader = document.getElementById('apply-btn-loader');
+
+      if (!modal || !content || !backdrop || !openBtn) return;
+
+      const openModal = () => {
+        modal.classList.remove('hidden');
+        gsap.to(backdrop, { opacity: 1, duration: 0.4 });
+        gsap.to(content, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power4.out" });
+      };
+
+      const closeModal = () => {
+        gsap.to(content, {
+          opacity: 0, scale: 0.95, duration: 0.4, ease: "power4.in", onComplete: () => {
+            modal.classList.add('hidden');
+            // Reset form state if closed after success
+            if (success && form) {
+              success.classList.add('hidden');
+              form.classList.remove('hidden');
+            }
+          }
+        });
+        gsap.to(backdrop, { opacity: 0, duration: 0.4 });
+      };
+
+      openBtn.addEventListener('click', openModal);
+      closeBtn?.addEventListener('click', closeModal);
+      finishBtn?.addEventListener('click', closeModal);
+      backdrop.addEventListener('click', closeModal);
+
+      // Handle Form Submission
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          if (submitBtn && btnText && btnLoader) {
+            submitBtn.setAttribute('disabled', 'true');
+            btnText.classList.add('hidden');
+            btnLoader.classList.remove('hidden');
+
+            // Simulate server delay
+            await new Promise(r => setTimeout(r, 1500));
+
+            // Success Transition — Hide Header and Form
+            const formBody = document.getElementById('form-body');
+            gsap.to(formBody, {
+              opacity: 0,
+              y: -20,
+              duration: 0.4,
+              ease: "power2.in",
+              onComplete: () => {
+                if (formBody) {
+                  formBody.style.display = 'none';
+                  formBody.classList.add('!hidden');
+                }
+
+                success?.classList.remove('hidden');
+                success?.classList.add('!flex');
+
+                gsap.fromTo(success,
+                  { opacity: 0, y: 20 },
+                  { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+                );
+
+                submitBtn.removeAttribute('disabled');
+                btnText.classList.remove('hidden');
+                btnLoader.classList.add('hidden');
+              }
+            });
+          }
+        });
+      }
+    }
+
+    document.addEventListener('astro:page-load', initApplyModal);
   </script>
 </BaseLayout>

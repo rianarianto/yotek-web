@@ -14,7 +14,7 @@ export const SITE = {
   url: "https://yotek.co.id",
   email: "info@yotek.co.id",
   phone: "+62 21 xxxx xxxx",
-  address: "Jakarta, Indonesia",
+  address: "Pekanbaru, Indonesia",
 };
 
 export const CEO = {
