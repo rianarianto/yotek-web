@@ -1,17 +1,18 @@
 ---
-position: "Frontend Developer ghcfty tcv yghvyjgvyfcy"
-type: "Full-time"
-location: "Jakarta, Indonesia"
-pubDate: "2024-03-01"
-closeDate: "2024-04-15"
-description: "Bergabunglah dengan tim teknologi kami untuk membangun solusi digital terdepan yang mendukung berbagai unit bisnis strategis YOTEK."
+position: Frontend Developer rrrrrrrrs
+type: Full-time
+location: Jakarta, Indonesia
+pubDate: 2024-03-01
+closeDate: 2024-04-15
+description: Bergabunglah dengan tim teknologi kami untuk membangun solusi
+  digital terdepan yang mendukung berbagai unit bisnis strategis YOTEK.
 requirements:
-  - "Minimal 2 tahun pengalaman profesional dalam pengembangan web frontend"
-  - "Keahlian mendalam dalam HTML5, CSS3, dan Modern JavaScript/TypeScript"
-  - "Pengalaman praktis dengan React.js atau framework modern seperti Astro/Vue"
-  - "Pemahaman kuat mengenai prinsip UI/UX dan desain responsif"
-  - "Terbiasa bekerja dengan Git dan metodologi pengembangan Agile"
-  - "Kemampuan komunikasi yang baik dan semangat kolaborasi tim"
+  - Minimal 2 tahun pengalaman profesional dalam pengembangan web frontend
+  - Keahlian mendalam dalam HTML5, CSS3, dan Modern JavaScript/TypeScript
+  - Pengalaman praktis dengan React.js atau framework modern seperti Astro/Vue
+  - Pemahaman kuat mengenai prinsip UI/UX dan desain responsif
+  - Terbiasa bekerja dengan Git dan metodologi pengembangan Agile
+  - Kemampuan komunikasi yang baik dan semangat kolaborasi tim
 ---
 
 ## Tentang Posisi Ini
