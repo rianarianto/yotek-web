@@ -4,6 +4,7 @@ pubDate: 2026-04-24
 category: Company
 description: PT. Yogura Tekindo dengan bangga meluncurkan website resmi
   perusahaan sebagai wujud komitmen kami dalam transformasi digital.
+  asdasdsadasda
 image: /images/cta-building-dark.jpg
 ---
 
