@@ -1,36 +1,319 @@
 ---
+/**
+ * News Detail Page
+ * Premium Editorial Layout (Light Theme, Minimalist, High Readability)
+ */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
+import CTA from '../../components/CTA.astro';
+
 export async function getStaticPaths() {
   const news = await getCollection('news');
   return news.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
+
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+// Fetch related news (excluding the current one)
+const allNews = await getCollection('news');
+const relatedNews = allNews
+  .filter(n => n.id !== post.id)
+  .sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf())
+  .slice(0, 2);
+
+// Format date elegantly
+const formatDate = (date: Date) => {
+  return new Date(date).toLocaleDateString('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+};
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
-  <article class="section bg-[var(--color-abyss)]">
-    <div class="container mx-auto px-6 lg:px-12">
-      <div class="max-w-3xl mx-auto">
-        <a href="/news" class="inline-flex items-center gap-2 text-xs text-[var(--color-steel)] hover:text-[var(--color-gold)] transition-colors duration-300 mb-8 uppercase tracking-wider">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" /></svg>
-          Kembali
+<BaseLayout title={`${post.data.title} | Yotek News`} description={post.data.description}>
+  <!-- Minimalist Light Theme Layout -->
+  <div class="bg-[#F8F8F8] min-h-screen text-[#111]">
+    
+    <!-- Top Padding & Breadcrumb -->
+    <section class="!pt-32 lg:!pt-44 !pb-10">
+      <div class="!px-6 lg:!px-16 container mx-auto">
+        <a href="/news" class="inline-flex items-center !gap-3 !text-[11px] !font-800 uppercase !tracking-[0.2em] !text-gray-400 hover:!text-[var(--color-gold)] transition-all duration-300 group reveal">
+          <svg xmlns="http://www.w3.org/2000/svg" class="!w-4 !h-4 transition-transform duration-300 group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Kembali ke Berita
         </a>
-        <header class="mb-10">
-          <time class="text-[10px] text-[var(--color-gold)] font-display font-600 uppercase tracking-[0.15em]">
-            {new Date(post.data.pubDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
-          </time>
-          <h1 class="text-3xl lg:text-5xl font-display font-800 text-white mt-4 mb-6 uppercase tracking-tight leading-[0.95]">{post.data.title}</h1>
-          <p class="text-base text-[var(--color-ash)] leading-relaxed">{post.data.description}</p>
-        </header>
-        {post.data.image && (
-          <div class="overflow-hidden mb-10 aspect-video bg-[var(--color-charcoal)]">
-            <img src={post.data.image} alt={post.data.title} class="w-full h-full object-cover" loading="eager" />
-          </div>
-        )}
-        <div class="prose-dark"><Content /></div>
       </div>
-    </div>
-  </article>
+    </section>
+
+    <!-- Article Header -->
+    <header class="!pb-16 lg:!pb-24">
+      <div class="!px-6 lg:!px-16 container mx-auto">
+        <div class="max-w-4xl">
+          
+          <div class="flex items-center !gap-4 mb-8 reveal">
+            <span class="!inline-block !px-4 !py-1 !text-[10px] !font-800 !uppercase !tracking-[0.3em] !text-black !bg-[var(--color-gold)]">
+              {post.data.category || 'Press Release'}
+            </span>
+            <time class="text-[12px] font-600 text-gray-400 uppercase tracking-[0.1em]">
+              {formatDate(post.data.pubDate)}
+            </time>
+          </div>
+
+          <h1 class="text-[36px] md:text-[56px] lg:text-[72px] font-700 tracking-tight leading-[1.05] !mb-8 text-[#111] reveal" style="text-transform: none !important; transition-delay: 0.1s;">
+            {post.data.title}
+          </h1>
+
+          <p class="text-[18px] lg:text-[22px] text-gray-500 leading-relaxed font-400 max-w-3xl reveal" style="transition-delay: 0.2s;">
+            {post.data.description}
+          </p>
+          
+        </div>
+      </div>
+    </header>
+
+    <!-- Massive Cover Image (Bleed or Centered) -->
+    {post.data.image && (
+      <section class="!px-6 lg:!px-16 container mx-auto !mb-24 reveal" style="transition-delay: 0.3s;">
+        <div class="w-full aspect-[16/9] lg:aspect-[21/9] overflow-hidden bg-gray-200">
+          <img 
+            src={post.data.image} 
+            alt={post.data.title} 
+            class="w-full h-full object-cover parallax-image scale-105" 
+            loading="eager" 
+          />
+        </div>
+      </section>
+    )}
+
+    <!-- Main Content Reader -->
+    <article class="!pb-40">
+      <div class="!px-6 lg:!px-16 container mx-auto">
+        <!-- Content constrained to optimal reading width (max-w-3xl) -->
+        <div class="max-w-3xl mx-auto custom-prose reveal">
+          <Content />
+        </div>
+      </div>
+    </article>
+
+    <!-- Reading Progress Bar -->
+    <div id="reading-progress" class="fixed top-0 left-0 h-1 bg-[var(--color-gold)] z-[9999] origin-left scale-x-0 pointer-events-none"></div>
+
+  </div>
+
+  <!-- Box for Related News -->
+  {relatedNews.length > 0 && (
+    <section class="!py-24 lg:!py-32 bg-white border-t border-gray-100 relative z-10">
+      <div class="!px-6 lg:!px-16 container mx-auto">
+        <div class="flex items-center justify-between !mb-12 lg:!mb-16 reveal">
+          <h2 class="text-[32px] lg:text-[48px] font-700 tracking-tight text-[#111]" style="text-transform: none !important;">Baca Juga</h2>
+          <a href="/news" class="hidden md:inline-flex items-center !gap-2 text-[12px] font-800 uppercase tracking-widest text-[#111] hover:text-[var(--color-gold)] transition-colors">
+            Lihat Semua <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 !gap-8 lg:!gap-12">
+          {relatedNews.map((item, i) => (
+            <a href={`/news/${item.id}`} class="block group reveal" style={`transition-delay: ${i * 0.15}s;`} data-cursor="view">
+              <div class="w-full aspect-[4/3] overflow-hidden bg-gray-100 !mb-6 relative">
+                {item.data.image && (
+                  <img src={item.data.image} alt={item.data.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                )}
+                <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              </div>
+              <div class="flex items-center !gap-4 !mb-4">
+                <span class="text-[10px] font-800 uppercase tracking-[0.2em] text-[var(--color-gold)]">{item.data.category || 'Berita'}</span>
+                <span class="text-[11px] font-600 text-gray-400">{formatDate(item.data.pubDate)}</span>
+              </div>
+              <h3 class="text-[20px] lg:text-[28px] font-700 tracking-tight leading-[1.2] text-[#111] !mb-3 group-hover:text-[var(--color-gold)] transition-colors line-clamp-2" style="text-transform: none !important;">
+                {item.data.title}
+              </h3>
+              <p class="text-gray-500 text-[15px] line-clamp-2 leading-relaxed">{item.data.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Call To Action -->
+  <CTA />
+
+  <script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { animateReveal } from '../../scripts/animations';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initNewsArticle() {
+      // 1. Entrance Animations for text
+      animateReveal('.reveal', { stagger: 0.1 });
+
+      // 2. Subtle Parallax for the cover image
+      const image = document.querySelector('.parallax-image');
+      if (image) {
+        gsap.to(image, {
+          yPercent: 15, // Move slightly down as you scroll
+          ease: "none",
+          scrollTrigger: {
+            trigger: image.parentElement,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          }
+        });
+      }
+
+      // 3. Luxurious Reading Progress Bar
+      const progressBar = document.getElementById('reading-progress');
+      if (progressBar) {
+        gsap.to(progressBar, {
+          scaleX: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.1, // Slight delay for buttery smooth read tracking
+          }
+        });
+      }
+    }
+
+    document.addEventListener('astro:page-load', initNewsArticle);
+  </script>
+
+  <!-- CUSTOM TYPOGRAPHY CSS FOR THE MARKDOWN OUTPUT -->
+  <style is:global>
+    /* 
+      We define a custom 'custom-prose' class to elegantly style the rich text 
+      generated from Markdown, mimicking modern editorial platforms (Medium, NYT).
+    */
+    .custom-prose {
+      color: #333;
+      font-size: 19px;
+      line-height: 1.8;
+      font-weight: 400;
+    }
+
+    /* Paragraphs */
+    .custom-prose p {
+      margin-bottom: 2rem;
+    }
+
+    /* Headings */
+    .custom-prose h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #111;
+      margin-top: 4rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .custom-prose h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* Links */
+    .custom-prose a {
+      color: var(--color-gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(212, 168, 67, 0.3);
+      transition: border-color 0.3s ease;
+    }
+    .custom-prose a:hover {
+      border-color: var(--color-gold);
+    }
+
+    /* Lists */
+    .custom-prose ul {
+      list-style: disc;
+      padding-left: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .custom-prose ol {
+      list-style: decimal;
+      padding-left: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .custom-prose li {
+      margin-bottom: 0.75rem;
+      padding-left: 0.5rem;
+    }
+    .custom-prose li::marker {
+      color: var(--color-gold);
+      font-weight: 800;
+    }
+
+    /* Blockquotes */
+    .custom-prose blockquote {
+      border-left: 4px solid var(--color-gold);
+      padding-left: 2rem;
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+      font-size: 24px;
+      font-style: italic;
+      color: #111;
+      line-height: 1.5;
+    }
+
+    /* Embedded Images in Markdown */
+    .custom-prose img {
+      width: 100%;
+      height: auto;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+      background-color: #f1f1f1;
+    }
+
+    /* Strong text */
+    .custom-prose strong, .custom-prose b {
+      color: #111;
+      font-weight: 700;
+    }
+
+    /* Dropcap effect for the first letter of the article (Optional, adds insane luxury) */
+    .custom-prose > p:first-of-type::first-letter {
+      font-size: 5rem;
+      float: left;
+      line-height: 0.8;
+      margin-right: 0.75rem;
+      margin-top: 0.2rem;
+      color: #111;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .custom-prose {
+        font-size: 17px;
+        line-height: 1.7;
+      }
+      .custom-prose h2 {
+        font-size: 28px;
+        margin-top: 3rem;
+      }
+      .custom-prose blockquote {
+        font-size: 20px;
+        padding-left: 1.5rem;
+      }
+      .custom-prose > p:first-of-type::first-letter {
+        font-size: 4rem;
+      }
+    }
+  </style>
+
 </BaseLayout>

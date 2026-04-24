@@ -51,7 +51,7 @@ import { SITE, FORM_ACTION } from '../constants/site';
                   <div class="info-item-reveal opacity-0">
                     <p class="text-[11px] font-700 uppercase tracking-[0.2em] text-gray-400 !mb-3">Jam Operasional</p>
                     <p class="text-[14px] font-600 text-[#333] leading-relaxed">
-                      Senin — Jumat<br />
+                      Senin — Sabtu<br />
                       08:00 — 17:00
                     </p>
                   </div>
@@ -310,7 +310,7 @@ import { SITE, FORM_ACTION } from '../constants/site';
             const formData = new FormData(form);
             const data: Record<string, string> = {};
             formData.forEach((value, key) => { data[key] = value.toString(); });
-            
+
             const response = await fetch(form.action, {
               method: 'POST',
               headers: {
