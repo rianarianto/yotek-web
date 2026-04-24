@@ -1,0 +1,76 @@
+---
+/**
+* 404 Page — Premium Atmospheric Design
+* High-end minimalist page for missing routes.
+*/
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Halaman Tidak Ditemukan" description="Maaf, halaman yang Anda cari tidak dapat ditemukan."
+  showNavbar={false} showFooter={false}>
+  <section class="relative !w-full !h-screen !flex !items-center !justify-center !bg-[#111] !overflow-hidden">
+
+    <!-- Large Background Text (Ghosting effect) -->
+    <div
+      class="absolute !inset-x-0 !top-1/2 !-translate-y-1/2 !flex !justify-center !pointer-events-none !select-none !z-0">
+      <h2 class="!text-[35vw] !font-800 !text-white/[0.02] !uppercase !tracking-tight !leading-none" id="ghost-404">
+        404
+      </h2>
+    </div>
+
+    <!-- Centered Content -->
+    <div class="relative !z-10 !text-center !px-6">
+      <div class="reveal">
+        <span
+          class="!inline-block !px-4 !py-1 !bg-[var(--color-gold)] !text-black !text-[10px] !font-800 !uppercase !tracking-[0.3em] !mb-8">Tersesat?</span>
+        <h1 class="!text-5xl md:!text-4xl lg:!text-6xl !font-800 !text-white !tracking-tighter !mb-8 !mt-0">Halaman
+          Tidak<br />Ditemukan.</h1>
+        <p class="!text-[16px] md:!text-[18px] !text-gray-400 !max-w-lg !mx-auto !mb-12 !leading-relaxed">
+          Maaf, halaman yang Anda cari telah dipindahkan atau tidak pernah ada. Kembali ke halaman utama untuk
+          mengeksplorasi lebih lanjut.
+        </p>
+
+        <div class="!flex !justify-center">
+          <a href="/"
+            class="!inline-flex !items-center !gap-3 !bg-white !text-black !uppercase !tracking-[0.2em] !px-10 !py-4 !text-[14px] !font-800 !border !border-transparent hover:!border-black hover:!bg-[#FDF7EB] hover:!text-black !transition-all !duration-500 !group !shadow-2xl">
+            Beranda Utama
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+              class="hover-arrow-icon group-hover:!translate-x-1 !transition-transform !duration-300">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative Particle or Line -->
+    <div
+      class="absolute !bottom-10 !left-1/2 !-translate-x-1/2 !w-[1px] !h-20 !bg-gradient-to-t !from-[var(--color-gold)] !to-transparent !opacity-40">
+    </div>
+
+  </section>
+</BaseLayout>
+
+<script>
+  import { gsap } from "gsap";
+
+  function init404() {
+    gsap.from("#ghost-404", {
+      scale: 1.1,
+      opacity: 0,
+      duration: 2.5,
+      ease: "power4.out"
+    });
+
+    gsap.from(".reveal", {
+      y: 40,
+      opacity: 0,
+      duration: 1.5,
+      delay: 0.5,
+      ease: "power3.out"
+    });
+  }
+
+  document.addEventListener('astro:page-load', init404);
+</script>

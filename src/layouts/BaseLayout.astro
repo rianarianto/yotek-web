@@ -6,6 +6,7 @@
 import { ClientRouter } from 'astro:transitions';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import CustomCursor from '../components/CustomCursor.astro';
 import { SITE } from '../constants/site';
 import '../styles/global.css';
 
@@ -13,12 +14,16 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  showNavbar?: boolean;
+  showFooter?: boolean;
 }
 
 const {
   title = SITE.name,
   description = SITE.description,
   image = '/images/og-image.jpg',
+  showNavbar = true,
+  showFooter = true,
 } = Astro.props;
 
 const pageTitle = title === SITE.name ? `${SITE.fullName} — ${SITE.tagline.split('\n')[0]}` : `${title} | ${SITE.fullName}`;
@@ -64,12 +69,13 @@ const canonicalURL = new URL(Astro.url.pathname, SITE.url);
     <!-- View Transitions -->
     <ClientRouter />
   </head>
-  <body class="min-h-screen flex flex-col bg-white text-[var(--color-dark)]">
-    <Navbar />
+  <body class="min-h-screen flex flex-col bg-white text-[var(--color-dark)] overflow-x-hidden">
+    <CustomCursor />
+    {showNavbar && <Navbar />}
     <main class="flex-1">
       <slot />
     </main>
-    <Footer />
+    {showFooter && <Footer />}
 
     <script>
       import { initSmoothScroll, destroySmoothScroll } from '../scripts/smooth-scroll';

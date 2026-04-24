@@ -1,0 +1,151 @@
+---
+/**
+ * CustomCursor — Dynamic Interaction States
+ * States: Default, Interactive (Hover), Drag, Play, View.
+ * Natural Lerp-based implementation with 1 Ring & 2 Dots.
+ */
+---
+
+<div id="custom-cursor" class="hidden lg:block pointer-events-none">
+  <!-- Main Ring -->
+  <div id="cursor-ring" class="fixed top-0 left-0 w-8 h-8 rounded-full border-1 border-[var(--color-gold)] z-[9999] opacity-0 mix-blend-difference flex items-center justify-center">
+    <!-- Inner Text/Icon -->
+    <span id="cursor-text" class="text-[8px] font-900 text-[var(--color-gold)] uppercase tracking-widest opacity-0 scale-50 transition-all duration-300"></span>
+  </div>
+  <!-- Trailing Dot -->
+  <div id="cursor-dot-trail" class="fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-[var(--color-gold)] z-[9998] opacity-0 mix-blend-difference"></div>
+  <!-- Center Main Dot -->
+  <div id="cursor-dot" class="fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-[var(--color-gold)] z-[9999] opacity-0 mix-blend-difference"></div>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+
+  function initCustomCursor() {
+    const cursor = document.getElementById('custom-cursor');
+    const ring = document.getElementById('cursor-ring');
+    const dot = document.getElementById('cursor-dot');
+    const dotTrail = document.getElementById('cursor-dot-trail');
+    const text = document.getElementById('cursor-text');
+    
+    if (!cursor || !ring || !dot || !dotTrail || !text || window.matchMedia("(max-width: 1024px)").matches) return;
+
+    // Use GSAP quickSetter for massive performance boost
+    const xSetDot = gsap.quickSetter(dot, "x", "px");
+    const ySetDot = gsap.quickSetter(dot, "y", "px");
+    const xSetDotTrail = gsap.quickSetter(dotTrail, "x", "px");
+    const ySetDotTrail = gsap.quickSetter(dotTrail, "y", "px");
+    const xSetRing = gsap.quickSetter(ring, "x", "px");
+    const ySetRing = gsap.quickSetter(ring, "y", "px");
+
+    // Natural Lerp Physics Targets
+    let target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let currentRing = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let currentTrail = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    
+    // Lerp factors (Lower = More lag/distance during motion)
+    const lerpRing = 0.12; 
+    const lerpTrail = 0.25; // Trail lags noticeably behind center dot
+    let hasMoved = false;
+
+    window.addEventListener("mousemove", (e) => {
+      target.x = e.clientX;
+      target.y = e.clientY;
+
+      if (!hasMoved) {
+        currentRing.x = target.x;
+        currentRing.y = target.y;
+        currentTrail.x = target.x;
+        currentTrail.y = target.y;
+        gsap.to(ring, { opacity: 1, duration: 0.4 });
+        gsap.to(dotTrail, { opacity: 0.6, duration: 0.4 });
+        gsap.to(dot, { opacity: 1, duration: 0.4 });
+        hasMoved = true;
+      }
+
+      // Main dot maps instantly to mouse
+      xSetDot(target.x - 3);
+      ySetDot(target.y - 3);
+    });
+
+    // Render loop for ultra-smooth buttery follow
+    function render() {
+      // Linear Interpolation (Lerp) for Ring
+      currentRing.x += (target.x - currentRing.x) * lerpRing;
+      currentRing.y += (target.y - currentRing.y) * lerpRing;
+
+      // Linear Interpolation (Lerp) for Trailing Dot
+      currentTrail.x += (target.x - currentTrail.x) * lerpTrail;
+      currentTrail.y += (target.y - currentTrail.y) * lerpTrail;
+
+      // Apply positions
+      xSetRing(currentRing.x - 16);
+      ySetRing(currentRing.y - 16);
+      
+      xSetDotTrail(currentTrail.x - 3);
+      ySetDotTrail(currentTrail.y - 3);
+
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render); // Start loop
+
+    // --- INTERACTION STATES ---
+    const resetCursor = () => {
+      gsap.to(ring, { scale: 1, backgroundColor: 'transparent', width: 32, height: 32, borderRadius: '100%', duration: 0.4 });
+      gsap.to(dot, { opacity: 1, duration: 0.3 });
+      gsap.to(dotTrail, { opacity: 0.6, duration: 0.3 });
+      gsap.to(text, { opacity: 0, scale: 0.5, duration: 0.3 });
+      text.innerText = '';
+    };
+
+    document.addEventListener('mouseover', (e) => {
+      const el = (e.target as HTMLElement).closest('a, button, [data-cursor]');
+      if (!el) return;
+
+      const cursorType = (el as HTMLElement).getAttribute('data-cursor');
+
+      if (cursorType === 'drag') {
+        gsap.to(ring, { scale: 2.2, backgroundColor: 'rgba(212, 168, 67, 0.1)', duration: 0.4 });
+        gsap.to([dot, dotTrail], { opacity: 0, duration: 0.2 });
+        text.innerText = 'DRAG';
+        gsap.to(text, { opacity: 1, scale: 1, duration: 0.3 });
+      } else if (cursorType === 'view') {
+        gsap.to(ring, { scale: 2.2, backgroundColor: 'rgba(212, 168, 67, 0.1)', duration: 0.4 });
+        gsap.to([dot, dotTrail], { opacity: 0, duration: 0.2 });
+        text.innerText = 'VIEW';
+        gsap.to(text, { opacity: 1, scale: 1, duration: 0.3 });
+      } else if (cursorType === 'play') {
+        gsap.to(ring, { scale: 2.2, backgroundColor: 'rgba(212, 168, 67, 0.1)', duration: 0.4 });
+        gsap.to([dot, dotTrail], { opacity: 0, duration: 0.2 });
+        text.innerText = 'PLAY';
+        gsap.to(text, { opacity: 1, scale: 1, duration: 0.3 });
+      } else {
+        // Default Hover
+        gsap.to(ring, { scale: 1.5, backgroundColor: 'rgba(212, 168, 67, 0.1)', duration: 0.4 });
+        gsap.to(dotTrail, { opacity: 0, duration: 0.2 }); // Hide trail on default hover for cleaner look
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      const el = (e.target as HTMLElement).closest('a, button, [data-cursor]');
+      if (el) resetCursor();
+    });
+
+    // Click pulse effect
+    window.addEventListener('mousedown', () => {
+      gsap.to(ring, { scale: 0.8, opacity: 0.5, duration: 0.2 });
+    });
+    window.addEventListener('mouseup', () => {
+      gsap.to(ring, { scale: 1, opacity: 1, duration: 0.2 });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initCustomCursor);
+</script>
+
+<style>
+  /* Ensure native cursor still acts as primary for accessibility */
+  body {
+    cursor: default;
+  }
+</style>
