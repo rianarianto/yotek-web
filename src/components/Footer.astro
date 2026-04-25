@@ -22,11 +22,10 @@ const currentYear = new Date().getFullYear();
   </div>
 
   <!-- MASSIVE OVERLAY TEXT ('YOTEK') -->
-  <!-- Teks raksasa yang responsif, ukurannya dilebarkan ke 32vw dan posisinya diseret turun -->
-  <div
-    class="absolute inset-x-0 bottom-[2%] lg:bottom-[-10%] flex justify-end items-end pointer-events-none">
+  <!-- Teks raksasa yang responsif, posisinya diatur agar menimpa area gelap footer -->
+  <div class="absolute inset-x-0 bottom-[2%] lg:bottom-[-16%] flex justify-end items-end pointer-events-none">
     <h1
-      class="footer-yotek-text opacity-0 !text-[35vw] lg:!text-[24vw] font-800 !text-white/30 tracking-tight leading-[0.75] uppercase select-none">
+      class="footer-yotek-text !text-[32vw] lg:!text-[24vw] font-800 !text-white/20 tracking-tight leading-[0.75] uppercase select-none">
       YOTEK
     </h1>
   </div>
@@ -52,28 +51,24 @@ const currentYear = new Date().getFullYear();
   gsap.registerPlugin(ScrollTrigger);
 
   function initFooter() {
+    const footer = document.querySelector('footer');
     const footerText = document.querySelector('.footer-yotek-text');
-    if (!footerText) return;
+    if (!footer || !footerText) return;
 
-    gsap.fromTo(footerText,
-      {
-        y: 80,
-        opacity: 0,
-        filter: 'blur(10px)'
-      },
-      {
-        y: 0,
-        opacity: 1,
-        filter: 'blur(0px)',
-        duration: 1.5,
-        ease: 'power4.out',
-        scrollTrigger: {
-          trigger: footerText,
-          start: 'top 95%',
-          once: true
-        }
+    gsap.from(footerText, {
+      y: 100,
+      opacity: 0,
+      filter: 'blur(15px)',
+      duration: 2,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: footer,
+        start: 'top 85%', // Animasi mulai saat footer masuk area layar
+        once: true
       }
-    );
+    });
+
+    ScrollTrigger.refresh();
   }
 
   document.addEventListener('astro:page-load', initFooter);
