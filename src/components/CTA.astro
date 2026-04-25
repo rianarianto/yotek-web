@@ -61,23 +61,23 @@ import buildingImage from '../assets/images/cta-building.avif';
 
     if (!ctaSection || textElements.length === 0) return;
 
-    // Set initial state teks
-    gsap.set(textElements, { y: 60, opacity: 0 });
-
-    // Animasi Entrance Teks (GSAP — ringan)
-    gsap.to(textElements, {
-      y: 0,
-      opacity: 1,
+    // Gunakan gsap.from alih-alih gsap.set untuk stabilitas (teks tetap ada jika script telat)
+    gsap.from(textElements, {
+      y: 60,
+      opacity: 0,
       duration: 1,
       stagger: 0.2,
       ease: "power3.out",
       force3D: true,
       scrollTrigger: {
         trigger: ctaSection,
-        start: "top 40%",
+        start: "top 85%", // Dipicu lebih awal agar tidak 'bolong'
         toggleActions: "play none none reverse"
       }
     });
+
+    // Pastikan GSAP menghitung ulang posisi setelah layout stabil
+    ScrollTrigger.refresh();
 
     // Animasi gambar: CSS class-based (IntersectionObserver)
     // Jauh lebih ringan daripada GSAP ScrollTrigger untuk elemen statis
