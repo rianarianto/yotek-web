@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>YOTEK Content Manager</title>
-  <!-- Sveltia CMS menggunakan config.yml yang sama dengan Decap -->
-  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+  <!-- Menggunakan path relatif agar lebih aman di Vercel -->
+  <link href="./config.yml" type="text/yaml" rel="cms-config-url" />
 </head>
 <body>
-  <!-- Sveltia CMS: Alternatif Decap yang jauh lebih stabil untuk Vercel -->
-  <script type="module" src="https://unpkg.com/sveltia-cms/dist/sveltia-cms.js"></script>
+  <!-- Menggunakan JSDelivr sebagai alternatif CDN yang lebih stabil untuk Sveltia CMS -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/sveltia-cms@0.45.0/dist/sveltia-cms.js"></script>
 </body>
 </html>
