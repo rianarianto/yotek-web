@@ -19,7 +19,7 @@ export const SITE = {
 
 export const CEO = {
   name: "Oyong Wisman",
-  title: "President",
+  title: "Presiden Direktur",
   bio: "Dengan pengalaman lebih dari dua dekade di industri strategis, kepemimpinan beliau telah membawa Yotek bertransformasi dari perusahaan lokal menjadi pemain utama berskala nasional. Beliau berkomitmen untuk terus menghadirkan inovasi dan integritas di setiap lini bisnis Yotek Group.",
   image: "oyongwisman.avif",
 };

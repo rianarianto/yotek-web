@@ -18,11 +18,11 @@ const latestNews = allNews
 .slice(0, limit);
 
 const formatDate = (date: Date) => {
-  return new Date(date).toLocaleDateString('id-ID', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
+return new Date(date).toLocaleDateString('id-ID', {
+day: 'numeric',
+month: 'long',
+year: 'numeric'
+});
 };
 ---
 
@@ -31,18 +31,21 @@ const formatDate = (date: Date) => {
 
     <!-- Section Header mit Navigation -->
     <div class="flex flex-row justify-between items-center !mb-12 lg:!mb-16 gap-8">
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-3">
         <h2
           class="news-header-title text-[32px] md:text-[42px] font-700 tracking-[-0.02em] text-[#1A1A1A] leading-tight opacity-0 translate-y-4"
           style="text-transform: none !important;">
           Berita Terbaru
         </h2>
+        <p class="news-subtitle hidden lg:block text-[14px] lg:text-[16px] text-gray-500 font-medium max-w-[500px] leading-relaxed opacity-0 translate-y-4">
+          Informasi terkini mengenai inovasi, kabar perusahaan, dan perkembangan proyek strategis kami secara global.
+        </p>
       </div>
 
       <div class="flex items-center gap-4 opacity-0 translate-y-4 news-header-controls">
         <!-- View All Button -->
         <a href="/news"
-          class="inline-flex items-center gap-3 bg-[#111] text-white uppercase tracking-[0.2em] !px-8 !py-3 text-[14px] font-800 hover:bg-[#FDF7EB] outline-1 hover:text-[#111] transition-colors duration-300 w-fit mx-auto lg:mx-0 group mt-2 shadow-lg">
+          class="inline-flex items-center gap-3 bg-[#111] text-white uppercase tracking-[0.2em] !px-4 !py-2 text-[10px] font-800 hover:bg-[#FDF7EB] outline-1 hover:text-[#111] transition-colors duration-300 w-fit mx-auto lg:!px-8 lg:!py-4 lg:mx-0 group mt-2 shadow-lg">
           Lihat Semua
         </a>
 
@@ -109,25 +112,17 @@ const formatDate = (date: Date) => {
         ))}
       </div>
 
-      <!-- Responsiveness Tip: Button for mobile if hidden above -->
-      <div class="!mt-12 sm:hidden text-center opacity-0 translate-y-4 news-mobile-btn">
-        <a href="/news"
-          class="inline-flex items-center gap-3 bg-[#111] text-white !px-8 !py-4 text-[14px] font-bold tracking-wide hover:bg-[#FDF7EB] outline-1 hover:text-[#111] transition-colors duration-300 w-fit mx-auto lg:mx-0 group mt-2 shadow-lg">
-          Lihat Semua
-        </a>
-      </div>
     </div>
-
-  </div>
 </section>
 
 <script>
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   import Swiper from 'swiper';
-  import { Navigation } from 'swiper/modules';
+  import { Navigation, Autoplay } from 'swiper/modules';
   import 'swiper/css';
   import 'swiper/css/navigation';
+  import 'swiper/css/autoplay';
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -137,10 +132,17 @@ const formatDate = (date: Date) => {
 
     // 1. Initialize Swiper
     const swiper = new Swiper('.news-swiper', {
-      modules: [Navigation],
+      modules: [Navigation, Autoplay],
       slidesPerView: 1.2,
       spaceBetween: 24,
       grabCursor: true,
+      loop: false,
+      speed: 1200, // Slow transition speed for "soft" feel
+      autoplay: {
+        delay: 2000, // Delay between slides
+        disableOnInteraction: false, // Continue after user interaction
+        pauseOnMouseEnter: false, // Pause when user hovers
+      },
       navigation: {
         prevEl: '#news-prev',
         nextEl: '#news-next',
@@ -166,6 +168,7 @@ const formatDate = (date: Date) => {
 
     // 2. Animations
     const title = section.querySelector('.news-header-title');
+    const subtitle = section.querySelector('.news-subtitle');
     const controls = section.querySelector('.news-header-controls');
     const swiperEl = section.querySelector('.news-swiper');
     const mobileBtn = section.querySelector('.news-mobile-btn');
@@ -178,11 +181,11 @@ const formatDate = (date: Date) => {
     });
 
     // Header reveal
-    tl.to([title, controls], {
+    tl.to([title, subtitle, controls], {
       opacity: 1,
       y: 0,
       duration: 0.8,
-      stagger: 0.2,
+      stagger: 0.15,
       ease: 'power3.out'
     });
 
@@ -224,8 +227,10 @@ const formatDate = (date: Date) => {
     height: auto;
     width: 85%;
     transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    opacity: 0.6; /* Increased visibility of inactive slides */
-    transform: scale(0.9); /* Less aggressive scaling */
+    opacity: 0.6;
+    /* Increased visibility of inactive slides */
+    transform: scale(0.9);
+    /* Less aggressive scaling */
   }
 
   .swiper-slide-active {

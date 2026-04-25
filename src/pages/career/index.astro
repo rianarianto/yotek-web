@@ -95,10 +95,7 @@ const steps = [
       <!-- Filters -->
       <div class="grid grid-cols-1 lg:grid-cols-4 !gap-6 !mb-24">
         <div class="lg:col-span-2 relative group">
-          <input 
-            type="text" 
-            id="job-search"
-            placeholder="Cari posisi..."
+          <input type="text" id="job-search" placeholder="Cari posisi..."
             class="w-full bg-[#f1f1f1] !border-1 !border-transparent !py-5 !px-8 text-md font-600 focus:bg-white focus:!border-[var(--color-gray-light)] outline-none rounded-sm transition-all" />
           <div class="absolute right-6 top-1/2 -translate-y-1/2 opacity-30">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -108,12 +105,11 @@ const steps = [
           </div>
         </div>
         <div class="relative">
-          <select
-            id="category-filter"
+          <select id="category-filter"
             class="w-full bg-[#f1f1f1] border border-transparent !py-5 !px-8 text-md font-600 appearance-none outline-none cursor-pointer rounded-sm hover:group-bg-[#EAEAEA] focus:bg-white transition-colors">
             <option value="all">Semua Bidang</option>
             {[...new Set(allCareers.map(j => j.data.type))].map(type => (
-              <option value={type}>{type}</option>
+            <option value={type}>{type}</option>
             ))}
           </select>
           <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none opacity-40">
@@ -123,12 +119,11 @@ const steps = [
           </div>
         </div>
         <div class="relative">
-          <select
-            id="location-filter"
+          <select id="location-filter"
             class="w-full bg-[#f1f1f1] border border-transparent !py-5 !px-8 text-md font-600 appearance-none outline-none cursor-pointer rounded-sm hover:group-bg-[#EAEAEA] focus:bg-white transition-colors">
             <option value="all">Semua Lokasi</option>
             {[...new Set(allCareers.map(j => j.data.location))].map(loc => (
-              <option value={loc}>{loc}</option>
+            <option value={loc}>{loc}</option>
             ))}
           </select>
           <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none opacity-40">
@@ -142,9 +137,7 @@ const steps = [
       {allCareers.length > 0 ? (
       <div class="!border-t !border-[#EEE]" id="careers-list">
         {allCareers.map((job) => (
-        <a href={`/career/${job.id}`}
-          data-position={job.data.position.toLowerCase()}
-          data-type={job.data.type}
+        <a href={`/career/${job.id}`} data-position={job.data.position.toLowerCase()} data-type={job.data.type}
           data-location={job.data.location}
           class="career-row group block !py-16 md:!py-20 !px-8 md:!px-12 !border-b !border-[#EEE] transition-all duration-500 ease-out relative hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.05)] hover:rounded-xl hover:z-10 hover:-translate-y-1">
 
@@ -202,10 +195,11 @@ const steps = [
           </div>
         </a>
         ))}
-        
+
         <!-- No Results -->
         <div id="no-results" class="hidden py-32 text-center border-b border-dashed border-[#DDD]">
-          <p class="text-xl text-[#888] italic tracking-tight">Tidak ditemukan lowongan yang sesuai dengan kriteria pencarian Anda.</p>
+          <p class="text-xl text-[#888] italic tracking-tight">Tidak ditemukan lowongan yang sesuai dengan kriteria
+            pencarian Anda.</p>
         </div>
       </div>
       ) : (
@@ -314,7 +308,7 @@ const steps = [
         if (noResults) {
           noResults.style.display = hasResults ? 'none' : 'block';
         }
-        
+
         ScrollTrigger.refresh();
       };
 
